@@ -19,7 +19,10 @@ export class VaccinationCenter {
   phone: string;  
 
   @Column()
-  capacity: number;  
+  capacity: number;
+  
+  @Column({ default: false }) 
+  isDeleted: boolean;
 
   @OneToOne(() => VaccineInventory, 
     vaccineinventory => vaccineinventory.vaccinationCenter

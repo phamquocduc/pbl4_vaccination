@@ -7,6 +7,7 @@ import { User } from "src/user/user.entity";
 import { UpdateVaccinationProfileDto } from "./dto/vaccination-profile-update.dto";
 import { CustomAppException } from "src/exceptions/custom-app.exceptions";
 import { createExceptionMessage, ExceptionEnum } from "src/enums/exception.enum";
+import { log } from "console";
 
 @Injectable()
 export class VaccinationprofileRepository{
@@ -18,7 +19,7 @@ export class VaccinationprofileRepository{
     async create(createDto : VaccinationProfileCreateDto, user: User) : Promise<VaccinationProfile | null>{
         const newVaccinationProfile = this.VaccinationprofileRepository.create({
             ...createDto,
-            user: user
+            user: {id: user.id}
         })
 
         return await this.VaccinationprofileRepository.save(newVaccinationProfile)
@@ -26,11 +27,11 @@ export class VaccinationprofileRepository{
 
     async getAllProfileById(id: string): Promise<VaccinationProfile[]>{
 
-        const profiles = await this.VaccinationprofileRepository.find({
-          where: { 
-            user: {id: id}
-          }
-        });
+        const profiles = await this.VaccinationprofileRepository
+                                    .createQueryBuilder('profiles')
+                                    .where('profiles.user.id = :id', { id: id })
+                                    .andWhere('profiles.isDeleted = :value', { value: false })
+                                    .getMany()
 
         return profiles
     }
@@ -53,19 +54,23 @@ export class VaccinationprofileRepository{
         return profiles
     }
 
-    // async findOneByEmail(email: string): Promise<User | null>{
+    async deleteProfileByid(id: number): Promise<any>{
 
-    //     const user = await this.userRepository.findOne({where: {email}})
-    //     if(!user) throw new CustomAppException(ExceptionEnum.USER_NOT_EXIT, HttpStatus.BAD_REQUEST)
+      const profile = await this.VaccinationprofileRepository.findOne(
+        {
+          where: { id : id}
+        }
+      )
 
-    //     return user
-    // }
+      if(!profile)
+        throw new CustomAppException(createExceptionMessage(ExceptionEnum.PROFILE_NOT_EXIT), HttpStatus.BAD_REQUEST)
 
-    // async findById(id: string): Promise<User | null>{
+      Object.assign(profile, { isDeleted: true})
 
-    //     const user  = await this.userRepository.findOneBy({id})
-    //     if(!user) throw new CustomAppException(ExceptionEnum.USER_NOT_EXIT, HttpStatus.BAD_REQUEST)
+      await this.VaccinationprofileRepository.save(profile)
 
-    //     return user
-    // }
+      return {
+        message: 'Delete suscessfully'
+      }
+    }
 }

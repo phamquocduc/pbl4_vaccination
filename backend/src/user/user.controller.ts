@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Request, UseFilters } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Request, UseFilters } from "@nestjs/common";
 import { UserServices } from "./user.services";
 import { UserCreateDto } from "./dto/user-create.dto";
 import { User } from "./user.entity";
@@ -12,9 +12,12 @@ import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { log } from "console";
 import { VaccinationProfileCreateDto } from "src/vaccination-profile/dto/vaccination-profile-create.dto";
 import { VaccinationProfile } from "src/vaccination-profile/vaccination-profile.entity";
+import { Roles } from "src/auth/decorators/role.decorator";
+import { ERole } from "src/enums/role.enum";
 
 @ApiBearerAuth()
 @ApiTags('user')
+@Roles(ERole.USER)
 @Controller('user')
 export class UserController{
     constructor(
@@ -71,5 +74,14 @@ export class UserController{
     ): Promise<any>{
        const userId = req['user'].sub
        return this.userSevices.updateProfileById(userId, Number.parseInt(id), updateProfileDto)
+    }
+
+    @Delete('delete-vaccination-profile/:id')
+    async deleteProfileById(
+      @Param('id') id: string,
+      @Request() req: any
+    ): Promise<any>{
+       const userId = req['user'].sub
+       return this.userSevices.deleteProfileById(userId, Number.parseInt(id))
     }
 }

@@ -17,7 +17,7 @@ export class UserCreateDto{
     lastName?: string
 
     @ApiProperty({
-        example: 'abc@gamil.com'
+        example: 'abc@gmail.com'
     })
     @IsEmail()
     email?: string

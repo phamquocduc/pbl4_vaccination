@@ -1,10 +1,12 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
+import { CanActivate, ExecutionContext, ForbiddenException, HttpStatus, Injectable, UnauthorizedException } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
 import { JwtService } from "@nestjs/jwt";
 import { IS_PUBLIC_KEY } from "./decorators/public.decorator";
-import { Request } from "express";
+import e, { Request } from "express";
 import { jwtConstants } from "./auth.constants";
 import { log } from "console";
+import { ERole } from "src/enums/role.enum";
+import { ROLES_KEY } from "./decorators/role.decorator";
 
 @Injectable()
 export class AuthGuard implements CanActivate{
@@ -18,6 +20,12 @@ export class AuthGuard implements CanActivate{
             context.getHandler(),
             context.getClass()
         ])
+
+        const role = this.reflector.getAllAndOverride<ERole>(ROLES_KEY, [
+            context.getHandler(),
+            context.getClass()
+        ])
+
         if(isPublic) return true
 
         const request = context.switchToHttp().getRequest()
@@ -29,9 +37,17 @@ export class AuthGuard implements CanActivate{
             const payload = await this.jwtSefvices.verifyAsync(token, {
                 secret: jwtConstants.secretKey
             })
+            
+            if(role && payload.role !== role){
+                throw new ForbiddenException()
+            }
 
             request['user'] = payload;
         } catch (error) {
+
+            if(error?.response?.statusCode == 403)
+                throw new ForbiddenException()
+
             throw new UnauthorizedException()
         }
 

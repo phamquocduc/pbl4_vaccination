@@ -1,5 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { VaccinationcenterRepository } from "./vaccination-center.repository";
+import { VaccinationCenterCreateDto } from "./dto/vaccination-center-create.dto";
+import { VaccinationCenterUpdateDto } from "./dto/vaccination-center-update.dto";
+import { VaccinationCenter } from "./vaccination-center.entity";
 
 @Injectable()
 export class VaccinationcenterServices{
@@ -7,23 +10,31 @@ export class VaccinationcenterServices{
         private vaccinationcenterRepository: VaccinationcenterRepository
     ){}
 
-    // async create(createDto : UserCreateDto) : Promise<User>{
-    //     const {passWord, confirmPassWord} = createDto
+    async getAll(): Promise<VaccinationCenter[] | null>{
+        const centers = await this.vaccinationcenterRepository.findAll()
 
-    //     if(passWord !== confirmPassWord){
-    //         throw new CustomAppException(
-    //             createExceptionMessage(ExceptionEnum.CONFIRM_PASSWORD_NOT_MATCH), 
-    //             HttpStatus.BAD_REQUEST
-    //         )
-    //     }
-    //     return await this.userRepository.save(createDto)
-    // }
+        return centers
+    }
 
-    // async findOneByEmail(email: string): Promise<User>{
-    //     return await this.userRepository.findOneByEmail(email)
-    // }
+    async getById(id: number): Promise<VaccinationCenter | null>{
+        const center = await this.vaccinationcenterRepository.findById(id)
 
-    // async findById(id: string): Promise<User>{
-    //     return await this.userRepository.findById(id)
-    // }
+        return center
+    }
+
+
+    async createVaccinationCenter(createDto: VaccinationCenterCreateDto): Promise<VaccinationCenter>{
+
+        return await this.vaccinationcenterRepository.create(createDto)
+    }
+
+    async deleteVaccinationCenterById(id: number): Promise<VaccinationCenter>{
+
+        return await this.vaccinationcenterRepository.deleteById(id)
+    }
+
+    async updateVaccinationCenterById(updateDto: VaccinationCenterUpdateDto, id: number): Promise<VaccinationCenter>{
+        
+        return await this.vaccinationcenterRepository.updateById(updateDto, id)
+    }
 }

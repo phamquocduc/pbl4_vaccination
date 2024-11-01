@@ -9,7 +9,7 @@ export class AuthController{
     constructor(private authServices: AuthServices){}
 
     @Public()
-    @Post()
+    @Post('login')
     async logIn(@Body() loginDto: LoginDto){
         return this.authServices.login(loginDto.email, loginDto.password)
     }

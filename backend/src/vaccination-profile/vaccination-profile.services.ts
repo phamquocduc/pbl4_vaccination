@@ -31,11 +31,7 @@ export class VaccinationprofileServices{
         return this.vaccinationprofileRepository.getAllProfileById(userId)
     }
 
-    // async findOneByEmail(email: string): Promise<User>{
-    //     return await this.userRepository.findOneByEmail(email)
-    // }
-
-    // async findById(id: string): Promise<User>{
-    //     return await this.userRepository.findById(id)
-    // }
+    async deleteProfileById(id: number): Promise<any>{
+        return await this.vaccinationprofileRepository.deleteProfileByid(id)
+    }
 }

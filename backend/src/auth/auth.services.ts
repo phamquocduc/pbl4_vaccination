@@ -18,8 +18,6 @@ export class AuthServices{
             
         const valid = await bcrypt.compare(passWord, user.passWord)
 
-        log(valid)
-
         if(!valid){
             throw new CustomAppException(createExceptionMessage(ExceptionEnum.INCORECT_PASSWORD), HttpStatus.BAD_REQUEST)
         }

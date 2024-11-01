@@ -63,7 +63,7 @@ export class UserServices{
 
         const listProfile = user.vaccinationProfiles
 
-        let check = listProfile.find((currElement) => {
+        let check = listProfile.some((currElement) => {
             if(currElement.id === profileId ){
 
                 if(currElement.relationship === ERelationship.SELF)
@@ -81,6 +81,27 @@ export class UserServices{
         }
        
         return await this.vaccinationProfileService.updateProfileById(profileId, updateDto)
+    }
+
+    async deleteProfileById(userId: string, profileId: number) : Promise<any>{
+
+        const user = await this.userRepository.findById(userId)
+
+        const listProfile = user.vaccinationProfiles
+
+        let check = listProfile.some((currElement) => {
+            if(currElement.id === profileId &&
+               currElement.relationship !== ERelationship.SELF
+            ){
+                return true
+            }
+        })
+
+        if(!check){
+            throw new CustomAppException(createExceptionMessage(ExceptionEnum.PROFILE_NOT_EXIT), HttpStatus.BAD_REQUEST)
+        }
+       
+        return await this.vaccinationProfileService.deleteProfileById(profileId)
     }
 
     async changePassword(changePasswordDto : ChangePasswordDto, userId: string) : Promise<User>{
@@ -118,4 +139,5 @@ export class UserServices{
             )
         }
     }
+
 }

@@ -7,27 +7,27 @@ export class VaccineDescription {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({nullable: true})
   dosage: string;  
 
-  @Column()
+  @Column({nullable: true})
   injectionRoute: string;  
 
-  @Column()
+  @Column({nullable: true})
   recommendedAgeGroup: string;  
 
-  @Column()
+  @Column({nullable: true})
   schedule: string;  
 
-  @Column()
+  @Column({nullable: true})
   adverseEffects: string;  
 
-  @Column()
+  @Column({nullable: true})
   storage: string;  
 
-  @Column()
+  @Column({nullable: true})
   detailedDescription: string;  
 
-  @OneToOne(() => Vaccine)
+  @OneToOne(() => Vaccine, vaccine => vaccine.description)
   vaccine: Vaccine
 }

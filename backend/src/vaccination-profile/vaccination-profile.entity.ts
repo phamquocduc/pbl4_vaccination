@@ -40,7 +40,10 @@ export class VaccinationProfile {
   email: string;  
 
   @Column({nullable: true})
-  address: string;  
+  address: string; 
+  
+  @Column({default: false})
+  isDeleted: boolean; 
 
   @ManyToOne(() => User, 
     user => user.vaccinationProfiles,

@@ -10,6 +10,9 @@ export enum ExceptionEnum{
     INVALID_PHONE_NUMBER,
     PROFILE_NOT_EXIT,
     DONT_HAVE_PERMISSION,
+    VACCINATION_CENTER_NOT_EXIT,
+    VACCINE_DESCRIPTION_NOT_EXIT,
+    VACCINE_NOT_EXIT,
 }
 
 export function createExceptionMessage(type: ExceptionEnum): string {
@@ -33,9 +36,15 @@ export function createExceptionMessage(type: ExceptionEnum): string {
         case ExceptionEnum.INVALID_PHONE_NUMBER:
             return 'Invalid phone number';
         case ExceptionEnum.PROFILE_NOT_EXIT:
-                return 'Profile not exit';
+            return 'Profile not exit';
         case ExceptionEnum.DONT_HAVE_PERMISSION:
-                return 'Dont have permission';
+            return 'Dont have permission';
+        case ExceptionEnum.VACCINATION_CENTER_NOT_EXIT:
+            return 'Vaccination center not exit';
+        case ExceptionEnum.VACCINE_DESCRIPTION_NOT_EXIT:
+            return 'Vaccine description not exit';
+        case ExceptionEnum.VACCINE_NOT_EXIT:
+            return 'Vaccine not exit';
         default:
             return 'Unknown error';
     }

@@ -1,5 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { VaccinedescrpitionRepository } from "./vaccine-descrpition.repository";
+import { VaccineCreateDto } from "src/vaccine/dto/vaccinae-create.dto";
+import { VaccineDescription } from "./vaccine-descrpition.entity";
+import { VaccineDescriptionUpdateDto } from "./dto/vaccine-description-update.dto";
 
 @Injectable()
 export class VaccinedescrpitionServices{
@@ -7,23 +10,17 @@ export class VaccinedescrpitionServices{
         private vaccinedescrpitionRepository: VaccinedescrpitionRepository
     ){}
 
-    // async create(createDto : UserCreateDto) : Promise<User>{
-    //     const {passWord, confirmPassWord} = createDto
+    async create(): Promise<VaccineDescription>{
 
-    //     if(passWord !== confirmPassWord){
-    //         throw new CustomAppException(
-    //             createExceptionMessage(ExceptionEnum.CONFIRM_PASSWORD_NOT_MATCH), 
-    //             HttpStatus.BAD_REQUEST
-    //         )
-    //     }
-    //     return await this.userRepository.save(createDto)
-    // }
+        return await this.vaccinedescrpitionRepository.create()
+    }
 
-    // async findOneByEmail(email: string): Promise<User>{
-    //     return await this.userRepository.findOneByEmail(email)
-    // }
+    async update(id: number, updateDto: VaccineDescriptionUpdateDto): Promise<VaccineDescription>{
 
-    // async findById(id: string): Promise<User>{
-    //     return await this.userRepository.findById(id)
-    // }
+        return await this.vaccinedescrpitionRepository.update(id, updateDto)
+    }
+
+    async delete(id: number){
+        await this.vaccinedescrpitionRepository.delete(id)
+    }
 }
