@@ -9,6 +9,9 @@ import { ChangePasswordDto } from "./dto/change-password.dto";
 import { VaccinationprofileServices } from "src/vaccination-profile/vaccination-profile.services";
 import { UpdateVaccinationProfileDto } from "src/vaccination-profile/dto/vaccination-profile-update.dto";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { log } from "console";
+import { VaccinationProfileCreateDto } from "src/vaccination-profile/dto/vaccination-profile-create.dto";
+import { VaccinationProfile } from "src/vaccination-profile/vaccination-profile.entity";
 
 @ApiBearerAuth()
 @ApiTags('user')
@@ -49,6 +52,15 @@ export class UserController{
     async changePassword(@Body() changePasswordDto: ChangePasswordDto, @Request() req: any): Promise<User>{
        const userId = req['user'].sub
        return this.userSevices.changePassword(changePasswordDto, userId)
+    }
+
+    @Post('create-vaccination-profile')
+    @UseFilters(DuplicatePropertiesFilter)
+    async createProfile(@Body() createProfileRequest: VaccinationProfileCreateDto, @Request() req: any): Promise<VaccinationProfile>{
+       
+       const user = await this.userSevices.findById(req['user'].sub)
+
+       return this.vaccinationProfileSevices.create(createProfileRequest, user)
     }
 
     @Put('update-vaccination-profile/:id')
