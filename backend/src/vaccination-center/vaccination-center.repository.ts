@@ -17,8 +17,9 @@ export class VaccinationcenterRepository{
 
     async findAll(): Promise<VaccinationCenter[] | null>{
         const centers = await this.vaccinationcenterRepository
-                                    .createQueryBuilder('vaccinnationCenter')
-                                    .where('vaccinnationCenter.isDeleted = :isDeleted', { isDeleted: false})
+                                    .createQueryBuilder('vaccinationCenter')
+                                    .where('vaccinationCenter.isDeleted = :isDeleted', { isDeleted: false})
+                                    .leftJoinAndSelect('vaccinationCenter.vaccineinventory', 'vaccineinventory')
                                     .getMany()
 
         return centers
@@ -26,9 +27,10 @@ export class VaccinationcenterRepository{
 
     async findById(id: number): Promise<VaccinationCenter | null>{
         const center = await this.vaccinationcenterRepository
-                                        .createQueryBuilder('vaccinnationCenter')
-                                        .where('vaccinnationCenter.id = :id', { id: id})
-                                        .andWhere('vaccinnationCenter.isDeleted = :isDeleted', { isDeleted: false})
+                                        .createQueryBuilder('vaccinationCenter')
+                                        .where('vaccinationCenter.id = :id', { id: id})
+                                        .andWhere('vaccinationCenter.isDeleted = :isDeleted', { isDeleted: false})
+                                        .leftJoinAndSelect('vaccinationCenter.vaccineinventory', 'vaccineinventory')
                                         .getOne()
 
         return center

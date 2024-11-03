@@ -14,6 +14,9 @@ import { VaccinationProfileCreateDto } from "src/vaccination-profile/dto/vaccina
 import { VaccinationProfile } from "src/vaccination-profile/vaccination-profile.entity";
 import { Roles } from "src/auth/decorators/role.decorator";
 import { ERole } from "src/enums/role.enum";
+import { VaccineReservationCreateDto } from "src/vaccine-reservation/dto/vaccine-reservation-create.dto";
+import { VaccineReservation } from "src/vaccine-reservation/vaccine-reservation.entity";
+import { VaccineReservationServices } from "src/vaccine-reservation/vaccine-reservation.services";
 
 @ApiBearerAuth()
 @ApiTags('user')
@@ -23,6 +26,7 @@ export class UserController{
     constructor(
       private readonly userSevices: UserServices,
       private readonly vaccinationProfileSevices: VaccinationprofileServices,
+      private readonly vaccineReservationSevices: VaccineReservationServices,
     ){}
 
     @Get()
@@ -64,6 +68,14 @@ export class UserController{
        const user = await this.userSevices.findById(req['user'].sub)
 
        return this.vaccinationProfileSevices.create(createProfileRequest, user)
+    }
+
+    @Post('create-vaccine-reservation')
+    async createVaccineReservation(@Body() createDto: VaccineReservationCreateDto, @Request() req: any): Promise<VaccineReservation>{
+       
+       const user = await this.userSevices.findById(req['user'].sub)
+
+       return this.vaccineReservationSevices.create(user.id, createDto)
     }
 
     @Put('update-vaccination-profile/:id')

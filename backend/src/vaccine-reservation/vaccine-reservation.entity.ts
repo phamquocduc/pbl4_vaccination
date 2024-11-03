@@ -13,6 +13,7 @@ import { Vaccine } from 'src/vaccine/vaccine.entity';
 import { VaccinationAppointment } from 'src/vaccination-appointment/vaccination-appointment.entity';
 import { VaccinationCenter } from 'src/vaccination-center/vaccination-center.entity';
 import { VaccinationProfile } from 'src/vaccination-profile/vaccination-profile.entity';
+import { EVaccineReservationStatus } from 'src/enums/vaccine-reservation.enum';
 
 @Entity()
 export class VaccineReservation {
@@ -28,9 +29,9 @@ export class VaccineReservation {
   )
   profile: VaccinationProfile;
 
-  @ManyToMany(() => Vaccine, (vaccine) => vaccine.vaccineReservation)
+  @ManyToMany(() => Vaccine, (vaccines) => vaccines.vaccineReservations)
   @JoinTable()
-  vaccine: Vaccine;
+  vaccines: Vaccine[];
 
   @ManyToOne(
     () => VaccinationCenter,
@@ -44,7 +45,7 @@ export class VaccineReservation {
   @Column()
   appointmentDate: Date;
 
-  @Column({ default: 'Pending' })
+  @Column({ default: EVaccineReservationStatus.PENDING })
   status: string;
 
   @Column()
@@ -55,6 +56,9 @@ export class VaccineReservation {
 
   @OneToOne(() => VaccinationAppointment, appointment => appointment.reservation)
   appointment: VaccinationAppointment;
+
+  @Column({ default: true })
+  isPaid: boolean
 
   isReservationValid(): boolean {
     const currentDate = new Date();

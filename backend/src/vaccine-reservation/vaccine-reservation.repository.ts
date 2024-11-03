@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { VaccineReservation } from "./vaccine-reservation.entity";
+import { VaccineReservationCreateDto } from "./dto/vaccine-reservation-create.dto";
 
 @Injectable()
 export class VaccinereservationRepository{
@@ -10,24 +11,20 @@ export class VaccinereservationRepository{
         private vaccinereservationRepository: Repository<VaccineReservation>
     ){}
 
-    // async save(createDto : UserCreateDto) : Promise<User | null>{
-    //     const newUser = this.userRepository.create(createDto)
-    //     return await this.userRepository.save(newUser)
-    // }
+    async create(userId: string, createDto: VaccineReservationCreateDto): Promise<VaccineReservation>{
 
-    // async findOneByEmail(email: string): Promise<User | null>{
+        const newVaccineReservation = this.vaccinereservationRepository.create({
+            ...createDto,
+            user: {id: userId},
+            profile: {id: createDto.profileId},
+            vaccinationCenter: {id: createDto.vaccinationCenterId},
+            vaccines: createDto.vaccineIds.map((id) => {
+                return {
+                    id: id
+                }
+            })
+        })
 
-    //     const user = await this.userRepository.findOne({where: {email}})
-    //     if(!user) throw new CustomAppException(ExceptionEnum.USER_NOT_EXIT, HttpStatus.BAD_REQUEST)
-
-    //     return user
-    // }
-
-    // async findById(id: string): Promise<User | null>{
-
-    //     const user  = await this.userRepository.findOneBy({id})
-    //     if(!user) throw new CustomAppException(ExceptionEnum.USER_NOT_EXIT, HttpStatus.BAD_REQUEST)
-
-    //     return user
-    // }
+        return await this.vaccinereservationRepository.save(newVaccineReservation)
+    }
 }

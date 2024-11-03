@@ -3,11 +3,13 @@ import { VaccinationcenterRepository } from "./vaccination-center.repository";
 import { VaccinationCenterCreateDto } from "./dto/vaccination-center-create.dto";
 import { VaccinationCenterUpdateDto } from "./dto/vaccination-center-update.dto";
 import { VaccinationCenter } from "./vaccination-center.entity";
+import { VaccineInventoryServices } from "src/vaccine-inventory/vaccine-inventory.services";
 
 @Injectable()
 export class VaccinationcenterServices{
     constructor(
-        private vaccinationcenterRepository: VaccinationcenterRepository
+        private vaccinationcenterRepository: VaccinationcenterRepository,
+        private vaccineInventoryServices: VaccineInventoryServices,
     ){}
 
     async getAll(): Promise<VaccinationCenter[] | null>{
@@ -25,7 +27,11 @@ export class VaccinationcenterServices{
 
     async createVaccinationCenter(createDto: VaccinationCenterCreateDto): Promise<VaccinationCenter>{
 
-        return await this.vaccinationcenterRepository.create(createDto)
+        const center = await this.vaccinationcenterRepository.create(createDto)
+
+        await this.vaccineInventoryServices.create(center)
+
+        return center
     }
 
     async deleteVaccinationCenterById(id: number): Promise<VaccinationCenter>{

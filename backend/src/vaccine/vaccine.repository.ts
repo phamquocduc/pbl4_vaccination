@@ -7,6 +7,7 @@ import { VaccineDescription } from "src/vaccine-descrpition/vaccine-descrpition.
 import { VaccineUpdateDto } from "./dto/vaccine-update.dto";
 import { CustomAppException } from "src/exceptions/custom-app.exceptions";
 import { createExceptionMessage, ExceptionEnum } from "src/enums/exception.enum";
+import { VaccineInventory } from "src/vaccine-inventory/vaccine-inventory.entity";
 
 @Injectable()
 export class VaccineRepository{
@@ -33,6 +34,10 @@ export class VaccineRepository{
         return vaccine
     }
 
+    // async findManyByIds(id: number[]): Promise<Vaccine[] | null>{
+    //     return await this.vaccineRepository.find
+    // }
+
     async getVaccineDescriptionId(id: number): Promise<number | null>{
         const vaccine = await this.vaccineRepository.findOne({
             where: {id: id},
@@ -45,11 +50,18 @@ export class VaccineRepository{
         return vaccine.description.id
     }
 
-    async create(createDto: VaccineCreateDto, vaccinaDescription: VaccineDescription): Promise<Vaccine>{
+    async create(createDto: VaccineCreateDto,
+            vaccinaDescription: VaccineDescription,
+            inventorys: VaccineInventory[])
+            : Promise<Vaccine>
+    {
+
         const newVaccine = this.vaccineRepository.create({
             ...createDto,
-            description: vaccinaDescription
+            description: vaccinaDescription,
+            vaccineinventorys: inventorys
         })
+
 
         return await this.vaccineRepository.save(newVaccine)
     }

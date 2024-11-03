@@ -43,9 +43,9 @@ export class Vaccine {
   description: VaccineDescription;  
 
   @OneToMany(() => VaccineReservation,
-    vaccineReservation => vaccineReservation.vaccine
+    vaccineReservations => vaccineReservations.vaccines
   )
-  vaccineReservation: VaccineReservation[]
+  vaccineReservations: VaccineReservation[]
 
   @ManyToMany(() => VaccineCart, vaccineCarts => vaccineCarts.vaccines)
   vaccineCarts: VaccineCart[]
