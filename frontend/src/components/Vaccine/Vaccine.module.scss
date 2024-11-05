@@ -1,0 +1,73 @@
+.vaccine-app {
+    display: flex;
+    flex-direction: row;
+}
+
+.vaccine-items {
+    flex: 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+/* asdasd */
+.vaccine-item {
+    height: 190px;
+    border: 1px solid #f103f5;
+    padding: 16px;
+    border-radius: 8px;
+    transition: transform 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.vaccine-item:hover {
+    transform: scale(1.001);
+}
+
+.vaccine-item h4 {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.vaccine-item p {
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.vaccine-item button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #1f3fdb;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.vaccine-item button:hover {
+    background-color: #1542b2;
+}
+
+.vaccine-item.selected button {
+    background-color: #4caf50;
+    cursor: default;
+}
+
+.selected-button {
+    background-color: #4caf50 !important;
+}
+/* asdasdasd */
+.vaccine-list {
+    flex: 2;
+    border: 1px solid #ff0000;
+    border-radius: 8px;
+    margin-left: 20px;
+    text-align: center;
+}
+.inner {
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 1fr;
+}

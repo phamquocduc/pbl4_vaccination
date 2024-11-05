@@ -1,0 +1,18 @@
+.wrapper {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column; /* Sắp xếp Header và content theo chiều dọc */
+}
+.header {
+    height: 120px;
+}
+
+.content {
+    flex: 1; /* Để content chiếm toàn bộ không gian trống còn lại */
+    // overflow-y: auto; /* Đảm bảo content có thể cuộn nếu nội dung quá dài */
+    // overflow-x: hidden;
+    padding: 0px; /* Thêm padding nếu cần */
+    margin: 0px;
+    box-sizing: border-box;
+}
