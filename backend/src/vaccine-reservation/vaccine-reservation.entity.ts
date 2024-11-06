@@ -45,19 +45,19 @@ export class VaccineReservation {
   @Column()
   appointmentDate: Date;
 
-  @Column({ default: EVaccineReservationStatus.PENDING })
+  @Column({ default: EVaccineReservationStatus.PENDING_PAYMENT })
   status: string;
 
   @Column()
   paymentMethod: string;
 
-  @Column({ type: 'bigint' })
+  @Column({ type: 'bigint'})
   price: number;
 
   @OneToOne(() => VaccinationAppointment, appointment => appointment.reservation)
   appointment: VaccinationAppointment;
 
-  @Column({ default: true })
+  @Column({ default: false })
   isPaid: boolean
 
   isReservationValid(): boolean {

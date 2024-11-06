@@ -8,6 +8,7 @@ import { VaccineUpdateDto } from "./dto/vaccine-update.dto";
 import { CustomAppException } from "src/exceptions/custom-app.exceptions";
 import { createExceptionMessage, ExceptionEnum } from "src/enums/exception.enum";
 import { VaccineInventory } from "src/vaccine-inventory/vaccine-inventory.entity";
+import { log } from "console";
 
 @Injectable()
 export class VaccineRepository{
@@ -34,9 +35,22 @@ export class VaccineRepository{
         return vaccine
     }
 
-    // async findManyByIds(id: number[]): Promise<Vaccine[] | null>{
-    //     return await this.vaccineRepository.find
-    // }
+    async getTotalPrice(ids: number[]): Promise<number | null>{
+        const listVaccine =  await Promise.all(
+            ids.map((currentId) => {
+                return  this.vaccineRepository.findOne({
+                    where: { id: currentId }
+                })
+            })
+        )
+
+        log(listVaccine)
+
+        return listVaccine.reduce((prevValue, currValue) => {
+           log(typeof currValue.price)
+           return prevValue += currValue.price
+        }, 0)
+    }
 
     async getVaccineDescriptionId(id: number): Promise<number | null>{
         const vaccine = await this.vaccineRepository.findOne({

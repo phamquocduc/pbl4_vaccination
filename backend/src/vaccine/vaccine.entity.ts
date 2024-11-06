@@ -26,7 +26,13 @@ export class Vaccine {
   @Column()
   availableDoses: number;
 
-  @Column({type: 'bigint'})
+  @Column({
+    type: 'bigint',
+    transformer: {
+      to: (value: number) => value,             
+      from: (value: string) => parseInt(value),
+    }
+  })
   price: number;  
 
   @ManyToMany(() => VaccineInventory, 

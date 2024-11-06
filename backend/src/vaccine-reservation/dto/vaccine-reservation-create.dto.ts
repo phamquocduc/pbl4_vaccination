@@ -35,10 +35,4 @@ export class VaccineReservationCreateDto {
     })
     @IsString()
     paymentMethod: string;
-
-    @ApiProperty({ 
-        example: 1200000
-    })
-    @IsNumber()
-    price: number;
 }

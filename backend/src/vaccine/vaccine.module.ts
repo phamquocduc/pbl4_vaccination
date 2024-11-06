@@ -6,12 +6,14 @@ import { VaccineServices } from "./vaccine.services";
 import { VaccineRepository } from "./vaccine.repository";
 import { VaccineDescriptionModule } from "src/vaccine-descrpition/vaccine-descrpition.module";
 import { VaccineInventoryModule } from "src/vaccine-inventory/vaccine-inventory.module";
+import { VaccineReservationModule } from "src/vaccine-reservation/vaccine-reservation.module";
 
 @Module({
     imports:[
         TypeOrmModule.forFeature([Vaccine]),
         forwardRef(() => VaccineDescriptionModule),
-        forwardRef(() => VaccineInventoryModule)
+        forwardRef(() => VaccineInventoryModule),
+        forwardRef(() => VaccineReservationModule),
     ],
     controllers: [
         VaccineController
@@ -21,7 +23,8 @@ import { VaccineInventoryModule } from "src/vaccine-inventory/vaccine-inventory.
         VaccineRepository
     ],
     exports: [
-        VaccineServices
+        VaccineServices,
+        VaccineRepository
     ]
 })
 export class VaccineModule {}
