@@ -20,6 +20,8 @@ import { VaccineReservation } from './vaccine-reservation/vaccine-reservation.en
 import { VaccineCart } from './vaccine-cart/vaccine-cart.entity';
 import { VaccineCartModule } from './vaccine-cart/vaccine-cart.module';
 import { JwtService } from '@nestjs/jwt';
+import { PaymentModule } from './payment/payment.module';
+import { VNPayService } from './payment/vnpay.service';
 
 @Module({
   imports: [
@@ -52,11 +54,13 @@ import { JwtService } from '@nestjs/jwt';
     VaccineInventoryModule,
     VaccinationAppointmentModule,
     VaccineReservationModule,
-    VaccineCartModule
+    VaccineCartModule,
+    PaymentModule
   ],
   controllers: [],
   providers: [
-    JwtService
+    JwtService,
+    VNPayService
   ],
 })
 export class AppModule {}
