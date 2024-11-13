@@ -22,6 +22,7 @@ import { VaccineCartModule } from './vaccine-cart/vaccine-cart.module';
 import { JwtService } from '@nestjs/jwt';
 import { PaymentModule } from './payment/payment.module';
 import { VNPayService } from './payment/vnpay.service';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -55,7 +56,8 @@ import { VNPayService } from './payment/vnpay.service';
     VaccinationAppointmentModule,
     VaccineReservationModule,
     VaccineCartModule,
-    PaymentModule
+    PaymentModule,
+    CloudinaryModule
   ],
   controllers: [],
   providers: [

@@ -7,14 +7,20 @@ import { UserRepository } from "./user.repository";
 import { VaccinationProfileModule } from "src/vaccination-profile/vaccination-profile.module";
 import { UserAdminServices } from "./admin/user-admin.services";
 import { VaccineReservationModule } from "src/vaccine-reservation/vaccine-reservation.module";
+import { CloudinaryModule } from "src/cloudinary/cloudinary.module";
+import { AdminController } from "./admin/admin.controller";
 
 @Module({
     imports:[
         TypeOrmModule.forFeature([User]),
         forwardRef(() => VaccinationProfileModule),
         forwardRef(() => VaccineReservationModule),
+        CloudinaryModule
     ],
-    controllers: [UserController],
+    controllers: [
+        UserController,
+        AdminController
+    ],
     providers: [
         UserServices, 
         UserRepository,

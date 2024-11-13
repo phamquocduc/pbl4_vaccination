@@ -13,6 +13,7 @@ import { ERelationship } from "src/enums/relationship.enum";
 import { VaccinationProfileBaseCreateDto } from "src/vaccination-profile/dto/vaccination-profileBase-create.dto";
 import { log } from "console";
 import { UpdateVaccinationProfileDto } from "src/vaccination-profile/dto/vaccination-profile-update.dto";
+import { CloudinaryResponse } from "src/cloudinary/cloudinary-response";
 
 @Injectable()
 export class UserServices{
@@ -55,6 +56,11 @@ export class UserServices{
         Object.assign(user, updateDto)
        
         return await this.userRepository.update(user)
+    }
+
+    async updateAvatar(avatar: string, userId: string) : Promise<User>{
+       
+        return await this.userRepository.updateAvatar(avatar, userId)
     }
 
     async updateProfileById(userId: string, profileId: number, updateDto : UpdateVaccinationProfileDto) : Promise<any>{
@@ -129,6 +135,10 @@ export class UserServices{
 
     async findById(id: string): Promise<User>{
         return await this.userRepository.findById(id)
+    }
+
+    async findAll(): Promise<User[]>{
+        return await this.userRepository.findAllUser();
     }
 
     private comparePasswordAndConfirmPassword(passWord: string, confirmPassWord: string){

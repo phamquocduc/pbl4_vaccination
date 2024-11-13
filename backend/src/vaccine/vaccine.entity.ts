@@ -26,6 +26,13 @@ export class Vaccine {
   @Column()
   availableDoses: number;
 
+  @Column('json', 
+    {
+      nullable: true
+    }
+  )
+  images: string[]
+
   @Column({
     type: 'bigint',
     transformer: {

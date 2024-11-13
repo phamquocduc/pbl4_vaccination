@@ -42,6 +42,9 @@ export class User{
         this.passWord = await bcrypt.hash(this.passWord, 10) 
     }
 
+    @Column({default : 'http://res.cloudinary.com/dhyay1hbw/image/upload/v1731165608/bf8v8xinlqn9fhvge0oy.jpg'})
+    avatar: string
+
     @Column({default : true})
     isActive: boolean
 

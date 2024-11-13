@@ -88,7 +88,12 @@ export class VaccineRepository{
         if(!vaccine)
             throw new CustomAppException(createExceptionMessage(ExceptionEnum.VACCINE_NOT_EXIT), HttpStatus.BAD_REQUEST)
 
+
+        const images = vaccine.images
+        
         Object.assign(vaccine, updateDto)
+        
+        vaccine.images = [...images, ...updateDto.images]
 
         return await this.vaccineRepository.save(vaccine)
     }

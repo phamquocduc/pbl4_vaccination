@@ -8,6 +8,7 @@ import { createExceptionMessage, ExceptionEnum } from "src/enums/exception.enum"
 import { log } from "console";
 import { UserUpdateDto } from "./dto/user-update.dto";
 import { ERole } from "src/enums/role.enum";
+import { CloudinaryResponse } from "src/cloudinary/cloudinary-response";
 
 @Injectable()
 export class UserRepository{
@@ -23,6 +24,20 @@ export class UserRepository{
 
     async update(updateUser : User) : Promise<User | null>{
         return await this.userRepository.save(updateUser)
+    }
+
+    async updateAvatar(avatar: string, userId: string) : Promise<User>{
+
+        let user = await this.userRepository.findOne({
+            where: {id: userId}
+        })
+
+        if(!user)
+            throw new CustomAppException(createExceptionMessage(ExceptionEnum.USER_NOT_EXIT), HttpStatus.BAD_REQUEST)
+
+        Object.assign(user, {avatar: avatar})
+       
+        return await this.userRepository.save(user)
     }
 
     async findOneByEmail(email: string): Promise<User | null>{
@@ -56,6 +71,14 @@ export class UserRepository{
         })
 
         return admin
+    }
+
+    async findAllUser(): Promise<User[] | null>{
+        const user = await this.userRepository.find({
+            relations: { vaccinationProfiles: true }
+        })
+
+        return user
     }
 
 }
