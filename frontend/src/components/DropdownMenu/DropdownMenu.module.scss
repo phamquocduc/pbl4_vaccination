@@ -1,0 +1,60 @@
+.menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+.menu-button {
+    background-color: #f2a354;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.dropdown-menu {
+    position: absolute;
+    background-color: #f2a354;
+    min-width: 200px;
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+}
+
+.menu-item {
+    padding: 8px 16px;
+    color: white;
+    cursor: pointer;
+    position: relative;
+}
+
+.menu-item:hover {
+    background-color: #e59140;
+}
+
+.submenu {
+    background-color: #d47f2a;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 100%; /* Hiển thị sub-menu ở bên phải */
+    margin-left: 10px;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+.menu-item:hover .submenu {
+    display: block;
+}
+
+.submenu-item {
+    padding: 5px 16px;
+    color: white;
+}
+
+.submenu-item:hover {
+    background-color: #c56f1b;
+}

@@ -1,0 +1,47 @@
+@import 'normalize.css';
+// @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+
+:root {
+    --primary: #0cc0df;
+    --default-layout-header-height: 120px;
+    --default-layout-width: 1344px;
+    --text-color: #ff0000;
+
+    --default-body-height: 500px;
+}
+
+* {
+    margin: 0;
+    // padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    // font-family: 'Noto Serif', serif;
+    // font-family: "Montserrat", sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.5715;
+    text-rendering: optimizeSpeed; // Tối ưu tốc độ hiện thị font
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+button,
+input,
+[tabindex] {
+    outline: none;
+    border: none;
+}
+
+a[href] {
+    //color: var(--text-color);
+    color: var(--primary);
+    text-decoration: none;
+}
