@@ -60,6 +60,9 @@ export class VaccineReservation {
   @Column({ default: false })
   isPaid: boolean
 
+  @Column()
+  orderId: string
+
   isReservationValid(): boolean {
     const currentDate = new Date();
     const expirationDate = new Date(this.appointmentDate);

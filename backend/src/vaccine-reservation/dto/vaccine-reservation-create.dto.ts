@@ -1,7 +1,7 @@
 import { IsString, IsDate, IsOptional, IsEnum, IsNumber, IsArray } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { EPaymentMethod } from 'src/enums/vaccine-reservation-payment-method.enum';
+import { EPaymentMethod, EVNPaymentMethod } from 'src/enums/vaccine-reservation-payment-method.enum';
 
 export class VaccineReservationCreateDto {
 
@@ -31,7 +31,7 @@ export class VaccineReservationCreateDto {
     appointmentDate: Date;
 
     @ApiProperty({ 
-        example: EPaymentMethod.VNPAY
+        example: EVNPaymentMethod.VNBANK
     })
     @IsString()
     paymentMethod: string;

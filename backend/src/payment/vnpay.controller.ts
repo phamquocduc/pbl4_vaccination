@@ -18,10 +18,11 @@ export class VNPayController {
   @Post('create-payment')
   async createPayment(
     @Body() createPaymentDto: CreatePaymentDto,
-    @Res() res,
   ) {
     const paymentUrl = this.vnpayService.createPaymentUrl(createPaymentDto);
-    return paymentUrl
+    return {
+      paymentUrl: paymentUrl
+    }
   }
 
   @Public()
@@ -37,15 +38,20 @@ export class VNPayController {
     let signData = qs.stringify(vnp_Params, { encode: false }); 
     let hmac = crypto.createHmac("sha512", this.hashSecret);
     let signed = hmac.update(Buffer.from(signData, 'utf-8')).digest("hex");  
-  
-    log(vnp_SecureHash)
-    log(signed)
     
     if (vnp_SecureHash === signed) {
-      // Xử lý thanh toán thành công
-      return { success: true, message: 'Payment verified!' };
+      const vnp_ResponseCode = vnp_Params.vnp_ResponseCode
+      switch(vnp_ResponseCode){
+        case '24':
+          return {
+            code: 1000,
+            success: false,
+            message: 'Người dùng hủy thanh toán'
+          }
+        case '00':
+          
+      }
     } else {
-      // Xử lý khi thanh toán không hợp lệ
       return { success: false, message: 'Invalid payment.' };
     }
   }

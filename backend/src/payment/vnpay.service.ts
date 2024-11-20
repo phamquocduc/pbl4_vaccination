@@ -4,6 +4,7 @@ import { CreatePaymentDto } from './dto/create-vnpay-payment.dto';
 import { log } from 'console';
 import * as os from 'os'
 import * as moment from 'moment';
+import { createVNPayMethodParam } from 'src/enums/vaccine-reservation-payment-method.enum';
 
 export class VNPayService {
   private vnpUrl = process.env.VNPAY_PAYMENT_URL;
@@ -16,14 +17,13 @@ export class VNPayService {
       const interfaceInfo = networkInterfaces[interfaceName];
       if (interfaceInfo) {
         for (const net of interfaceInfo) {
-          // Kiểm tra xem địa chỉ IP có phải là IPv4 và không phải là địa chỉ loopback
           if (net.family === 'IPv4' && !net.internal) {
-            return net.address; // Trả về địa chỉ IP
+            return net.address; 
           }
         }
       }
     }
-    return null; // Trả về null nếu không tìm thấy địa chỉ IP
+    return null;
   }
 
   createPaymentUrl(createPaymentDto: CreatePaymentDto) {
@@ -32,8 +32,7 @@ export class VNPayService {
 
     const { orderInfo, amount, returnUrl } = createPaymentDto;
 
-    let orderId = moment(createDate).format('DDHHmmss');
-    let bankCode = '';
+    let bankCode = createVNPayMethodParam(createPaymentDto.vnp_BankCode);
     
     let currCode = 'VND';
     let vnp_Params = {};
@@ -42,8 +41,8 @@ export class VNPayService {
     vnp_Params['vnp_TmnCode'] = this.tmnCode;
     vnp_Params['vnp_Locale'] = 'vn';
     vnp_Params['vnp_CurrCode'] = currCode;
-    vnp_Params['vnp_TxnRef'] = orderId;
-    vnp_Params['vnp_OrderInfo'] = 'Thanh toan cho ma GD:' + orderId;
+    vnp_Params['vnp_TxnRef'] = orderInfo;
+    vnp_Params['vnp_OrderInfo'] = 'Thanh toan cho ma GD:' + orderInfo;
     vnp_Params['vnp_OrderType'] = 'other';
     vnp_Params['vnp_Amount'] = amount * 100;
     vnp_Params['vnp_ReturnUrl'] = returnUrl;
@@ -52,10 +51,6 @@ export class VNPayService {
     if(bankCode !== null && bankCode !== ''){
         vnp_Params['vnp_BankCode'] = bankCode;
     }
-
-    log(vnp_Params)
-    log(this.tmnCode)
-    log(this.hashSecret)
 
     vnp_Params = this.sortObject(vnp_Params)
 
@@ -67,7 +62,6 @@ export class VNPayService {
 
     vnp_Params['vnp_SecureHash'] = signed;
     vnpUrl += '?' + qs.stringify(vnp_Params, { encode: false });
-    log(vnpUrl)
 
     return vnpUrl
   }

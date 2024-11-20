@@ -5,6 +5,8 @@ import { VaccineReservation } from "./vaccine-reservation.entity";
 import { VaccineReservationCreateDto } from "./dto/vaccine-reservation-create.dto";
 import { VaccineRepository } from "src/vaccine/vaccine.repository";
 import { log } from "console";
+import * as moment from "moment";
+import { createVNPayMethodParam } from "src/enums/vaccine-reservation-payment-method.enum";
 
 @Injectable()
 export class VaccinereservationRepository{
@@ -18,9 +20,17 @@ export class VaccinereservationRepository{
 
         const price = await this.vaccineRepository.getTotalPrice(createDto.vaccineIds)
 
+        const paymentMethod = createVNPayMethodParam(createDto.paymentMethod)
+
+        const date = new Date()
+
+        const orderId = moment(date).format('YYYMMDDHHmmss');
+
         const newVaccineReservation = this.vaccinereservationRepository.create({
             ...createDto,
+            orderId: orderId,
             price: price,
+            paymentMethod: paymentMethod,
             user: {id: userId},
             profile: {id: createDto.profileId},
             vaccinationCenter: {id: createDto.vaccinationCenterId},
