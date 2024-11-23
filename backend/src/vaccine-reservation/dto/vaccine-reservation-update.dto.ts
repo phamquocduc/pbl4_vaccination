@@ -4,7 +4,7 @@ import { Type } from 'class-transformer';
 import { EPaymentMethod, EVNPaymentMethod } from 'src/enums/vaccine-reservation-payment-method.enum';
 import { EVaccineReservationStatus } from 'src/enums/vaccine-reservation.enum';
 
-export class VaccineReservationCreateDto {
+export class VaccineReservationUpdateDto {
 
     @ApiProperty({ 
         example: true

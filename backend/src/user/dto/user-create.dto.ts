@@ -5,16 +5,10 @@ import { createExceptionMessage, ExceptionEnum } from "src/enums/exception.enum"
 export class UserCreateDto{
     
     @ApiProperty({
-        example: 'Nguyen'
+        example: 'Nguyen Van A'
     })
     @IsString()
-    firstName?: string
-
-    @ApiProperty({
-        example: 'Van A'
-    })
-    @IsString()
-    lastName?: string
+    fullName?: string
 
     @ApiProperty({
         example: 'abc@gmail.com'

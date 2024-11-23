@@ -6,12 +6,16 @@ import * as crypto from 'crypto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { log } from 'console';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { VaccineReservationServices } from 'src/vaccine-reservation/vaccine-reservation.services';
 
 @ApiBearerAuth()
 @ApiTags('vnpay')
 @Controller('vnpay')
 export class VNPayController {
-  constructor(private readonly vnpayService: VNPayService) {}
+  constructor(
+    private readonly vnpayService: VNPayService,
+    private readonly vaccineReservationServices: VaccineReservationServices,
+  ) {}
 
   private hashSecret = process.env.VNPAY_HASH_SECRET;
 
@@ -49,7 +53,7 @@ export class VNPayController {
             message: 'Người dùng hủy thanh toán'
           }
         case '00':
-          
+          return await this.vaccineReservationServices.update(vnp_Params.vnp_TxnRef)
       }
     } else {
       return { success: false, message: 'Invalid payment.' };

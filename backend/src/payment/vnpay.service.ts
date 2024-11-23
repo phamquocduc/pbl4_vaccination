@@ -32,7 +32,7 @@ export class VNPayService {
 
     const { orderInfo, amount, returnUrl } = createPaymentDto;
 
-    let bankCode = createVNPayMethodParam(createPaymentDto.vnp_BankCode);
+    let bankCode = createPaymentDto.vnp_BankCode ? createVNPayMethodParam(createPaymentDto.vnp_BankCode) : '';
     
     let currCode = 'VND';
     let vnp_Params = {};

@@ -12,4 +12,8 @@ export class VaccineReservationServices{
     async create(userId: string, createDto: VaccineReservationCreateDto): Promise<VaccineReservation>{
         return await this.vaccineReservationRepository.create(userId, createDto)
     }
+
+    async update(id: string): Promise<VaccineReservation>{
+        return await this.vaccineReservationRepository.update(id)
+    }
 }
