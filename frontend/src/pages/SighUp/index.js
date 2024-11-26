@@ -1,29 +1,92 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './SighUp.module.scss';
-import { faCalculator, faEnvelope, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faCalculator, faEnvelope, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import images from '~/assets/images';
+import { ReactComponent as GoogleLoGo } from '~/assets/images/google.svg';
 
 const cx = classNames.bind(styles);
 
 function SighUp() {
+    const navigate = useNavigate();
+
+    // lưu giá trị email và password
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [repeatPassword, setrepeatPassword] = useState('');
+
+    //Xử lý đăng kí
+    const handleSighUp = async (e) => {
+        // kiểm tra thông tin
+        if (!name) {
+            alert('Vui lòng nhập đầy đủ thông tin!');
+            return;
+        }
+        if (!(password === repeatPassword)) {
+            alert('Mật khẩu không giống nhau !');
+            return;
+        }
+
+        //Tạo mới đăng nhập
+        // Lấy thông tin name, email, password rồi lưu tạo trong database
+
+        // về đăng nhập lại
+        alert('Tạo thành công');
+        navigate('/');
+    };
+
     return (
         <div className={cx('login-container')}>
             <div className={cx('left-section')}>
                 <img src={images.logo273} alt="VaxReg Logo" className="logo" />
                 <form className={cx('login-form')}>
+                    <h2>Tạo tài khoản mới</h2>
                     <label htmlFor="fullname">Họ và Tên</label>
-                    <input type="text" id="fullname" name="fullname" required />
+                    <input
+                        type="text"
+                        id="fullname"
+                        name="fullname"
+                        required
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
 
                     <label htmlFor="email">Email</label>
-                    <input type="email" id="email" name="email" required />
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
 
                     <label htmlFor="password">Mật khẩu</label>
-                    <input type="password" id="password" name="password" required />
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        required
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+
+                    <label htmlFor="">Nhắc lại mật khẩu</label>
+                    <input
+                        type="password"
+                        id="repeatPassword"
+                        name="repeatPassword"
+                        required
+                        value={repeatPassword}
+                        onChange={(e) => setrepeatPassword(e.target.value)}
+                    />
 
                     <div className={cx('divider')}></div>
-                    <button type="submit" className={cx('signup-button')}>
+                    <button type="submit" className={cx('signup-button')} onClick={handleSighUp}>
                         Tạo tài khoản mới
                     </button>
                 </form>

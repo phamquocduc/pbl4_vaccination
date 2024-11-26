@@ -1,0 +1,216 @@
+.recordSelector-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 30px;
+    width: 500px;
+}
+.recordSelector-wrapper {
+}
+
+.record-info {
+}
+.title {
+    margin-top: 20px;
+    h1 {
+        text-align: center;
+        font-size: 29px;
+        font-family: Montserrat, sans-serif !important;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        color: #00b5f1;
+        background: linear-gradient(83.63deg, #00b5f1 33.34%, #00e0ff 113.91%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+}
+
+.record-list {
+}
+.card-item {
+    display: flex;
+    width: 100%;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #003553;
+    margin-bottom: 12px;
+    gap: 10px;
+}
+.ant-space {
+    align-items: flex-start;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #003553;
+}
+.icon-card {
+    width: 30px;
+    color: #c7d5e7;
+    font-size: 17px;
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.user-card {
+    background: #fff;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    outline: none;
+    box-shadow: none;
+}
+.user-card:hover {
+    border: 1.5px solid #00b5f1;
+}
+
+.user-card.focused {
+    border-color: #337ab7;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.user-card h3 {
+    color: #337ab7;
+}
+
+//button
+.btnGr-wrapper {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid #dfe3eb;
+}
+.user-card .button-group {
+    display: flex;
+    justify-content: space-between;
+
+    .button {
+        border: none;
+        border-radius: 8px;
+        margin-right: 15px;
+        padding: 8px 20px;
+        font-size: 12px;
+        font-weight: bold;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+}
+.icon-btn {
+    font-size: 1.3rem;
+}
+
+.button.delete {
+    background-color: rgba(253, 57, 122, 0.1);
+    color: #fd397a;
+    border: none;
+    border-radius: 8px;
+    height: 40px;
+}
+.button.delete:hover {
+    background-color: #fd397a;
+    color: #fff;
+}
+
+.button.edit {
+    background-color: rgba(54, 153, 255, 0.1);
+    color: #3699ff;
+    border: none;
+    border-radius: 8px;
+    height: 40px;
+}
+.button.edit:hover {
+    background-color: #3699ff;
+    color: #fff;
+}
+
+.button.continue {
+    color: #fff;
+    padding: 8px 12px !important;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    min-width: 110px;
+    justify-content: center;
+    border: none;
+    background: linear-gradient(83.63deg, #00b5f1 33.34%, #00e0ff 113.91%) !important;
+    border-radius: 8px;
+}
+
+.button:hover {
+    opacity: 0.9;
+}
+
+// nut ở dưới
+
+.style-btnWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    margin-bottom: 28px;
+
+    button {
+        line-height: 1.5715;
+        position: relative;
+        display: inline-block;
+        font-weight: 400;
+        white-space: nowrap;
+        text-align: center;
+        background-image: none;
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        height: 40px;
+        padding: 8px 15px;
+        font-size: 14px;
+        border-radius: 3px;
+        color: rgba(0, 0, 0, 0.85);
+        border: 1px solid #d9d9d9;
+        background: #fff;
+        gap: 8px;
+    }
+}
+.button.return {
+    text-transform: none;
+    background: transparent;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+
+    border-color: transparent;
+    gap: 5px;
+}
+.button.retrun:hover {
+    color: #530000;
+    background: rgba(255, 0, 0, 0.018);
+}
+
+.button.addProfile {
+    text-transform: none;
+    color: #fff;
+    padding: 4px 8px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: linear-gradient(83.63deg, #00b5f1 33.34%, #00e0ff 113.91%) !important;
+    border-radius: 8px;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}

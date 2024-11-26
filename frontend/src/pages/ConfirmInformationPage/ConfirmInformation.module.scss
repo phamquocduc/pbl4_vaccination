@@ -1,0 +1,245 @@
+.confirm-wrapper {
+    max-width: 1140px;
+    width: 100%;
+    margin: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.confirmInfo {
+    display: flex;
+    max-width: 1140px;
+    width: 100%;
+    margin: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+//
+.central-information {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+.hospital-info-container {
+    margin-top: 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 30px 0 rgba(116, 157, 206, 0.2);
+    overflow: hidden;
+    padding-bottom: 3px;
+}
+
+.hospital-info-title {
+    width: 100%;
+    margin: 0px;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    background: #1da1f2;
+    color: #fff;
+    padding: 12px 16px;
+    background: linear-gradient(36deg, #00b5f1, #00e0ff);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.hospital-info-details {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.hospital-info-item {
+    display: flex;
+    align-items: center;
+}
+
+.hospital-icon,
+.phone-icon {
+    font-size: 20px;
+    margin-right: 8px;
+    color: #00796b;
+}
+
+.hospital-text {
+    font-size: 16px;
+    color: #424242;
+}
+
+//Bảng trên
+.CFinformation-wrapper {
+    flex: 1;
+    margin-top: 30px;
+}
+
+.panelHeader {
+    background: #1da1f2;
+    color: #fff;
+    padding: 12px 16px;
+    background: linear-gradient(36deg, #00b5f1, #00e0ff);
+    font-size: 18px;
+    font-weight: bold;
+    line-height: normal;
+
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.CFinfor {
+    width: 100%;
+
+    .info-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: white;
+    }
+    .info-table th,
+    .info-table td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .info-table th {
+        background-color: #f5f5f5;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .info-table td {
+        color: #333;
+    }
+    .info-table tr:hover {
+        background-color: #f0f8ff;
+    }
+
+    .delete-btn {
+        padding: 0px;
+        margin: 0px;
+        border: none;
+        background: none;
+        color: #d9534f;
+        font-size: 13px;
+        cursor: pointer;
+        transition: transform 0.2s, color 0.2s;
+    }
+
+    .delete-btn:hover {
+        color: #a94442;
+        transform: scale(1.1);
+    }
+}
+
+//bảng dưới
+.CFRecord {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    .panelHeader {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .recordInfor {
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+        background: #fff;
+        padding: 16px 15px;
+
+        .info-row {
+            display: grid;
+            justify-content: space-between;
+            grid-template-columns: 1fr 1fr; // Chia hàng thành 2 cột bằng nhau
+            margin-bottom: 8px;
+
+            .info-item {
+                flex: 1;
+                display: flex;
+                align-items: center; // Căn giữa theo chiều dọc
+                align-items: flex-start;
+                .label {
+                    font-weight: 400;
+                    margin-right: 8px;
+                    flex: 0 0 120px; // Cố định độ rộng nhãn
+                    white-space: nowrap; // Ngăn nhãn xuống dòng
+
+                    color: #003553;
+
+                    .icon-label {
+                        width: 16px;
+                        color: #ccc !important;
+                        margin-right: 10px;
+                    }
+                }
+
+                .value {
+                    flex: 1; // Giá trị chiếm phần còn lại
+                    color: #003553;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    font-weight: 550;
+                    white-space: normal;
+                }
+            }
+        }
+    }
+
+    .note {
+        background-color: rgb(255, 239, 239);
+        margin-top: 16px;
+        padding: 10px;
+        border-radius: 12px;
+
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 19px;
+        color: rgb(245, 34, 45);
+    }
+}
+// Nút
+.style-btnWrapper {
+    // margin: 24px 0;
+    display: flex;
+    justify-content: space-between;
+
+    .button {
+        line-height: 1.5715;
+        position: relative;
+        display: inline-block;
+        font-weight: 400;
+        white-space: nowrap;
+        text-align: center;
+        background-image: none;
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        height: 40px;
+        padding: 8px 15px;
+        font-size: 14px;
+        border-radius: 3px;
+        color: rgba(0, 0, 0, 0.85);
+        border: 1px solid #d9d9d9;
+        background: #fff;
+    }
+    .return {
+        text-transform: none;
+        background: transparent;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        align-items: center;
+        border-color: transparent;
+        gap: 5px;
+    }
+    .addProfile {
+        text-transform: none;
+        color: #fff;
+        padding: 4px 8px !important;
+        border: none;
+        background: linear-gradient(83.63deg, #00b5f1 33.34%, #00e0ff 113.91%) !important;
+        border-radius: 8px;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+    }
+}

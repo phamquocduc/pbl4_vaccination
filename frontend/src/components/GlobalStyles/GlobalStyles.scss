@@ -25,12 +25,13 @@ html {
 body {
     // font-family: 'Noto Serif', serif;
     // font-family: "Montserrat", sans-serif;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif !important;
     font-size: 1.6rem;
     line-height: 1.5715;
     text-rendering: optimizeSpeed; // Tối ưu tốc độ hiện thị font
     overflow-x: hidden;
     overflow-y: auto;
+    background: #e8f2f7;
 }
 
 button,

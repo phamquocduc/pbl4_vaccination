@@ -1,15 +1,18 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-//import axios from 'axios';
+import { useState, useContext } from 'react';
+import axios from 'axios';
 
 import classNames from 'classnames/bind';
 import styles from './Login.module.scss';
 import images from '~/assets/images';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { UserContext } from '~/Context/UserContext';
 
 const cx = classNames.bind(styles);
 function Login() {
     const navigate = useNavigate();
+    const { user, login } = useContext(UserContext);
 
     // lưu giá trị email và password
     const [email, setEmail] = useState('');
@@ -27,13 +30,14 @@ function Login() {
         // Kiểm tra thông tin đăng nhập (giả sử email là 'admin@example.com' và password là 'password123')
         if (email === 'khaitran955@gmail.com' && password === '123') {
             alert('Đăng nhập thành công!');
+            login({ email: 'khaitran955@gmail.com', password: '123' });
             // ni là điều hướng trang thâu à
-            navigate('/');
+            navigate('/vaccinereg');
         } else {
             alert('Thông tin đăng nhập không chính xác!');
         }
 
-        // //Ni chưa có backend nên t để đại đó chờ hehe
+        //Ni chưa có backend nên t để đại đó chờ hehe
         // try {
         //     const response = await axios.post('http://localhost:1501/api/login', { email, password });
         //     if (response.status === 200) {
@@ -87,6 +91,12 @@ function Login() {
                         Quên mật khẩu
                     </a>
                     <div className={cx('divider')}></div>
+
+                    <button type="button" className={cx('gg-btn')}>
+                        <FontAwesomeIcon icon={faGoogle} style={{ marginRight: '5px' }} />
+                        <span>Tiếp tục với Google</span>
+                    </button>
+
                     <button type="button" className={cx('signup-button')} onClick={handleSighUp}>
                         Tạo tài khoản mới
                     </button>
