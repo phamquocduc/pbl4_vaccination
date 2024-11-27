@@ -66,4 +66,26 @@ export class VaccinereservationRepository{
 
         return await this.vaccinereservationRepository.save(vaccineReservation)
     }
+
+    async findAllOfUser(id: string): Promise<VaccineReservation[] | null>{
+        const vaccineReservation = await this.vaccinereservationRepository.find({
+            where: {
+                user: {id: id}
+            },
+            relations: {appointment: true}
+        })
+
+        return vaccineReservation
+    }
+
+    async findByOrderId(orderId: string): Promise<VaccineReservation | null>{
+        const vaccineReservation = await this.vaccinereservationRepository.findOne({
+            where: {
+                orderId: orderId
+            },
+            relations: {appointment: true}
+        })
+
+        return vaccineReservation
+    }
 }

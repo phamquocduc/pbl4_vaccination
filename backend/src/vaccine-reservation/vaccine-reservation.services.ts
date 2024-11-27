@@ -16,4 +16,12 @@ export class VaccineReservationServices{
     async update(id: string): Promise<VaccineReservation>{
         return await this.vaccineReservationRepository.update(id)
     }
+
+    async getAllByUserId(id: string): Promise<VaccineReservation[]>{
+        return this.vaccineReservationRepository.findAllOfUser(id)
+    }
+
+    async getByOrderId(id: string): Promise<VaccineReservation>{
+        return this.vaccineReservationRepository.findByOrderId(id)
+    }
 }
