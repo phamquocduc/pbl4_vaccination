@@ -10,9 +10,7 @@
 
 .content {
     flex: 1; /* Để content chiếm toàn bộ không gian trống còn lại */
-    // overflow-y: auto; /* Đảm bảo content có thể cuộn nếu nội dung quá dài */
-    // overflow-x: hidden;
-    padding: 0px; /* Thêm padding nếu cần */
+    padding: 0px;
     margin: 0px;
     box-sizing: border-box;
 }
