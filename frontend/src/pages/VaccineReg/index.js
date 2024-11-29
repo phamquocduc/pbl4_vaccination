@@ -26,9 +26,9 @@ function VaccineReg() {
             <div className={cx('inner-vaccineReg')}>
                 <div className={cx('top-content')}>
                     <div className={cx('information')}>
-                        <div className="Dropdown-menu">
+                        {/* <div className="Dropdown-menu">
                             <DropdownMenu />
-                        </div>
+                        </div> */}
                         <h1>Thông tin sản phẩm</h1>
                     </div>
                     <Tippy

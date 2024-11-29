@@ -18,12 +18,14 @@ function VaccineList({ selectedVaccines, setSelectedVaccines }) {
     };
     const handleBuy = () => {
         // setSelectVaccines((prev) => [...prev, selectedVaccines]);
-        //setSelectVaccines(selectedVaccines);
+        setSelectVaccines(selectedVaccines);
         navigate('/BookingDatePage');
     };
+
     React.useEffect(() => {
         console.log(selectVaccines); // Xem khi nào giá trị thực sự thay đổi
     }, [selectVaccines]);
+
     return (
         <div className={cx('vaccine-list')}>
             <div className={cx('inner')}>

@@ -5,27 +5,41 @@ const VaccineContext = createContext();
 
 function VaccineProvider({ children }) {
     const [vaccines, setVaccines] = useState([]);
-    const [loading, setLoading] = useState(true); // Trạng thái tải dữ liệu
-    const [error, setError] = useState(null); // Trạng thái lỗi
+    //     {
+    //         id: 1,
+    //         name: 'Vaccine Vero Cell của Sinopharm',
+    //         origin: 'Trung Quốc',
+    //         type: 'Tiêm qua da',
+    //         effect: 'covid',
+    //         availableDoses: 10000,
+    //         images: null,
+    //         price: 200,
+    //         description: null,
+    //     },
 
-    // Lấy danh sách vaccine từ API
-    // useEffect(() => {
-    //     const fetchVaccines = async () => {
-    //         try {
-    //             const response = await axios.get('/api/vaccines'); // Đường dẫn API của bạn
-    //             setVaccines(response.data);
-    //         } catch (err) {
-    //             console.error('Error fetching vaccines:', err);
-    //             setError('Failed to fetch vaccine data.');
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     };
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    //     fetchVaccines();
-    // }, []);
+    useEffect(() => {
+        const fetchVaccines = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/vaccine');
+                setVaccines(response.data);
+            } catch (err) {
+                console.error('Error fetching vaccines:', err);
+                setError('Failed to fetch vaccine data.');
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    return <VaccineContext.Provider value={{ vaccines, loading, error }}>{children}</VaccineContext.Provider>;
+        fetchVaccines();
+    }, []);
+
+    if (loading) return <p>Loading vaccines...</p>;
+    if (error) return <p>{error}</p>;
+
+    return <VaccineContext.Provider value={{ vaccines }}>{children}</VaccineContext.Provider>;
 }
 
 export { VaccineContext, VaccineProvider };

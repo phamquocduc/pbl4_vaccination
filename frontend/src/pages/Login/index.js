@@ -27,31 +27,31 @@ function Login() {
             return;
         }
 
-        // Kiểm tra thông tin đăng nhập (giả sử email là 'admin@example.com' và password là 'password123')
-        if (email === 'khaitran955@gmail.com' && password === '123') {
-            alert('Đăng nhập thành công!');
-            login({ email: 'khaitran955@gmail.com', password: '123' });
-            // ni là điều hướng trang thâu à
-            navigate('/vaccinereg');
-        } else {
-            alert('Thông tin đăng nhập không chính xác!');
-        }
+        // // Kiểm tra thông tin đăng nhập (giả sử email là 'admin@example.com' và password là 'password123')
+        // if (email === 'khaitran955@gmail.com' && password === '123') {
+        //     alert('Đăng nhập thành công!');
+        //     login({ email: 'khaitran955@gmail.com', password: '123' });
+        //     // ni là điều hướng trang thâu à
+        //     navigate('/vaccinereg');
+        // } else {
+        //     alert('Thông tin đăng nhập không chính xác!');
+        // }
 
         //Ni chưa có backend nên t để đại đó chờ hehe
-        // try {
-        //     const response = await axios.post('http://localhost:1501/api/login', { email, password });
-        //     if (response.status === 200) {
-        //         alert('Đăng nhập thành công!');
-        //         navigate('/');
-        //     }
-        // } catch (error) {
-        //     if (error.response && error.response.status === 401) {
-        //         alert('Thông tin đăng nhập không chính xác!');
-        //     } else {
-        //         console.error('Lỗi đăng nhập:', error);
-        //         alert('Có lỗi xảy ra. Vui lòng thử lại sau.');
-        //     }
-        // }
+        try {
+            const response = await axios.post('http://localhost:3000/auth/login', { email, password });
+            if (response.status === 201) {
+                alert('Đăng nhập thành công!');
+                navigate('/vaccinereg');
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                alert('Thông tin đăng nhập không chính xác!');
+            } else {
+                console.error('Lỗi đăng nhập:', error);
+                alert('Có lỗi xảy ra. Vui lòng thử lại sau.');
+            }
+        }
     };
 
     const handleSighUp = () => {
