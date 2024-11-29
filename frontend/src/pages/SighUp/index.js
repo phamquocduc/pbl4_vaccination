@@ -35,10 +35,15 @@ function SighUp() {
         //Tạo mới đăng nhập
         // Lấy thông tin name, email, password rồi lưu tạo trong database
         // try {
-        //     const response = await axios.post('http://localhost:3000/auth/login', { email, password });
+        //     const response = await axios.post('http://localhost:3000/user', {
+        //         firstName: name,
+        //         email,
+        //         passWord: password,
+        //         confirmPassWord: repeatPassword,
+        //     });
         //     if (response.status === 201) {
-        //         alert('Đăng nhập thành công!');
-        //         navigate('/vaccinereg');
+        //         alert('Đăng kí thành công!');
+        //         navigate('/');
         //     }
         // } catch (error) {
         //     if (error.response && error.response.status === 401) {
@@ -48,10 +53,6 @@ function SighUp() {
         //         alert('Có lỗi xảy ra. Vui lòng thử lại sau.');
         //     }
         // }
-
-        // về đăng nhập lại
-        alert('Tạo thành công');
-        navigate('/');
     };
 
     return (
@@ -101,7 +102,7 @@ function SighUp() {
                     />
 
                     <div className={cx('divider')}></div>
-                    <button type="submit" className={cx('signup-button')} onClick={handleSighUp}>
+                    <button type="button" className={cx('signup-button')} onClick={handleSighUp}>
                         Tạo tài khoản mới
                     </button>
                 </form>
