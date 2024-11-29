@@ -8,7 +8,7 @@ function RecordProvider({ children }) {
     const [records, setRecords] = useState([
         {
             fullName: 'Trần Qaun',
-            relationship: 'Họ hàng',
+            relationship: 'Bản thân',
             dob: '04/07/2004',
             gender: 'Nữ',
             phone: '0144456789',
@@ -17,7 +17,7 @@ function RecordProvider({ children }) {
         },
         {
             fullName: 'Trần Quang Khải',
-            relationship: 'Bố',
+            relationship: 'Bản thân',
             dob: '04/04/2004',
             gender: 'Nam',
             phone: '0123456789',

@@ -29,7 +29,7 @@ function RecordSelector() {
     //Danh sách records
     const { records, deleteRecord } = useContext(RecordContext);
 
-    const { ChooseRecord } = useContext(SelectVaccinesContext);
+    const { ChooseRecord, selectedRecord } = useContext(SelectVaccinesContext);
 
     const [focusedIndex, setFocusedIndex] = useState(null);
 
@@ -144,6 +144,7 @@ function RecordSelector() {
                                                 className={cx('button', 'continue')}
                                                 onClick={() => {
                                                     ChooseRecord(record);
+                                                    console.log(selectedRecord);
                                                     handleSubmit();
                                                 }}
                                             >

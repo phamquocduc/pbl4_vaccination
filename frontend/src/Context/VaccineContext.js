@@ -4,9 +4,46 @@ import axios from 'axios';
 const VaccineContext = createContext();
 
 function VaccineProvider({ children }) {
-    const [vaccines, setVaccines] = useState([]);
-    const [loading, setLoading] = useState(true); // Trạng thái tải dữ liệu
-    const [error, setError] = useState(null); // Trạng thái lỗi
+    const [vaccines, setVaccines] = useState([
+        {
+            name: 'Vắc xin Hắc lào',
+            origin: 'GSK(Bỉ)',
+            type: 'Tiêm vào da',
+            effect: 'Vắc xin Hắc lào',
+            availableDoses: '1000',
+            price: '3,890,000',
+        },
+        {
+            //id: '',
+            name: 'Vaccine Vero Cell của Sinopharm',
+            origin: 'Trung Quốc',
+            type: 'Tiêm vào da',
+            effect: 'covid',
+            availableDoses: '1000',
+            //images: string[],
+            price: '200,000',
+        },
+        {
+            //id: '',
+            name: 'Vaccine COVID-19 Vaccine AstraZeneca',
+            origin: '',
+            type: 'Tiêm vào da',
+            effect: 'covid',
+            availableDoses: '1000',
+            //images: string[],
+            price: '100,000',
+        },
+        {
+            //id: '',
+            name: 'Vaccine Gam-COVID-Vac ',
+            origin: 'Nga',
+            type: 'Tiêm vào da',
+            effect: 'covid',
+            availableDoses: '1000',
+            //images: string[],
+            price: '200,000',
+        },
+    ]);
 
     // Lấy danh sách vaccine từ API
     // useEffect(() => {
@@ -25,7 +62,7 @@ function VaccineProvider({ children }) {
     //     fetchVaccines();
     // }, []);
 
-    return <VaccineContext.Provider value={{ vaccines, loading, error }}>{children}</VaccineContext.Provider>;
+    return <VaccineContext.Provider value={{ vaccines }}>{children}</VaccineContext.Provider>;
 }
 
 export { VaccineContext, VaccineProvider };

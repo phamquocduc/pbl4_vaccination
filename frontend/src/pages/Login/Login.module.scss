@@ -106,12 +106,15 @@
 
 .right-section {
     position: relative;
+    height: 100%;
     width: 50%;
     background: linear-gradient(135deg, #b3d7e2, #e3f5f8);
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0px;
+    //overflow: hidden; /* Cắt phần hình ảnh thừa nếu cần */
+    //position: relative; /* Để hình ảnh luôn nằm trong vùng */
 }
 
 .style_shape__1HA08 {
@@ -130,6 +133,10 @@
     max-width: 100%;
     height: auto;
     border-radius: 5px;
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; /* Giữ tỷ lệ hình ảnh, cắt những phần không vừa */
+    display: block; /* Đảm bảo hình ảnh hiển thị như một khối */
 }
 .gg-btn {
     width: 100%;

@@ -14,7 +14,7 @@ function BookingDatePage() {
     const [hospitalData, setHospitalData] = useState({ hospitalName: '', phoneNumber: '' });
     const [loading, setLoading] = useState(true);
 
-    const { selectVaccines, AddVaccine, setSelectVaccines } = useContext(SelectVaccinesContext);
+    const { selectVaccines, setSelectedDate, setSelectedTime } = useContext(SelectVaccinesContext);
 
     useEffect(() => {
         const fetchHospitalData = async () => {
@@ -32,7 +32,7 @@ function BookingDatePage() {
     }, []);
 
     // đoạn ni là là set đổi với lấy thời gian chọn thâu
-    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedDateS, setSelectedDateS] = useState(null);
     const [timeSlots, setTimeSlots] = useState([]);
     const [showCalendar, setShowCalendar] = useState(true);
 
@@ -42,7 +42,7 @@ function BookingDatePage() {
     };
 
     const handleDateChange = (date) => {
-        setSelectedDate(date);
+        setSelectedDateS(date);
         setShowCalendar(false);
         console.log(selectVaccines);
         setTimeSlots(timeSlotOptions); // Hiển thị các khung giờ cho ngày đã chọn
@@ -51,8 +51,10 @@ function BookingDatePage() {
     const handleTimeSlotSelect = (slot) => {
         //console.log('Khung giờ được chọn:', slot);
         // Xử lý khi người dùng chọn khung giờ, như lưu vào state hoặc gọi API
-
-        console.log(slot, selectedDate.toLocaleDateString());
+        setSelectedTime(slot);
+        setSelectedDate(selectedDateS.toLocaleDateString());
+        console.log(slot, selectedDateS.toLocaleDateString());
+        console.log('danh sach vc', selectVaccines);
         navigate('/recordSelector');
     };
 
@@ -96,7 +98,7 @@ function BookingDatePage() {
                         />
                     ) : (
                         <div className="chooseTime">
-                            <h3>Ngày đã chọn: {selectedDate.toLocaleDateString()}</h3>
+                            <h3>Ngày đã chọn: {selectedDateS.toLocaleDateString()}</h3>
                             <div className="time-slots">
                                 <h4 style={{ color: 'red' }}>Buổi sáng</h4>
                                 <div className="slot-container">

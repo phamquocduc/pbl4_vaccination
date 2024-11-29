@@ -8,11 +8,14 @@ import { useContext } from 'react';
 import { faCalendarDays, faEnvelope, faHandshake, faUser } from '@fortawesome/free-regular-svg-icons';
 
 import { SelectVaccinesContext } from '~/Context/SelectVaccinesContext';
-
+import { RecordContext } from '~/Context/RecordContext';
 const cx = classNames.bind(styles);
 function ConfirmInformation() {
     const navigate = useNavigate();
-    const { selectVaccines, selectedDate, selectedTime, selectedRecord } = useContext(SelectVaccinesContext);
+
+    const { selectVaccines, selectedDate, selectedTime, selectedRecord, DeleteVaccine } =
+        useContext(SelectVaccinesContext);
+    const { records } = useContext(RecordContext);
 
     const log = () => {
         console.log();
@@ -48,26 +51,34 @@ function ConfirmInformation() {
                                     <tr>
                                         <th>#</th>
                                         <th>Dịch vụ</th>
+                                        <th>Phòng ngừa bệnh</th>
                                         <th>Thời gian</th>
                                         <th>Tiền Khám</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Tiêm ngừa</td>
-                                        <td>
-                                            <div>14:00 - 15:00</div>
-                                            <div>27/11/2024</div>
-                                        </td>
-                                        <td>150.000 đ</td>
-                                        <td>
-                                            <button className={cx('delete-btn')} title="Xóa">
-                                                🗑️
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    {selectVaccines.map((vaccine, index) => (
+                                        <tr>
+                                            <td>{index + 1}</td>
+                                            <td>{vaccine.name}</td>
+                                            <td>{vaccine.effect}</td>
+                                            <td>
+                                                <div>{selectedDate}</div>
+                                                <div>{selectedTime}</div>
+                                            </td>
+                                            <td>{vaccine.price} VNĐ</td>
+                                            <td>
+                                                <button
+                                                    className={cx('delete-btn')}
+                                                    title="Xóa"
+                                                    onClick={() => DeleteVaccine(vaccine)}
+                                                >
+                                                    🗑️
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
@@ -77,19 +88,21 @@ function ConfirmInformation() {
                         <div className={cx('panelHeader')}>
                             <span>Thông tin bệnh nhân</span>
                         </div>
+
                         <div className={cx('recordInfor')}>
                             <div className={cx('info-row')}>
                                 <div className={cx('info-item')}>
                                     <span className={cx('label')}>
                                         <FontAwesomeIcon icon={faUser} className={cx('icon-label')} /> Họ và tên:
                                     </span>
-                                    <span className={cx('value')}>HỒNG NGUYÊN </span>
+                                    <span className={cx('value')}> {selectedRecord.fullName} </span>
                                 </div>
+
                                 <div className={cx('info-item')}>
                                     <span className={cx('label')}>
                                         <FontAwesomeIcon icon={faVenusMars} className={cx('icon-label')} /> Giới tính:
                                     </span>
-                                    <span className={cx('value')}>Nam</span>
+                                    <span className={cx('value')}> {selectedRecord.gender} </span>
                                 </div>
                             </div>
                             <div className={cx('info-row')}>
@@ -98,14 +111,15 @@ function ConfirmInformation() {
                                         <FontAwesomeIcon icon={faCalendarDays} className={cx('icon-label')} />
                                         Ngày sinh:
                                     </span>
-                                    <span className={cx('value')}>03/03/2001</span>
+                                    <span className={cx('value')}> {selectedRecord.dob} </span>
                                 </div>
+
                                 <div className={cx('info-item')}>
                                     <span className={cx('label')}>
                                         <FontAwesomeIcon icon={faHandshake} className={cx('icon-label')} />
                                         Quan hệ:
                                     </span>
-                                    <span className={cx('value')}>Bạn thân</span>
+                                    <span className={cx('value')}> {selectedRecord.relationship} </span>
                                 </div>
                             </div>
                             <div className={cx('info-row')}>
@@ -114,14 +128,14 @@ function ConfirmInformation() {
                                         <FontAwesomeIcon icon={faEnvelope} className={cx('icon-label')} />
                                         Email:
                                     </span>
-                                    <span className={cx('value')}>aa@gmail.com</span>
+                                    <span className={cx('value')}>{selectedRecord.email}</span>
                                 </div>
                                 <div className={cx('info-item')}>
                                     <span className={cx('label')}>
                                         <FontAwesomeIcon icon={faPhone} className={cx('icon-label')} />
                                         Số điện thoại:
                                     </span>
-                                    <span className={cx('value')}>0905050611</span>
+                                    <span className={cx('value')}>{selectedRecord.phone}</span>
                                 </div>
                             </div>
                             <div className={cx('info-row')}>
@@ -134,7 +148,7 @@ function ConfirmInformation() {
                                         <FontAwesomeIcon icon={faMapLocationDot} className={cx('icon-label')} />
                                         Địa chỉ:
                                     </span>
-                                    <span className={cx('value')}>Bạc Liêu, Xã Giai Xuân</span>
+                                    <span className={cx('value')}>{selectedRecord.address}</span>
                                 </div>
                             </div>
                             <div className={cx('note')}>

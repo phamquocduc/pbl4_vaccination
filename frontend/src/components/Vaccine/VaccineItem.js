@@ -1,23 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Vaccine.module.scss';
 
 const cx = classNames.bind(styles);
 
-function VaccineItem({ vaccine, onSelect, onchange }) {
+function VaccineItem({ vaccine, selectedEffectOfVaccines, onSelect, onchange }) {
+    const isDuplicateEffect = selectedEffectOfVaccines.some((selected) => selected === vaccine.effect);
+
     const [isSelected, setIsSelected] = useState(false);
 
     const handleSelect = () => {
-        if (!isSelected) {
+        if (!isDuplicateEffect && !isSelected) {
             onSelect(vaccine); //Thêm vaccine
-        } else {
+            setIsSelected(!isSelected); // Chuyển trạng thái khi bấm lại}
+        } else if (isDuplicateEffect && isSelected) {
             onchange(vaccine); // Xóa vaccine
+            setIsSelected(!isSelected); // Chuyển trạng thái khi bấm lại}
+        } else if (isDuplicateEffect && !isSelected) {
+            alert(`Bạn chỉ có thể chọn một vaccine cho một bệnh "${vaccine.effect}".`);
         }
-        setIsSelected(!isSelected); // Chuyển trạng thái khi bấm lại
+        console.log(isDuplicateEffect);
+        console.log('Before Select:', selectedEffectOfVaccines);
     };
 
     return (
-        <div className={cx('vaccine-item', { selected: isSelected })}>
+        <div
+            className={cx(
+                'vaccine-item',
+                // { selected: isSelected }
+            )}
+        >
             <div className={cx('info-vaccine-vaccinItems')}>
                 <h4>{vaccine.name}</h4>
                 <p>Nguồn gốc: {vaccine.origin}</p>

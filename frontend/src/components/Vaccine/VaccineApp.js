@@ -11,42 +11,37 @@ const cx = classNames.bind(styles);
 
 function VaccineApp() {
     // Danh sách vaccine
-    //const { vaccines, loading, error } = useContext(VaccineContext);
-    // if (loading) return <div>Loading vaccines...</div>;
-    // if (error) return <div>Error: {error}</div>;
+    const { vaccines } = useContext(VaccineContext);
 
-    const vaccines = [
-        {
-            name: 'Vắc xin Shingrix',
-            effect: 'Zona thần kinh',
-            price: '3,890,000 VNĐ',
-            origin: 'GSK(Bỉ)',
-        },
-        {
-            name: 'Vắc xin Hắc lào',
-            effect: 'Vắc xin Hắc lào',
-            price: '3,890,000 VNĐ',
-            origin: 'GSK(Bỉ)',
-        },
-        {
-            name: 'Vắc xin hôi nách',
-            effect: 'Vắc xin hôi nách',
-            price: '3,890,000 VNĐ',
-            origin: 'GSK(Bỉ)',
-        },
-    ];
+    // Tạo mảng mới với thêm thuộc tính allowToChoose
+    const { vaccinesWithAllow, setvaccinesWithAllow } = vaccines.map((vaccine) => ({
+        ...vaccine,
+        allowToChoose: true, // Thêm thuộc tính allowToChoose
+    }));
 
     // danh sách Vaccine đã chọn
     const [selectedVaccines, setSelectedVaccines] = useState([]);
 
+    // danh sách các loại vaccine đã chọn
+    const [selectedEffectOfVaccines, setSelectedEffectOfVaccines] = useState([]);
+
     // Hàm thêm Vaccine vào danh sách
     const handleSelectVaccine = (vaccine) => {
+        // Kiểm tra nếu đã có vaccine với cùng (effect) trong danh sách
+        const isDuplicateEffect = selectedVaccines.some((selected) => selected.effect === vaccine.effect);
+        if (isDuplicateEffect) {
+            return; // Không thêm vaccine vào danh sách
+        }
+        // Thêm vaccine nếu không trùng effect
         setSelectedVaccines((prevSelected) => [...prevSelected, vaccine]);
+        // Thêm effect vào danh sách effect đã chọn
+        setSelectedEffectOfVaccines((prevSelected) => [...prevSelected, vaccine.effect]);
     };
 
     // hàm xóa vaccine ra khỏi danh sách được chọn
     const handleDeleteVaccine = (vaccine) => {
         setSelectedVaccines((prevSelected) => prevSelected.filter((item) => item.name !== vaccine.name));
+        setSelectedEffectOfVaccines((prevSelected) => prevSelected.filter((item) => item !== vaccine.effect));
     };
 
     return (
@@ -56,6 +51,7 @@ function VaccineApp() {
                     <VaccineItem
                         key={index}
                         vaccine={vaccine}
+                        selectedEffectOfVaccines={selectedEffectOfVaccines}
                         onSelect={handleSelectVaccine}
                         onchange={handleDeleteVaccine}
                     />
