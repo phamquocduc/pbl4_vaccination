@@ -6,12 +6,18 @@ import * as crypto from 'crypto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { log } from 'console';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { VaccineReservationServices } from 'src/vaccine-reservation/vaccine-reservation.services';
+import { VaccinationAppointmentServices } from 'src/vaccination-appointment/vaccination-appointment.services';
 
 @ApiBearerAuth()
 @ApiTags('vnpay')
 @Controller('vnpay')
 export class VNPayController {
-  constructor(private readonly vnpayService: VNPayService) {}
+  constructor(
+    private readonly vnpayService: VNPayService,
+    private readonly vaccineReservationServices: VaccineReservationServices,
+    private readonly vaccineAppointmentServices: VaccinationAppointmentServices,
+  ) {}
 
   private hashSecret = process.env.VNPAY_HASH_SECRET;
 
@@ -49,7 +55,15 @@ export class VNPayController {
             message: 'Người dùng hủy thanh toán'
           }
         case '00':
-          
+          const orderId = vnp_Params.vnp_TxnRef
+          const vaccineReservation = await this.vaccineReservationServices.getByOrderId(orderId)
+          await this.vaccineAppointmentServices.create(vaccineReservation)
+          await this.vaccineReservationServices.update(orderId)
+          return {
+            code: 1001,
+            success: true,
+            message: 'Thanh toán thành công'
+          }
       }
     } else {
       return { success: false, message: 'Invalid payment.' };

@@ -14,12 +14,7 @@ export class User{
     @Column(
         {default: null}
     )
-    firstName: string
-
-    @Column(
-        {default: null}
-    )
-    lastName: string
+    fullName: string
 
     @Column({unique : true})
     email: string

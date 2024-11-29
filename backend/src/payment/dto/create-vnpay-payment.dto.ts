@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl } from 'class-validator';
 import { EVNPaymentMethod } from 'src/enums/vaccine-reservation-payment-method.enum';
 
 export class CreatePaymentDto {
@@ -21,9 +21,9 @@ export class CreatePaymentDto {
   @ApiProperty({
     example: EVNPaymentMethod.VNBANK
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  vnp_BankCode: string
+  vnp_BankCode?: string
 
   @ApiProperty({
     example: 'http://localhost:3000/vnpay/payment/return'

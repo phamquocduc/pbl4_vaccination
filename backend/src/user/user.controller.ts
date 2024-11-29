@@ -97,6 +97,14 @@ export class UserController{
        return this.vaccineReservationSevices.create(user.id, createDto)
     }
 
+    @Get('get-vaccine-reservations')
+    async getAllVaccineReservation(@Request() req: any): Promise<VaccineReservation[]>{
+       
+       const user = await this.userSevices.findById(req['user'].sub)
+
+       return this.vaccineReservationSevices.getAllByUserId(user.id)
+    }
+
     @Put('update-vaccination-profile/:id')
     async updateProfileById(
       @Body() updateProfileDto: UpdateVaccinationProfileDto, 

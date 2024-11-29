@@ -6,12 +6,16 @@ import { VaccineReservationServices } from "./vaccine-reservation.services";
 import { VaccinereservationRepository } from "./vaccine-reservation.repository";
 import { UserModule } from "src/user/user.module";
 import { VaccineModule } from "src/vaccine/vaccine.module";
+import { PaymentModule } from "src/payment/payment.module";
+import { VaccinationAppointmentModule } from "src/vaccination-appointment/vaccination-appointment.module";
 
 @Module({
     imports:[
         TypeOrmModule.forFeature([VaccineReservation]),
         forwardRef(() => UserModule),
         forwardRef(() => VaccineModule),
+        forwardRef(() => PaymentModule),
+        forwardRef(() => VaccinationAppointmentModule),
     ],
     controllers: [
         VaccineReservationController

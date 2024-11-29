@@ -33,7 +33,7 @@ export class UserServices{
     
 
         const vaccinationProfileDto: VaccinationProfileBaseCreateDto = {
-            fullName: newUser.firstName + ' ' + newUser.lastName,
+            fullName: newUser.fullName,
             relationship: ERelationship.SELF,
             email: newUser.email
         }

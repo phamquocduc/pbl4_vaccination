@@ -60,7 +60,10 @@ export class VaccineReservation {
   @Column({ default: false })
   isPaid: boolean
 
-  @Column()
+  @Column({
+    unique: true,
+    nullable: true 
+  })
   orderId: string
 
   isReservationValid(): boolean {
