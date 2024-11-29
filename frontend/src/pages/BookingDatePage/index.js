@@ -6,6 +6,8 @@ import './BookingDatePage.css';
 import Calendar from 'react-calendar';
 
 import { SelectVaccinesContext } from '~/Context/SelectVaccinesContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRotateLeft } from '@fortawesome/free-solid-svg-icons';
 
 function BookingDatePage() {
     const navigate = useNavigate();
@@ -130,6 +132,12 @@ function BookingDatePage() {
                             </div>
                         </div>
                     )}
+                    <div className="style-btnWrapper">
+                        <button onClick={() => navigate(-1)} className="button return">
+                            <span>Quay lại</span>
+                            <FontAwesomeIcon icon={faRotateLeft} className="icon-btn" style={{ paddingLeft: '5px' }} />
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

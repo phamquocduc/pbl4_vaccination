@@ -52,8 +52,10 @@ function ConfirmInformation() {
                                         <th>#</th>
                                         <th>Dịch vụ</th>
                                         <th>Phòng ngừa bệnh</th>
-                                        <th>Thời gian</th>
-                                        <th>Tiền Khám</th>
+                                        <th>Số mũi tiêm</th>
+                                        <th>-Thời gian-</th>
+                                        <th>Thời gian mũi 2</th>
+                                        <th>Tổng tiền Khám</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -63,10 +65,12 @@ function ConfirmInformation() {
                                             <td>{index + 1}</td>
                                             <td>{vaccine.name}</td>
                                             <td>{vaccine.effect}</td>
+                                            <td>3</td>
                                             <td>
                                                 <div>{selectedDate}</div>
                                                 <div>{selectedTime}</div>
                                             </td>
+                                            <td>Cập nhập</td>
                                             <td>{vaccine.price} VNĐ</td>
                                             <td>
                                                 <button

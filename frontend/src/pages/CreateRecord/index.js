@@ -70,13 +70,13 @@ function CreateRecord() {
                 <div className={cx('form-group')}>
                     <label>Quan hệ:</label>
 
-                    <select name="relationship" value={formData.relationship} onChange={handleChange} required>
+                    {/* <select name="relationship" value={formData.relationship} onChange={handleChange} required>
                         <option value="Bản thân">Bản thân</option>
                         <option value="Con">Con</option>
                         <option value="Ba/Mẹ">Ba/Mẹ</option>
                         <option value="Anh/Chị/Em">Anh/Chị/Em</option>
                         <option value="Khác">Khác </option>
-                    </select>
+                    </select> */}
                 </div>
             </div>
 

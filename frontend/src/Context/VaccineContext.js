@@ -4,63 +4,40 @@ import axios from 'axios';
 const VaccineContext = createContext();
 
 function VaccineProvider({ children }) {
-    const [vaccines, setVaccines] = useState([
-        {
-            name: 'Vắc xin Hắc lào',
-            origin: 'GSK(Bỉ)',
-            type: 'Tiêm vào da',
-            effect: 'Vắc xin Hắc lào',
-            availableDoses: '1000',
-            price: '3,890,000',
-        },
-        {
-            //id: '',
-            name: 'Vaccine Vero Cell của Sinopharm',
-            origin: 'Trung Quốc',
-            type: 'Tiêm vào da',
-            effect: 'covid',
-            availableDoses: '1000',
-            //images: string[],
-            price: '200,000',
-        },
-        {
-            //id: '',
-            name: 'Vaccine COVID-19 Vaccine AstraZeneca',
-            origin: '',
-            type: 'Tiêm vào da',
-            effect: 'covid',
-            availableDoses: '1000',
-            //images: string[],
-            price: '100,000',
-        },
-        {
-            //id: '',
-            name: 'Vaccine Gam-COVID-Vac ',
-            origin: 'Nga',
-            type: 'Tiêm vào da',
-            effect: 'covid',
-            availableDoses: '1000',
-            //images: string[],
-            price: '200,000',
-        },
-    ]);
+    const [vaccines, setVaccines] = useState([]);
+    //     {
+    //         id: 1,
+    //         name: 'Vaccine Vero Cell của Sinopharm',
+    //         origin: 'Trung Quốc',
+    //         type: 'Tiêm qua da',
+    //         effect: 'covid',
+    //         availableDoses: 10000,
+    //         images: null,
+    //         price: 200,
+    //         description: null,
+    //     },
 
-    // Lấy danh sách vaccine từ API
-    // useEffect(() => {
-    //     const fetchVaccines = async () => {
-    //         try {
-    //             const response = await axios.get('/api/vaccines'); // Đường dẫn API của bạn
-    //             setVaccines(response.data);
-    //         } catch (err) {
-    //             console.error('Error fetching vaccines:', err);
-    //             setError('Failed to fetch vaccine data.');
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     };
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    //     fetchVaccines();
-    // }, []);
+    useEffect(() => {
+        const fetchVaccines = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/vaccine');
+                setVaccines(response.data);
+            } catch (err) {
+                console.error('Error fetching vaccines:', err);
+                setError('Failed to fetch vaccine data.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchVaccines();
+    }, []);
+
+    if (loading) return <p>Loading vaccines...</p>;
+    if (error) return <p>{error}</p>;
 
     return <VaccineContext.Provider value={{ vaccines }}>{children}</VaccineContext.Provider>;
 }
