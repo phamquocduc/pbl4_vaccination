@@ -7,6 +7,7 @@ import { faArrowRight, faCalculator, faEnvelope, faEyeSlash } from '@fortawesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import images from '~/assets/images';
 import { ReactComponent as GoogleLoGo } from '~/assets/images/google.svg';
+import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
@@ -33,6 +34,20 @@ function SighUp() {
 
         //Tạo mới đăng nhập
         // Lấy thông tin name, email, password rồi lưu tạo trong database
+        // try {
+        //     const response = await axios.post('http://localhost:3000/auth/login', { email, password });
+        //     if (response.status === 201) {
+        //         alert('Đăng nhập thành công!');
+        //         navigate('/vaccinereg');
+        //     }
+        // } catch (error) {
+        //     if (error.response && error.response.status === 401) {
+        //         alert('Thông tin đăng nhập không chính xác!');
+        //     } else {
+        //         console.error('Lỗi đăng nhập:', error);
+        //         alert('Có lỗi xảy ra. Vui lòng thử lại sau.');
+        //     }
+        // }
 
         // về đăng nhập lại
         alert('Tạo thành công');
