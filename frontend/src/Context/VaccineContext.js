@@ -5,17 +5,18 @@ const VaccineContext = createContext();
 
 function VaccineProvider({ children }) {
     const [vaccines, setVaccines] = useState([]);
-    //     {
-    //         id: 1,
-    //         name: 'Vaccine Vero Cell của Sinopharm',
-    //         origin: 'Trung Quốc',
-    //         type: 'Tiêm qua da',
-    //         effect: 'covid',
-    //         availableDoses: 10000,
-    //         images: null,
-    //         price: 200,
-    //         description: null,
-    //     },
+    // {
+    //     name: 'Vaccine Vero Cell của Sinopharm',
+    //     origin: 'Trung Quốc',
+    //     type: 'Tiêm qua da',
+    //     effect: 'covid',
+    //     availableDoses: 10000,
+    //      doseNumber: 2,
+    //      durationIntervals: 30,
+    //     images: null,
+    //     price: 200000,
+    //     description: null,
+    // },
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);

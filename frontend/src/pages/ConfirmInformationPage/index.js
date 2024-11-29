@@ -21,6 +21,13 @@ function ConfirmInformation() {
         console.log();
     };
 
+    //hàm tính ngày tiêm mũi 2
+    function calculateNextDate(date, days) {
+        const selectedDateObj = new Date(date); // Chuyển selectedDate thành đối tượng Date
+        selectedDateObj.setDate(selectedDateObj.getDate() + days); // Thêm số ngày từ doseNumber
+        return selectedDateObj.toLocaleDateString('vi-VN'); // Trả về định dạng DD-MM-YYYY
+    }
+
     return (
         <div className={cx('confirm-wrapper')}>
             <div className={cx('confirmInfo')}>
@@ -65,12 +72,12 @@ function ConfirmInformation() {
                                             <td>{index + 1}</td>
                                             <td>{vaccine.name}</td>
                                             <td>{vaccine.effect}</td>
-                                            <td>3</td>
+                                            <td>{vaccine.doseNumber}</td>
                                             <td>
                                                 <div>{selectedDate}</div>
                                                 <div>{selectedTime}</div>
                                             </td>
-                                            <td>Cập nhập</td>
+                                            <td>{calculateNextDate(selectedDate, vaccine.doseNumber)}</td>
                                             <td>{vaccine.price} VNĐ</td>
                                             <td>
                                                 <button

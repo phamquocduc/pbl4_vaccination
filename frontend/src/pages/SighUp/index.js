@@ -34,25 +34,25 @@ function SighUp() {
 
         //Tạo mới đăng nhập
         // Lấy thông tin name, email, password rồi lưu tạo trong database
-        // try {
-        //     const response = await axios.post('http://localhost:3000/user', {
-        //         firstName: name,
-        //         email,
-        //         passWord: password,
-        //         confirmPassWord: repeatPassword,
-        //     });
-        //     if (response.status === 201) {
-        //         alert('Đăng kí thành công!');
-        //         navigate('/');
-        //     }
-        // } catch (error) {
-        //     if (error.response && error.response.status === 401) {
-        //         alert('Thông tin đăng nhập không chính xác!');
-        //     } else {
-        //         console.error('Lỗi đăng nhập:', error);
-        //         alert('Có lỗi xảy ra. Vui lòng thử lại sau.');
-        //     }
-        // }
+        try {
+            const response = await axios.post('http://localhost:3000/user', {
+                fullName: name,
+                email,
+                passWord: password,
+                confirmPassWord: repeatPassword,
+            });
+            if (response.status === 201) {
+                alert('Đăng kí thành công!');
+                navigate('/');
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                alert('Thông tin đăng nhập không chính xác!');
+            } else {
+                console.error('Lỗi đăng nhập:', error);
+                alert('Có lỗi xảy ra. Vui lòng thử lại sau.');
+            }
+        }
     };
 
     return (
