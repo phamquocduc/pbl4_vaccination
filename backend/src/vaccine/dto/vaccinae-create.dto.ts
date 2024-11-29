@@ -30,6 +30,13 @@ export class VaccineCreateDto{
     effect: string; 
 
     @ApiProperty({
+        example: 3
+    })
+    @IsNumber()
+    @Transform(({value}) => Number(value))
+    doseNumber: number
+
+    @ApiProperty({
         example: 1653
     })
     @IsNumber()

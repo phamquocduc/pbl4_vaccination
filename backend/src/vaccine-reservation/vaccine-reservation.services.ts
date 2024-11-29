@@ -24,4 +24,8 @@ export class VaccineReservationServices{
     async getByOrderId(id: string): Promise<VaccineReservation>{
         return this.vaccineReservationRepository.findByOrderId(id)
     }
+
+    async getAllByEmail(email: string): Promise<VaccineReservation[] | null>{
+        return await this.vaccineReservationRepository.findAllReservationByEmail(email)
+    }
 }

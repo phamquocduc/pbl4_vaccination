@@ -22,7 +22,7 @@ export class VaccinereservationRepository{
 
     async create(userId: string, createDto: VaccineReservationCreateDto): Promise<VaccineReservation>{
 
-        const price = await this.vaccineRepository.getTotalPrice(createDto.vaccineIds)
+        const price = (await this.vaccineRepository.findOneById(createDto.vaccineId)).price
 
         const paymentMethod = createVNPayMethodParam(createDto.paymentMethod)
 
@@ -38,11 +38,7 @@ export class VaccinereservationRepository{
             user: {id: userId},
             profile: {id: createDto.profileId},
             vaccinationCenter: {id: createDto.vaccinationCenterId},
-            vaccines: createDto.vaccineIds.map((id) => {
-                return {
-                    id: id
-                }
-            })
+            vaccine: {id: createDto.vaccineId} 
         })
 
         return await this.vaccinereservationRepository.save(newVaccineReservation)
@@ -72,7 +68,12 @@ export class VaccinereservationRepository{
             where: {
                 user: {id: id}
             },
-            relations: {appointment: true}
+            relations: {
+                appointments: true,
+                vaccinationCenter: true,
+                vaccine: true,
+                profile: true
+            }
         })
 
         return vaccineReservation
@@ -83,9 +84,26 @@ export class VaccinereservationRepository{
             where: {
                 orderId: orderId
             },
-            relations: {appointment: true}
+            relations: {
+                appointments: true,
+                vaccine: true
+            }
         })
 
         return vaccineReservation
     }
+
+    async findAllReservationByEmail(email: string): Promise<VaccineReservation[] | null>{
+        return await this.vaccinereservationRepository.find({
+            where: {
+                user:{ email: email}
+            },
+            relations:{
+                appointments: true,
+                vaccine: true,
+                vaccinationCenter: true,
+                profile: true
+            }
+        })
+    }   
 }

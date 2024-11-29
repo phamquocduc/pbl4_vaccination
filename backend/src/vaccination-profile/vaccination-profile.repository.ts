@@ -73,4 +73,8 @@ export class VaccinationprofileRepository{
         message: 'Delete suscessfully'
       }
     }
+
+    async findAllProfile(): Promise<VaccinationProfile[] | null>{
+      return await this.VaccinationprofileRepository.find()
+    }
 }

@@ -16,7 +16,7 @@ export class VaccinationprofileServices{
 
     async create(createDto : VaccinationProfileCreateDto, user: User) : Promise<VaccinationProfile>{
 
-        if(user.vaccinationProfiles.length >= 5)
+        if(user.vaccinationProfiles.length >= 1)
             throw new CustomAppException(createExceptionMessage(ExceptionEnum.EXCEED_THE_LIMIT), HttpStatus.BAD_REQUEST)
         
         return await this.vaccinationprofileRepository.create(createDto, user)
@@ -33,5 +33,9 @@ export class VaccinationprofileServices{
 
     async deleteProfileById(id: number): Promise<any>{
         return await this.vaccinationprofileRepository.deleteProfileByid(id)
+    }
+
+    async getAllProfile(): Promise<VaccinationProfile[] | null>{
+        return await this.vaccinationprofileRepository.findAllProfile()
     }
 }

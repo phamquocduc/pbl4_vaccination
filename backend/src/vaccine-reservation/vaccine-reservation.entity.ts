@@ -7,6 +7,7 @@ import {
   OneToOne,
   ManyToMany,
   JoinTable,
+  OneToMany,
 } from 'typeorm';
 import { User } from 'src/user/user.entity';
 import { Vaccine } from 'src/vaccine/vaccine.entity';
@@ -29,9 +30,8 @@ export class VaccineReservation {
   )
   profile: VaccinationProfile;
 
-  @ManyToMany(() => Vaccine, (vaccines) => vaccines.vaccineReservations)
-  @JoinTable()
-  vaccines: Vaccine[];
+  @ManyToOne(() => Vaccine, (vaccine) => vaccine.vaccineReservations)
+  vaccine: Vaccine;
 
   @ManyToOne(
     () => VaccinationCenter,
@@ -54,8 +54,8 @@ export class VaccineReservation {
   @Column({ type: 'bigint'})
   price: number;
 
-  @OneToOne(() => VaccinationAppointment, appointment => appointment.reservation)
-  appointment: VaccinationAppointment;
+  @OneToMany(() => VaccinationAppointment, appointments => appointments.reservation)
+  appointments: VaccinationAppointment[];
 
   @Column({ default: false })
   isPaid: boolean

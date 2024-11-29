@@ -26,6 +26,12 @@ export class Vaccine {
   @Column()
   availableDoses: number;
 
+  @Column()
+  doseNumber: number
+
+  @Column()
+  durationIntervals: number
+
   @Column('json', 
     {
       nullable: true
@@ -56,7 +62,7 @@ export class Vaccine {
   description: VaccineDescription;  
 
   @OneToMany(() => VaccineReservation,
-    vaccineReservations => vaccineReservations.vaccines
+    vaccineReservations => vaccineReservations.vaccine
   )
   vaccineReservations: VaccineReservation[]
 

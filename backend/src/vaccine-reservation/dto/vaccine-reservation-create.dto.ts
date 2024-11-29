@@ -12,10 +12,10 @@ export class VaccineReservationCreateDto {
     profileId: number;
 
     @ApiProperty({ 
-        example: [1,2]
+        example: 6
     })
-    @IsArray()
-    vaccineIds: number[];
+    @IsNumber()
+    vaccineId: number;
 
     @ApiProperty({ 
         example: 3

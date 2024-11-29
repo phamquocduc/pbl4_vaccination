@@ -1,8 +1,11 @@
-import { Injectable } from "@nestjs/common";
+import { HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { VaccinationAppointment } from "./vaccination-appointment.entity";
 import { VaccineReservation } from "src/vaccine-reservation/vaccine-reservation.entity";
+import { VaccineAppointmentUpdateDto } from "./dto/vaccine-appointment-update.dto";
+import { CustomAppException } from "src/exceptions/custom-app.exceptions";
+import { createExceptionMessage, ExceptionEnum } from "src/enums/exception.enum";
 
 @Injectable()
 export class VaccinationAppointmentRepository{
@@ -11,10 +14,42 @@ export class VaccinationAppointmentRepository{
         private VaccinationAppointmentRepository: Repository<VaccinationAppointment>
     ){}
 
-    async create(vaccineReservation: VaccineReservation){
-        const appointment = this.VaccinationAppointmentRepository.create({
-            reservation: {id: vaccineReservation.id}
+    async create(durationIntervals: number, numberOfAppointment: number, vaccineReservation: VaccineReservation){
+
+        let firstAppointmentDate = new Date(vaccineReservation.appointmentDate)
+
+        for(let i = 0; i < numberOfAppointment; i++){
+            if(i !== 0){
+                firstAppointmentDate = new Date(firstAppointmentDate.setDate(firstAppointmentDate.getDate() + durationIntervals))
+            }
+
+            let nextAppointmentDate = new Date(firstAppointmentDate)
+            if(i < numberOfAppointment-1){
+                nextAppointmentDate = new Date(nextAppointmentDate.setDate(nextAppointmentDate.getDate() + durationIntervals))
+            }else{
+                nextAppointmentDate = null
+            }
+
+            const appointment = this.VaccinationAppointmentRepository.create({
+                nextAppointmentDate: nextAppointmentDate,
+                appointmentDate: firstAppointmentDate,
+                reservation: {id: vaccineReservation.id}
+            })
+    
+            await this.VaccinationAppointmentRepository.save(appointment)
+        }
+        
+    }
+
+    async updateById(id: number, appointmentUpdateDto: VaccineAppointmentUpdateDto): Promise<VaccinationAppointment>{
+        let appointment = await this.VaccinationAppointmentRepository.findOne({
+            where: {id : id}
         })
+
+        if(!appointment)
+            throw new CustomAppException(createExceptionMessage(ExceptionEnum.VACCINE_APPOINTMENT_NOT_EXIT), HttpStatus.BAD_REQUEST)
+
+        Object.assign(appointment, appointmentUpdateDto)
 
         return await this.VaccinationAppointmentRepository.save(appointment)
     }

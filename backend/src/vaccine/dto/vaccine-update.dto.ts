@@ -42,6 +42,14 @@ export class VaccineUpdateDto{
     availableDoses?: number;
 
     @ApiProperty({
+        example: 3
+    })
+    @IsNumber()
+    @IsOptional()
+    @Transform(({value}) => Number(value))
+    doseNumber: number
+
+    @ApiProperty({
         example: 700000
     })
     @IsNumber()
