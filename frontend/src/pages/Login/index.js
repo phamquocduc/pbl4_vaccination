@@ -41,8 +41,11 @@ function Login() {
         try {
             const response = await axios.post('http://localhost:3000/auth/login', { email, password });
             if (response.status === 201) {
+                const { access_token } = response.data; // Lấy token từ phản hồi API
+                localStorage.setItem('authToken', access_token); // Lưu token vào localStorage
                 alert('Đăng nhập thành công!');
                 navigate('/vaccinereg');
+
             }
         } catch (error) {
             if (error.response && error.response.status === 401) {

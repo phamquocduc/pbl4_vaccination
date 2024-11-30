@@ -4,11 +4,14 @@ import styles from './ConfirmInformation.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapLocationDot, faPhone, faPlus, faRotateLeft, faVenusMars } from '@fortawesome/free-solid-svg-icons';
 
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { faCalendarDays, faEnvelope, faHandshake, faUser } from '@fortawesome/free-regular-svg-icons';
 
 import { SelectVaccinesContext } from '~/Context/SelectVaccinesContext';
 import { RecordContext } from '~/Context/RecordContext';
+import { VaccineContext } from '~/Context/VaccineContext';
+import axios from 'axios';
+
 const cx = classNames.bind(styles);
 function ConfirmInformation() {
     const navigate = useNavigate();
@@ -16,10 +19,81 @@ function ConfirmInformation() {
     const { selectVaccines, selectedDate, selectedTime, selectedRecord, DeleteVaccine } =
         useContext(SelectVaccinesContext);
     const { records } = useContext(RecordContext);
+    const { vaccines } = useContext(VaccineContext);
 
     const log = () => {
         console.log();
     };
+    const [orid, setOrid] = useState();
+    const createReservation = async () => {
+        try {
+            const token = localStorage.getItem('authToken');
+
+            if (!token) {
+                console.error('Không tìm thấy token. Người dùng chưa đăng nhập.');
+                return;
+            }
+            const response = await axios.post(
+                'http://localhost:3000/user/create-vaccine-reservation',
+                {
+                    profileId: selectedRecord.id,
+                    vaccineId: selectVaccines[0].id,
+                    vaccinationCenterId: 1,
+                    appointmentDate: selectedDate,
+                    paymentMethod: 'VNpay',
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Thêm token vào header
+                    },
+                },
+            );
+            const orderId = await response.data.orderId;
+            setOrid(orderId);
+            alert('Xác nhận thành công!!!');
+        } catch (err) {
+            console.error('Error fetching vaccines:', err);
+        }
+    };
+
+    const handlePayment = async () => {
+        try {
+            const token = localStorage.getItem('authToken');
+
+            if (!token) {
+                console.error('Không tìm thấy token. Người dùng chưa đăng nhập.');
+                return;
+            }
+            // Dữ liệu gửi đến API
+            const paymentData = {
+                orderInfo: orid,
+                amount: selectVaccines[0].price, // Số tiền thanh toán (VNĐ)
+                returnUrl: 'http://localhost:3001/returnPage', // URL trả về sau thanh toán
+            };
+
+            // Gửi yêu cầu POST đến API
+            const response = await axios.post('http://localhost:3000/vnpay/create-payment', paymentData, {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Thêm token vào header
+                },
+            });
+
+            if (response.status === 201) {
+                // Chuyển hướng đến trang thanh toán của VNPay
+                window.location.href = response.data.paymentUrl; // paymentUrl được trả về từ API
+            } else {
+                alert('Có lỗi xảy ra khi tạo thanh toán.');
+            }
+        } catch (error) {
+            console.error('Lỗi khi xử lý thanh toán:', error);
+            alert('Không thể thực hiện thanh toán. Vui lòng thử lại.');
+        }
+    };
+
+    // "profileId": 1,
+    // "vaccineId": 1,
+    // "vaccinationCenterId": 1,
+    // "appointmentDate": "2024-04-15",
 
     //hàm tính ngày tiêm mũi 2
     function calculateNextDate(date, days) {
@@ -27,6 +101,12 @@ function ConfirmInformation() {
         selectedDateObj.setDate(selectedDateObj.getDate() + days); // Thêm số ngày từ doseNumber
         return selectedDateObj.toLocaleDateString('vi-VN'); // Trả về định dạng DD-MM-YYYY
     }
+
+    const [isSubmit, setIsSubmit] = useState(false);
+
+    const handSubmit = () => {
+        setIsSubmit(!isSubmit);
+    };
 
     return (
         <div className={cx('confirm-wrapper')}>
@@ -62,7 +142,7 @@ function ConfirmInformation() {
                                         <th>Số mũi tiêm</th>
                                         <th>-Thời gian-</th>
                                         <th>Thời gian mũi 2</th>
-                                        <th>Tổng tiền Khám</th>
+                                        <th>Giá vắc xin</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -171,24 +251,63 @@ function ConfirmInformation() {
                         </div>
                     </div>
 
-                    <div className={cx('style-btnWrapper')}>
-                        <button onClick={() => navigate(-1)} className={cx('button', 'return')}>
-                            <span>Quay lại</span>
-                            <FontAwesomeIcon
-                                icon={faRotateLeft}
-                                className={cx('icon-btn')}
-                                style={{ paddingLeft: '5px' }}
-                            />
-                        </button>
-                        <button
-                            className={cx('button', 'addProfile')}
-                            // onClick={() => {
-                            //     navigate('/createRecord');
-                            // }}
-                        >
-                            <FontAwesomeIcon icon={faPlus} className={cx('icon-btn')} style={{ paddingRight: '5px' }} />
-                            <span>Xác nhận</span>
-                        </button>
+                    <div className={cx('btnWrapper')}>
+                        {!isSubmit ? (
+                            <div className={cx('style-btnWrapper')}>
+                                <button onClick={() => navigate(-1)} className={cx('button', 'return')}>
+                                    <span>Quay lại</span>
+                                    <FontAwesomeIcon
+                                        icon={faRotateLeft}
+                                        className={cx('icon-btn')}
+                                        style={{ paddingLeft: '5px' }}
+                                    />
+                                </button>
+                                <button
+                                    className={cx('button', 'addProfile')}
+                                    onClick={() => {
+                                        createReservation();
+                                        handSubmit();
+                                        //navigate('/createRecord');
+                                        // console.log(orderId)
+                                    }}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faPlus}
+                                        className={cx('icon-btn')}
+                                        onClick={handSubmit}
+                                        style={{ paddingRight: '5px' }}
+                                    />
+                                    <span>Xác nhận</span>
+                                </button>
+                            </div>
+                        ) : (
+                            <div className={cx('style-btnWrapper')}>
+                                <button onClick={() => navigate(-1)} className={cx('button', 'return')}>
+                                    <span>Quay lại</span>
+                                    <FontAwesomeIcon
+                                        icon={faRotateLeft}
+                                        className={cx('icon-btn')}
+                                        style={{ paddingLeft: '5px' }}
+                                    />
+                                </button>
+                                <button
+                                    className={cx('button', 'addProfile')}
+                                    onClick={() => {
+                                        handlePayment();
+                                        //createReservation();
+                                        //navigate('/createRecord');
+                                        // console.log(orderId)
+                                    }}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faPlus}
+                                        className={cx('icon-btn')}
+                                        style={{ paddingRight: '5px' }}
+                                    />
+                                    <span>Thanh toán với VNpay</span>
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

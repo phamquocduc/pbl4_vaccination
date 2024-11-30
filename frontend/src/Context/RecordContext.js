@@ -5,46 +5,31 @@ const RecordContext = createContext();
 
 function RecordProvider({ children }) {
     // Tạo mảng để lưu giá trị của mỗi record
-    const [records, setRecords] = useState([
-        {
-            fullName: 'Trần Qaun',
-            relationship: 'Bản thân',
-            dob: '04/07/2004',
-            gender: 'Nữ',
-            phone: '0144456789',
-            email: '127@gmail.com',
-            address: 'Hà Nội',
-        },
-        {
-            fullName: 'Trần Quang Khải',
-            relationship: 'Bản thân',
-            dob: '04/04/2004',
-            gender: 'Nam',
-            phone: '0123456789',
-            email: '123@gmail.com',
-            address: 'Đà Nẵng',
-        },
-        {
-            fullName: 'Hồ Quang Hiếu',
-            relationship: 'Bạn thân',
-            dob: '04/04/2004',
-            gender: 'Nam',
-            phone: '0123456789',
-            email: '123@gmail.com',
-            address: 'Đà Nẵng',
-        },
-    ]);
+    const [records, setRecords] = useState([]);
 
     const fetchRecords = async () => {
         try {
+            const token = localStorage.getItem('authToken');
+
+            if (!token) {
+                console.error('Không tìm thấy token. Người dùng chưa đăng nhập.');
+                return;
+            }
             // Giả sử bạn dùng API để lấy dữ liệu
-            const response = await axios.get('...');
+            const response = await axios.get('http://localhost:3000/user/vaccination-profiles', {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Thêm token vào header
+                },
+            });
             const data = await response.data;
             setRecords(data);
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu:', error);
         }
     };
+    useEffect(() => {
+        fetchRecords();
+    }, []);
 
     // Thêm record
     const addRecord = async (newRecord) => {
@@ -76,10 +61,6 @@ function RecordProvider({ children }) {
         }
         // setRecords((prevRecords) => prevRecords.filter((item) => item.email !== email));
     };
-
-    // useEffect(() => {
-    //     fetchRecords();
-    // }, []);
 
     return (
         <RecordContext.Provider

@@ -13,6 +13,7 @@ import RecordList from '~/pages/RecordList';
 import Record from '~/components/Record';
 import RecordSelector from '~/pages/RecordSelector/RecordSelector';
 import ConfirmInformation from '~/pages/ConfirmInformationPage';
+import ReturnPage from '~/pages/ReturnPage';
 
 const publicRoutes = [
     // { path: '/', component: Home, layout: LoginLayout },
@@ -26,7 +27,8 @@ const publicRoutes = [
     { path: '/recordList', component: RecordList, layout: DashboardLayout },
     { path: '/record', component: Record, layout: LoginLayout },
     { path: '/recordSelector', component: RecordSelector, layout: LoginLayout },
-    { path: '/confirmInformation', component: ConfirmInformation, layout: LoginLayout },
+    { path: '/confirmInformation', component: ConfirmInformation },
+    { path: '/returnPage', component: ReturnPage, layout: LoginLayout },
 ];
 
 const privateRoutes = [];
