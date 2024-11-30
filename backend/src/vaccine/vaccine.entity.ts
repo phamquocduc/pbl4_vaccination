@@ -1,71 +1,78 @@
-import { VaccineInventory } from "src/vaccine-inventory/vaccine-inventory.entity";
-import { VaccineDescription } from "../vaccine-descrpition/vaccine-descrpition.entity";
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToMany, JoinTable, OneToMany } from "typeorm";
-import { VaccinationAppointment } from "src/vaccination-appointment/vaccination-appointment.entity";
-import { VaccineReservation } from "src/vaccine-reservation/vaccine-reservation.entity";
-import { VaccineCart } from "src/vaccine-cart/vaccine-cart.entity";
+import { VaccineInventory } from 'src/vaccine-inventory/vaccine-inventory.entity';
+import { VaccineDescription } from '../vaccine-descrpition/vaccine-descrpition.entity';
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    OneToOne,
+    JoinColumn,
+    ManyToMany,
+    JoinTable,
+    OneToMany,
+} from 'typeorm';
+import { VaccinationAppointment } from 'src/vaccination-appointment/vaccination-appointment.entity';
+import { VaccineReservation } from 'src/vaccine-reservation/vaccine-reservation.entity';
+import { VaccineCart } from 'src/vaccine-cart/vaccine-cart.entity';
 
 @Entity()
 export class Vaccine {
-  
-  @PrimaryGeneratedColumn()
-  id: number;
+    @PrimaryGeneratedColumn()
+    id: number;
 
-  @Column()
-  name: string;  
+    @Column()
+    name: string;
 
-  @Column()
-  origin: string; 
-  
-  @Column()
-  type: string;
+    @Column()
+    origin: string;
 
-  @Column()
-  effect: string; 
+    @Column()
+    type: string;
 
-  @Column()
-  availableDoses: number;
+    @Column()
+    effect: string;
 
-  @Column()
-  doseNumber: number
+    @Column()
+    availableDoses: number;
 
-  @Column()
-  durationIntervals: number
+    @Column()
+    doseNumber: number;
 
-  @Column('json', 
-    {
-      nullable: true
-    }
-  )
-  images: string[]
+    @Column()
+    durationIntervals: number;
 
-  @Column({
-    type: 'bigint',
-    transformer: {
-      to: (value: number) => value,             
-      from: (value: string) => parseInt(value),
-    }
-  })
-  price: number;  
+    @Column('json', {
+        nullable: true,
+    })
+    images: string[];
 
-  @ManyToMany(() => VaccineInventory, 
-    vaccineinventorys => vaccineinventorys.vaccines
-  )
-  @JoinTable()
-  vaccineinventorys: VaccineInventory[]
+    @Column({
+        type: 'bigint',
+        transformer: {
+            to: (value: number) => value,
+            from: (value: string) => parseInt(value),
+        },
+    })
+    price: number;
 
-  @OneToOne(() => VaccineDescription, 
-    description => description.vaccine,
-    {cascade: true}
-  )
-  @JoinColumn()
-  description: VaccineDescription;  
+    @ManyToMany(
+        () => VaccineInventory,
+        (vaccineinventorys) => vaccineinventorys.vaccines
+    )
+    @JoinTable()
+    vaccineinventorys: VaccineInventory[];
 
-  @OneToMany(() => VaccineReservation,
-    vaccineReservations => vaccineReservations.vaccine
-  )
-  vaccineReservations: VaccineReservation[]
+    @OneToOne(() => VaccineDescription, (description) => description.vaccine, {
+        cascade: true,
+    })
+    @JoinColumn()
+    description: VaccineDescription;
 
-  @ManyToMany(() => VaccineCart, vaccineCarts => vaccineCarts.vaccines)
-  vaccineCarts: VaccineCart[]
+    @ManyToMany(
+        () => VaccineReservation,
+        (vaccineReservations) => vaccineReservations.vaccines
+    )
+    vaccineReservations: VaccineReservation[];
+
+    @ManyToMany(() => VaccineCart, (vaccineCarts) => vaccineCarts.vaccines)
+    vaccineCarts: VaccineCart[];
 }

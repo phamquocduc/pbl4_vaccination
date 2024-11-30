@@ -1,13 +1,13 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  Column,
-  CreateDateColumn,
-  OneToOne,
-  ManyToMany,
-  JoinTable,
-  OneToMany,
+    Entity,
+    PrimaryGeneratedColumn,
+    ManyToOne,
+    Column,
+    CreateDateColumn,
+    OneToOne,
+    ManyToMany,
+    JoinTable,
+    OneToMany,
 } from 'typeorm';
 import { User } from 'src/user/user.entity';
 import { Vaccine } from 'src/vaccine/vaccine.entity';
@@ -19,59 +19,63 @@ import { EPaymentMethod } from 'src/enums/vaccine-reservation-payment-method.enu
 
 @Entity()
 export class VaccineReservation {
-  @PrimaryGeneratedColumn()
-  id: number;
+    @PrimaryGeneratedColumn()
+    id: number;
 
-  @ManyToOne(() => User, (user) => user.vaccineReservation)
-  user: User;
+    @ManyToOne(() => User, (user) => user.vaccineReservation)
+    user: User;
 
-  @ManyToOne(
-    () => VaccinationProfile,
-    (profile) => profile.vaccineReservation,
-  )
-  profile: VaccinationProfile;
+    @ManyToOne(
+        () => VaccinationProfile,
+        (profile) => profile.vaccineReservation
+    )
+    profile: VaccinationProfile;
 
-  @ManyToOne(() => Vaccine, (vaccine) => vaccine.vaccineReservations)
-  vaccine: Vaccine;
+    @ManyToMany(() => Vaccine, (vaccines) => vaccines.vaccineReservations)
+    @JoinTable()
+    vaccines: Vaccine[];
 
-  @ManyToOne(
-    () => VaccinationCenter,
-    (vaccinationCenter) => vaccinationCenter.vaccineReservation,
-  )
-  vaccinationCenter: VaccinationCenter;
+    @ManyToOne(
+        () => VaccinationCenter,
+        (vaccinationCenter) => vaccinationCenter.vaccineReservation
+    )
+    vaccinationCenter: VaccinationCenter;
 
-  @CreateDateColumn()
-  reservationDate: Date;
+    @CreateDateColumn()
+    reservationDate: Date;
 
-  @Column()
-  appointmentDate: Date;
+    @Column()
+    appointmentDate: Date;
 
-  @Column({ default: EVaccineReservationStatus.PENDING_PAYMENT })
-  status: EVaccineReservationStatus;
+    @Column({ default: EVaccineReservationStatus.PENDING_PAYMENT })
+    status: EVaccineReservationStatus;
 
-  @Column()
-  paymentMethod: EPaymentMethod;
+    @Column()
+    paymentMethod: EPaymentMethod;
 
-  @Column({ type: 'bigint'})
-  price: number;
+    @Column({ type: 'bigint' })
+    price: number;
 
-  @OneToMany(() => VaccinationAppointment, appointments => appointments.reservation)
-  appointments: VaccinationAppointment[];
+    @OneToMany(
+        () => VaccinationAppointment,
+        (appointments) => appointments.reservation
+    )
+    appointments: VaccinationAppointment[];
 
-  @Column({ default: false })
-  isPaid: boolean
+    @Column({ default: false })
+    isPaid: boolean;
 
-  @Column({
-    unique: true,
-    nullable: true 
-  })
-  orderId: string
+    @Column({
+        unique: true,
+        nullable: true,
+    })
+    orderId: string;
 
-  isReservationValid(): boolean {
-    const currentDate = new Date();
-    const expirationDate = new Date(this.appointmentDate);
-    expirationDate.setDate(expirationDate.getDate() + 5);
+    isReservationValid(): boolean {
+        const currentDate = new Date();
+        const expirationDate = new Date(this.appointmentDate);
+        expirationDate.setDate(expirationDate.getDate() + 5);
 
-    return currentDate <= expirationDate;
-  }
+        return currentDate <= expirationDate;
+    }
 }
