@@ -24,8 +24,6 @@ export class VaccinereservationRepository{
 
         const price = (await this.vaccineRepository.findOneById(createDto.vaccineId)).price
 
-        const paymentMethod = createVNPayMethodParam(createDto.paymentMethod)
-
         const date = new Date()
 
         const orderId = moment(date).format('YYYMMDDHHmmss');
@@ -34,7 +32,6 @@ export class VaccinereservationRepository{
             ...createDto,
             orderId: orderId,
             price: price,
-            paymentMethod: paymentMethod,
             user: {id: userId},
             profile: {id: createDto.profileId},
             vaccinationCenter: {id: createDto.vaccinationCenterId},

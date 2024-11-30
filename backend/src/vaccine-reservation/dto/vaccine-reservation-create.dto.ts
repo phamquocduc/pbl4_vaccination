@@ -31,8 +31,8 @@ export class VaccineReservationCreateDto {
     appointmentDate: Date;
 
     @ApiProperty({ 
-        example: EVNPaymentMethod.VNBANK
+        example: EPaymentMethod.VNPAY
     })
     @IsString()
-    paymentMethod: string;
+    paymentMethod: EPaymentMethod;
 }

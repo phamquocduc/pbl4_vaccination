@@ -15,6 +15,7 @@ import { VaccinationAppointment } from 'src/vaccination-appointment/vaccination-
 import { VaccinationCenter } from 'src/vaccination-center/vaccination-center.entity';
 import { VaccinationProfile } from 'src/vaccination-profile/vaccination-profile.entity';
 import { EVaccineReservationStatus } from 'src/enums/vaccine-reservation.enum';
+import { EPaymentMethod } from 'src/enums/vaccine-reservation-payment-method.enum';
 
 @Entity()
 export class VaccineReservation {
@@ -46,10 +47,10 @@ export class VaccineReservation {
   appointmentDate: Date;
 
   @Column({ default: EVaccineReservationStatus.PENDING_PAYMENT })
-  status: string;
+  status: EVaccineReservationStatus;
 
   @Column()
-  paymentMethod: string;
+  paymentMethod: EPaymentMethod;
 
   @Column({ type: 'bigint'})
   price: number;

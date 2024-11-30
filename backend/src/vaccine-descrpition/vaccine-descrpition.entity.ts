@@ -25,7 +25,7 @@ export class VaccineDescription {
   @Column({nullable: true})
   storage: string;  
 
-  @Column({nullable: true})
+  @Column({nullable: true, type: 'text'})
   detailedDescription: string;  
 
   @OneToOne(() => Vaccine, vaccine => vaccine.description)
