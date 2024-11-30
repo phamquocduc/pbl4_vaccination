@@ -37,10 +37,6 @@ function RecordSelector() {
         setFocusedIndex(index);
     };
 
-    // const handleBlur = (index) => {
-    //     setFocusedIndex(!index);
-    // };
-
     // bấm nút xác nhận
     const handleSubmit = () => {
         navigate('/ConfirmInformation');
