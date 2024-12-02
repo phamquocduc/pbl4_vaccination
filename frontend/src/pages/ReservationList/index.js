@@ -1,18 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
-import classNames from 'classnames/bind';
+import React from 'react';
 
-import styles from './RecordList.module.scss';
+import classNames from 'classnames/bind';
+import styles from './Reservation.module.scss';
 
 import Record from '~/components/Record';
-import { RecordContext } from '~/Context/RecordContext';
 
 const cx = classNames.bind(styles);
 
-function RecordList() {
-    const { records } = useContext(RecordContext);
-    console.log(records);
-    const recordss = [
+function ReservationList() {
+    const records = [
         {
             fullName: 'Trần Qaun',
             relationship: 'Họ hàng',
@@ -33,13 +29,13 @@ function RecordList() {
         },
     ];
     return (
-        <div className="recordList-wrapper">
-            <div className={cx('recordList-body')}>
+        <div className="reservationList-wrapper">
+            <div className={cx('reservationList-body')}>
                 <div className={cx('title')}>
-                    <h2>Danh sách hồ sơ bệnh nhân</h2>
+                    <h2>Danh sách phiếu khám bệnh</h2>
                 </div>
 
-                <ul className={cx('list-card')}>
+                <ul className={cx('reservationList-card')}>
                     {records.map((record, index) => (
                         <Record record={record} />
                     ))}
@@ -49,4 +45,4 @@ function RecordList() {
     );
 }
 
-export default RecordList;
+export default ReservationList;
