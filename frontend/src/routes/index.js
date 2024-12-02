@@ -16,6 +16,7 @@ import RecordList from '~/pages/RecordList';
 import ReservationList from '~/pages/ReservationList';
 
 import Record from '~/components/Record';
+import Reservation from '~/components/Reservation';
 
 import RecordSelector from '~/pages/RecordSelector/RecordSelector';
 import ConfirmInformation from '~/pages/ConfirmInformationPage';
@@ -26,13 +27,18 @@ const publicRoutes = [
     // { path: '/following', component: Following },
     { path: '/profile', component: Profile },
     { path: '/vaccinereg', component: VaccineReg },
+
     { path: '/', component: Login, layout: LoginLayout },
     { path: '/sighUp', component: SighUp, layout: LoginLayout },
+
     { path: '/bookingDatePage', component: BookingDatePage },
     { path: '/createRecord', component: CreateRecord, layout: DashboardLayout /*LoginLayout */ },
     { path: '/ReservationList', component: ReservationList, layout: DashboardLayout /*LoginLayout */ },
     { path: '/recordList', component: RecordList, layout: DashboardLayout },
+
     { path: '/record', component: Record, layout: LoginLayout },
+    { path: '/reservation', component: Reservation, layout: LoginLayout },
+
     { path: '/recordSelector', component: RecordSelector, layout: LoginLayout },
     { path: '/confirmInformation', component: ConfirmInformation },
     { path: '/returnPage', component: ReturnPage, layout: LoginLayout },

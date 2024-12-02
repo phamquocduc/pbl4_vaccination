@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 // import axios from 'axios';
 import classNames from 'classnames/bind';
-import styles from './Record.module.scss';
+import styles from './Reservation.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -15,38 +15,30 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 
-//import { RecordContext } from '~/Context/RecordContext';
-
 const cx = classNames.bind(styles);
 
-function Record({ record }) {
-    //const { records, addRecord, updateRecord, deleteRecord } = useContext(RecordContext);
-
+function Reservation() {
     return (
-        <div className={cx('card-record')}>
+        <div className={cx('card-reservation')}>
             <div className={cx('card-body')}>
                 <div className={cx('info-card')}>
                     <ul className={cx('list-items')}>
-                        <li>
+                        <li style={{ display: 'flex' }}>
                             <div className={cx('card-item')}>
                                 <div className={cx('ant-space')}>
                                     <FontAwesomeIcon icon={faCircleUser} className={cx('icon-card')} />
                                     <div className={cx('title-card')}>Họ và tên:</div>
                                 </div>
-
                                 <div className={cx('content-card')} style={{ color: '#00B5F1' }}>
-                                    {record.fullName}
+                                    a
                                 </div>
                             </div>
-                        </li>
-
-                        <li style={{ display: 'flex' }}>
                             <div className={cx('card-item')}>
                                 <div className={cx('ant-space')}>
                                     <FontAwesomeIcon icon={faHandshake} className={cx('icon-card')} />
-                                    <div className={cx('title-card')}>Mối quan hệ:</div>
+                                    <div className={cx('title-card')}>Giới tính:</div>
                                 </div>
-                                <div className={cx('content-card')}>{record.relationship}</div>
+                                <div className={cx('content-card')}>a</div>
                             </div>
                         </li>
 
@@ -56,53 +48,80 @@ function Record({ record }) {
                                     <FontAwesomeIcon icon={faCakeCandles} className={cx('icon-card')} />
                                     <div className={cx('title-card')}>Ngày Sinh:</div>
                                 </div>
-                                <div className={cx('content-card')}>{record.dob} </div>
+                                <div className={cx('content-card')}>a </div>
                             </div>
-                        </li>
-
-                        <li style={{ display: 'flex' }}>
                             <div className={cx('card-item')}>
                                 <div className={cx('ant-space')}>
                                     <FontAwesomeIcon icon={faPhone} className={cx('icon-card')} />
                                     <div className={cx('title-card')}>Số điện thoại:</div>
                                 </div>
-                                <div className={cx('content-card')}>{record.phone}</div>
+                                <div className={cx('content-card')}>a</div>
                             </div>
                         </li>
 
-                        <li style={{ display: 'flex' }}>
-                            <div className={cx('card-item')}>
-                                <div className={cx('ant-space')}>
-                                    <FontAwesomeIcon icon={faVenusMars} className={cx('icon-card')} />
-                                    <div className={cx('title-card')}>Giới tính:</div>
-                                </div>
-                                <div className={cx('content-card')}>{record.gender}</div>
-                            </div>
-                        </li>
-
-                        <li style={{ display: 'flex' }}>
+                        <li>
                             <div className={cx('card-item')}>
                                 <div className={cx('ant-space')}>
                                     <FontAwesomeIcon icon={faMapLocationDot} className={cx('icon-card')} />
                                     <div className={cx('title-card')}>Địa chỉ:</div>
                                 </div>
-                                <div className={cx('content-card')}>{record.address}</div>
+                                <div className={cx('content-card')}>a</div>
                             </div>
                         </li>
                     </ul>
                 </div>
-                <div className={cx('btn-card')}>
-                    <button type="button" className={cx('btn-delete')}>
-                        <FontAwesomeIcon icon={faTrashCan} />
-                        <span>Xóa hồ sơ</span>
-                    </button>
-                    <button className={cx('btn-edit')}>
-                        <FontAwesomeIcon icon={faPenToSquare} /> Sửa hồ sơ
-                    </button>
+                <div className={cx('info-card-bottom', 'bottom')}>
+                    <ul className={cx('list-items')}>
+                        <li style={{ display: 'flex' }}>
+                            <div className={cx('card-item')}>
+                                <div className={cx('ant-space')}>
+                                    <FontAwesomeIcon icon={faCircleUser} className={cx('icon-card')} />
+                                    <div className={cx('title-card')}>Họ và tên:</div>
+                                </div>
+                                <div className={cx('content-card')} style={{ color: '#00B5F1' }}>
+                                    a
+                                </div>
+                            </div>
+                            <div className={cx('card-item')}>
+                                <div className={cx('ant-space')}>
+                                    <FontAwesomeIcon icon={faHandshake} className={cx('icon-card')} />
+                                    <div className={cx('title-card')}>Giới tính:</div>
+                                </div>
+                                <div className={cx('content-card')}>a</div>
+                            </div>
+                        </li>
+
+                        <li style={{ display: 'flex' }}>
+                            <div className={cx('card-item')}>
+                                <div className={cx('ant-space')}>
+                                    <FontAwesomeIcon icon={faCakeCandles} className={cx('icon-card')} />
+                                    <div className={cx('title-card')}>Ngày Sinh:</div>
+                                </div>
+                                <div className={cx('content-card')}>a </div>
+                            </div>
+                            <div className={cx('card-item')}>
+                                <div className={cx('ant-space')}>
+                                    <FontAwesomeIcon icon={faPhone} className={cx('icon-card')} />
+                                    <div className={cx('title-card')}>Số điện thoại:</div>
+                                </div>
+                                <div className={cx('content-card')}>a</div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div className={cx('card-item')}>
+                                <div className={cx('ant-space')}>
+                                    <FontAwesomeIcon icon={faMapLocationDot} className={cx('icon-card')} />
+                                    <div className={cx('title-card')}>Địa chỉ:</div>
+                                </div>
+                                <div className={cx('content-card')}>a</div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     );
 }
 
-export default Record;
+export default Reservation;
