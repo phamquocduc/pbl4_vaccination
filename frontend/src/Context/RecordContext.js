@@ -23,6 +23,7 @@ function RecordProvider({ children }) {
             });
             const data = await response.data;
             setRecords(data);
+            console.log(records);
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu:', error);
         }
@@ -51,24 +52,52 @@ function RecordProvider({ children }) {
         }
     };
 
-    //Xóa
-    const deleteRecord = async (email) => {
-        try {
-            await axios.delete(`URL_API_XOA/${email}`);
-            setRecords((prevRecords) => prevRecords.filter((item) => item.email !== email));
-        } catch (error) {
-            console.error('Lỗi khi xóa record:', error);
+    // //Xóa
+    // const deleteRecord = async (email) => {
+    //     try {
+    //         await axios.delete(`URL_API_XOA/${email}`);
+    //         setRecords((prevRecords) => prevRecords.filter((item) => item.email !== email));
+    //     } catch (error) {
+    //         console.error('Lỗi khi xóa record:', error);
+    //     }
+    //     // setRecords((prevRecords) => prevRecords.filter((item) => item.email !== email));
+    // };
+
+    // Lấy 1 record theo ID
+    const getRecordById = (id) => {
+        if (!id) {
+            console.error('ID không được cung cấp.');
+            return null;
         }
-        // setRecords((prevRecords) => prevRecords.filter((item) => item.email !== email));
+        const record = records.find((record) => record.id == id); // Giả sử mỗi record có thuộc tính `id`
+        if (!record) {
+            console.warn('Không tìm thấy record với ID:', id);
+        }
+        return record;
+    };
+
+    // Hàm lấy record theo email
+    const getRecordByEmail = (email) => {
+        if (!email) {
+            console.error('Email không được cung cấp.');
+            return null;
+        }
+        const record = records.find((record) => record.email === email); // Giả sử mỗi record có thuộc tính `email`
+        if (!record) {
+            console.warn('Không tìm thấy record với Email:', email);
+        }
+        return record;
     };
 
     return (
         <RecordContext.Provider
             value={{
                 records,
-                // addRecord,
-                // updateRecord,
-                deleteRecord,
+                addRecord,
+                updateRecord,
+                getRecordById,
+                getRecordByEmail,
+                //deleteRecord,
             }}
         >
             {children}

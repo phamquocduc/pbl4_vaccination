@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode'; // Sử dụng đúng tên hàm
 
 import classNames from 'classnames/bind';
 import styles from './Login.module.scss';
@@ -27,23 +28,22 @@ function Login() {
             alert('Vui lòng nhập đầy đủ thông tin!');
             return;
         }
-
-        // // Kiểm tra thông tin đăng nhập (giả sử email là 'admin@example.com' và password là 'password123')
-        // if (email === 'khaitran955@gmail.com' && password === '123') {
-        //     alert('Đăng nhập thành công!');
-        //     login({ email: 'khaitran955@gmail.com', password: '123' });
-        //     // ni là điều hướng trang thâu à
-        //     navigate('/vaccinereg');
-        // } else {
-        //     alert('Thông tin đăng nhập không chính xác!');
-        // }
-
         //Ni chưa có backend nên t để đại đó chờ hehe
         try {
             const response = await axios.post('http://localhost:3000/auth/login', { email, password });
             if (response.status === 201) {
                 const { access_token } = response.data; // Lấy token từ phản hồi API
+
                 localStorage.setItem('authToken', access_token); // Lưu token vào localStorage
+
+                // Giải mã token để lấy role
+                const decoded = jwtDecode(access_token);
+                const userRole = decoded.role; // Lấy role từ payload của token
+
+                // Lưu role vào localStorage (nếu cần)
+                localStorage.setItem('userRole', userRole);
+                console.log(localStorage.getItem('userRole'));
+
                 alert('Đăng nhập thành công!');
                 navigate('/recordList');
             }

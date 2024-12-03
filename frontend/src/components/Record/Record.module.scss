@@ -66,7 +66,7 @@
 .content-card {
     font-weight: 550;
 }
-
+// phần button
 .btn-card {
     display: flex;
     justify-content: flex-end;
@@ -77,12 +77,19 @@
 
     button {
         text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+        margin-top: 0px;
         padding: 8px 0;
         display: flex;
         font-size: 1.3rem;
         gap: 5px;
+        background-color: transparent; /* Màu nền ban đầu */
+        border: 2px solid transparent; /* Viền ban đầu */
+        cursor: pointer; /* Con trỏ khi hover */
+        transition: all 0.3s ease; /* Hiệu ứng chuyển động mượt mà */
     }
-
+    button:hover {
+        transform: scale(1); /* Phóng to nhẹ nút */
+    }
     .btn-delete {
         color: #ff3b30;
     }

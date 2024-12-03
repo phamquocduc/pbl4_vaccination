@@ -1,19 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+
 import classNames from 'classnames/bind';
 import styles from './CreateRecord.module.scss';
+
+import { RecordContext } from '~/Context/RecordContext';
 
 const cx = classNames.bind(styles);
 
 function CreateRecord() {
+    // Lấy role
+    const userRole = localStorage.getItem('userRole');
+
+    // Nhận state nếu là sửa thông tin:
+    const location = useLocation();
+    const handleEdit = location.state?.handle || ''; // Nhận giá trị record_ID (profile_ID)
+    console.log(handleEdit);
+
+    // Lấy dữ liệu record cần sửa
+    const { getRecordById } = useContext(RecordContext);
+    const myRecord = getRecordById(handleEdit);
+
     //  Lưu thông tin từ các input
     const [formData, setFormData] = useState({
-        name: '',
-        dob: '',
-        relationship: '',
-        gender: '',
-        phone: '',
-        email: '',
+        name: myRecord?.fullName || '', // Nếu `myRecord` tồn tại, lấy giá trị `fullName`, ngược lại là ''
+        dob: /*myRecord?.dateOfBirth || '',*/ myRecord
+            ? new Date(myRecord.dateOfBirth).toISOString().split('T')[0]
+            : '',
+        relationship: myRecord?.relationship || '',
+        gender: myRecord?.gender || '',
+        phone: myRecord?.phone || '',
+        email: myRecord?.email || '',
         province: '',
         district: '',
         ward: '',
@@ -128,7 +146,11 @@ function CreateRecord() {
             </div>
 
             <div className={cx('btn')}>
-                <button type="submit">Tạo mới</button>
+                {userRole == 'admin' && handleEdit == '' ? (
+                    <button type="submit">Tạo mới</button>
+                ) : (
+                    <button type="submit">Cập nhập</button>
+                )}
                 <button type="button" onClick={handleReset}>
                     Nhập lại
                 </button>

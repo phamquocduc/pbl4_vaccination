@@ -54,8 +54,29 @@ function BookingDatePage() {
         //console.log('Khung giờ được chọn:', slot);
         // Xử lý khi người dùng chọn khung giờ, như lưu vào state hoặc gọi API
         setSelectedTime(slot);
-        setSelectedDate(selectedDateS.toLocaleDateString());
-        console.log(slot, selectedDateS.toLocaleDateString());
+        setSelectedDate(
+            selectedDateS
+                .toLocaleDateString('vi-VN', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                })
+                .split('/')
+                .reverse()
+                .join('/'),
+        );
+        console.log(
+            slot,
+            selectedDateS
+                .toLocaleDateString('vi-VN', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                })
+                .split('/')
+                .reverse()
+                .join('/'),
+        );
         console.log('danh sach vc', selectVaccines);
         navigate('/recordSelector');
     };

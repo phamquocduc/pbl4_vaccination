@@ -1,4 +1,7 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+// import { format } from 'date-fns';
+
 // import axios from 'axios';
 import classNames from 'classnames/bind';
 import styles from './Record.module.scss';
@@ -21,6 +24,10 @@ const cx = classNames.bind(styles);
 
 function Record({ record }) {
     //const { records, addRecord, updateRecord, deleteRecord } = useContext(RecordContext);
+
+    const navigate = useNavigate();
+    // Lấy role
+    const userRole = localStorage.getItem('userRole');
 
     return (
         <div className={cx('card-record')}>
@@ -56,7 +63,10 @@ function Record({ record }) {
                                     <FontAwesomeIcon icon={faCakeCandles} className={cx('icon-card')} />
                                     <div className={cx('title-card')}>Ngày Sinh:</div>
                                 </div>
-                                <div className={cx('content-card')}>{record.dob} </div>
+                                <div className={cx('content-card')}>
+                                    {new Date(record.dateOfBirth).toISOString().split('T')[0]}
+                                    {/* format(new Date(dateTime), 'yyyy-MM-dd') */}
+                                </div>
                             </div>
                         </li>
 
@@ -92,12 +102,24 @@ function Record({ record }) {
                     </ul>
                 </div>
                 <div className={cx('btn-card')}>
-                    <button type="button" className={cx('btn-delete')}>
-                        <FontAwesomeIcon icon={faTrashCan} />
-                        <span>Xóa hồ sơ</span>
-                    </button>
-                    <button className={cx('btn-edit')}>
-                        <FontAwesomeIcon icon={faPenToSquare} /> Sửa hồ sơ
+                    {userRole == 'admin' ? (
+                        <button type="button" className={cx('btn-delete')}>
+                            <FontAwesomeIcon icon={faTrashCan} />
+                            <span>Xóa hồ sơ</span>
+                        </button>
+                    ) : (
+                        <div></div>
+                    )}
+
+                    <button
+                        className={cx('btn-edit')}
+                        onClick={() => {
+                            navigate('/createRecord', {
+                                state: { handle: record.id },
+                            });
+                        }}
+                    >
+                        <FontAwesomeIcon icon={faPenToSquare} /> <span> Sửa hồ sơ </span>
                     </button>
                 </div>
             </div>

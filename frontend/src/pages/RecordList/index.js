@@ -10,28 +10,12 @@ import { RecordContext } from '~/Context/RecordContext';
 const cx = classNames.bind(styles);
 
 function RecordList() {
+    // Lấy role
+    const userRole = localStorage.getItem('userRole');
+
     const { records } = useContext(RecordContext);
     console.log(records);
-    const recordss = [
-        {
-            fullName: 'Trần Qaun',
-            relationship: 'Họ hàng',
-            dob: '04/07/2004',
-            gender: 'Nữ',
-            phone: '0144456789',
-            email: '127@gmail.com',
-            address: 'Hà Nội',
-        },
-        {
-            fullName: 'Trần Quang Khải',
-            relationship: 'Bố',
-            dob: '04/04/2004',
-            gender: 'Nam',
-            phone: '0123456789',
-            email: '123@gmail.com',
-            address: 'Đà Nẵng',
-        },
-    ];
+
     return (
         <div className="recordList-wrapper">
             <div className={cx('recordList-body')}>
