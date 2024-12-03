@@ -54,7 +54,7 @@ function CreateRecord() {
     };
 
     return (
-        <form className={cx('wrapper')} onSubmit={handleSubmit}>
+        <form className={cx('wrapper-create')} onSubmit={handleSubmit}>
             <h2>Nhập thông tin bệnh nhân</h2>
             <div className={cx('notify')}>
                 <p>
@@ -70,13 +70,13 @@ function CreateRecord() {
                 <div className={cx('form-group')}>
                     <label>Quan hệ:</label>
 
-                    {/* <select name="relationship" value={formData.relationship} onChange={handleChange} required>
+                    <select name="relationship" value={formData.relationship} onChange={handleChange} required>
                         <option value="Bản thân">Bản thân</option>
-                        <option value="Con">Con</option>
+                        {/* <option value="Con">Con</option>
                         <option value="Ba/Mẹ">Ba/Mẹ</option>
                         <option value="Anh/Chị/Em">Anh/Chị/Em</option>
-                        <option value="Khác">Khác </option>
-                    </select> */}
+                        <option value="Khác">Khác </option> */}
+                    </select>
                 </div>
             </div>
 

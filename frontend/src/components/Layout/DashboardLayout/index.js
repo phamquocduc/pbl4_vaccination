@@ -9,7 +9,7 @@ function DashboardLayout({ children }) {
     return (
         <div className={cx('wrapper-DashboardLayout')}>
             <Header />
-            <div className={cx('container')}>
+            <div className={cx('container-dashboard')}>
                 <Sidebar />
                 <div className={cx('content')}>{children}</div>
             </div>

@@ -1,4 +1,4 @@
-.wrapper {
+.wrapper-create {
     --primary-text: #003553;
 
     //width: 980px;
@@ -55,6 +55,10 @@
     flex-direction: column;
     margin-bottom: 15px;
     width: 60%;
+
+    :focus {
+        border: 1px solid #00b5f1;
+    }
 }
 
 form label {
