@@ -37,7 +37,11 @@ export class VaccinereservationRepository {
             user: { id: userId },
             profile: { id: createDto.profileId },
             vaccinationCenter: { id: createDto.vaccinationCenterId },
-            vaccine: { id: createDto.vaccineId },
+            vaccines: createDto.vaccineIds.map((id) => {
+                return {
+                    id: id,
+                };
+            }),
         });
 
         return await this.vaccinereservationRepository.save(
@@ -78,7 +82,7 @@ export class VaccinereservationRepository {
                 relations: {
                     appointments: true,
                     vaccinationCenter: true,
-                    vaccine: true,
+                    vaccines: true,
                     profile: true,
                 },
             }
@@ -95,7 +99,7 @@ export class VaccinereservationRepository {
                 },
                 relations: {
                     appointments: true,
-                    vaccine: true,
+                    vaccines: true,
                 },
             });
 
@@ -111,7 +115,7 @@ export class VaccinereservationRepository {
             },
             relations: {
                 appointments: true,
-                vaccine: true,
+                vaccines: true,
                 vaccinationCenter: true,
                 profile: true,
             },

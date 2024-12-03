@@ -24,7 +24,7 @@ export class VaccineReservationCreateDto {
         example: [6, 7],
     })
     @IsArray()
-    vaccineId: number[];
+    vaccineIds: number[];
 
     @ApiProperty({
         example: 3,

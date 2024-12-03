@@ -73,6 +73,12 @@ export class Vaccine {
     )
     vaccineReservations: VaccineReservation[];
 
+    @OneToMany(
+        () => VaccinationAppointment,
+        (appointments) => appointments.vaccine
+    )
+    appointments: VaccinationAppointment[];
+
     @ManyToMany(() => VaccineCart, (vaccineCarts) => vaccineCarts.vaccines)
     vaccineCarts: VaccineCart[];
 }

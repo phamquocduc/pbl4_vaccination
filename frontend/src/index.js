@@ -13,21 +13,19 @@ import AppProvider from '~/Context/AppProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
-        <GlobalStyles>
-            <UserProvider>
-                <SelectVaccinesProvider>
-                    <SelectedVaccinesProvider>
-                        <RecordProvider>
-                            <VaccineProvider>
-                                <App />
-                            </VaccineProvider>
-                        </RecordProvider>
-                    </SelectedVaccinesProvider>
-                </SelectVaccinesProvider>
-            </UserProvider>
-        </GlobalStyles>
-    </React.StrictMode>,
+    <GlobalStyles>
+        <UserProvider>
+            <SelectVaccinesProvider>
+                <SelectedVaccinesProvider>
+                    <RecordProvider>
+                        <VaccineProvider>
+                            <App />
+                        </VaccineProvider>
+                    </RecordProvider>
+                </SelectedVaccinesProvider>
+            </SelectVaccinesProvider>
+        </UserProvider>
+    </GlobalStyles>,
 );
 
 // If you want to start measuring performance in your app, pass a function

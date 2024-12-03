@@ -18,6 +18,7 @@ const PaymentReturn = () => {
 
                 if (response.data.success) {
                     alert('Thanh toán thành công!');
+                    alert('ni ne');
                 } else {
                     alert('Thanh toán thất bại. Vui lòng kiểm tra lại.');
                 }

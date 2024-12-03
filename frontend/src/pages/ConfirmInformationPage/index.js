@@ -37,10 +37,13 @@ function ConfirmInformation() {
                 'http://localhost:3000/user/create-vaccine-reservation',
                 {
                     profileId: selectedRecord.id,
-                    vaccineId: selectVaccines[0].id,
+                    vaccineIds: selectVaccines.map((curr) => curr.id),
                     vaccinationCenterId: 1,
                     appointmentDate: selectedDate,
                     paymentMethod: 'VNpay',
+                    price: selectVaccines.reduce((sum, vaccine) => {
+                        return sum + vaccine.price;
+                    }, 0),
                 },
                 {
                     headers: {
@@ -67,7 +70,9 @@ function ConfirmInformation() {
             // Dữ liệu gửi đến API
             const paymentData = {
                 orderInfo: orid,
-                amount: selectVaccines[0].price, // Số tiền thanh toán (VNĐ)
+                amount: selectVaccines.reduce((sum, vaccine) => {
+                    return sum + vaccine.price;
+                }, 0), // Số tiền thanh toán (VNĐ)
                 returnUrl: 'http://localhost:3001/returnPage', // URL trả về sau thanh toán
             };
 

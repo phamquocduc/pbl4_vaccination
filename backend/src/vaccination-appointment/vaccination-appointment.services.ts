@@ -1,28 +1,40 @@
-import { Injectable } from "@nestjs/common";
-import { VaccinationAppointmentRepository } from "./vaccination-appointment.repository";
-import { VaccineReservation } from "src/vaccine-reservation/vaccine-reservation.entity";
-import { VaccineServices } from "src/vaccine/vaccine.services";
-import { VaccineAppointmentUpdateDto } from "./dto/vaccine-appointment-update.dto";
-import { VaccinationAppointment } from "./vaccination-appointment.entity";
+import { Injectable } from '@nestjs/common';
+import { VaccinationAppointmentRepository } from './vaccination-appointment.repository';
+import { VaccineReservation } from 'src/vaccine-reservation/vaccine-reservation.entity';
+import { VaccineServices } from 'src/vaccine/vaccine.services';
+import { VaccineAppointmentUpdateDto } from './dto/vaccine-appointment-update.dto';
+import { VaccinationAppointment } from './vaccination-appointment.entity';
 
 @Injectable()
-export class VaccinationAppointmentServices{
+export class VaccinationAppointmentServices {
     constructor(
-        private vaccinationAppointmentRepository: VaccinationAppointmentRepository,
-    ){}
+        private vaccinationAppointmentRepository: VaccinationAppointmentRepository
+    ) {}
 
-    async create(vaccineReservation: VaccineReservation){
+    async create(vaccineReservation: VaccineReservation) {
+        const numberOfAppointment = vaccineReservation.vaccines.map((curr) => {
+            return curr.doseNumber;
+        });
+        const durationIntervals = vaccineReservation.vaccines.map(
+            (curr) => curr.durationIntervals
+        );
 
-        const numberOfAppointment = vaccineReservation.vaccine.doseNumber
-        const durationIntervals = vaccineReservation.vaccine.durationIntervals
+        console.log(numberOfAppointment);
 
-
-        console.log(numberOfAppointment)
-
-        return await this.vaccinationAppointmentRepository.create(durationIntervals, numberOfAppointment, vaccineReservation)
+        return await this.vaccinationAppointmentRepository.create(
+            durationIntervals,
+            numberOfAppointment,
+            vaccineReservation
+        );
     }
 
-    async update(id: number, appointmentUpdateDto: VaccineAppointmentUpdateDto): Promise<VaccinationAppointment>{
-        return await this.vaccinationAppointmentRepository.updateById(id, appointmentUpdateDto)
+    async update(
+        id: number,
+        appointmentUpdateDto: VaccineAppointmentUpdateDto
+    ): Promise<VaccinationAppointment> {
+        return await this.vaccinationAppointmentRepository.updateById(
+            id,
+            appointmentUpdateDto
+        );
     }
 }
