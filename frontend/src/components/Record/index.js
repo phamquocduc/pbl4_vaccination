@@ -64,8 +64,7 @@ function Record({ record }) {
                                     <div className={cx('title-card')}>Ngày Sinh:</div>
                                 </div>
                                 <div className={cx('content-card')}>
-                                    {new Date(record.dateOfBirth).toISOString().split('T')[0]}
-                                    {/* format(new Date(dateTime), 'yyyy-MM-dd') */}
+                                    {record.dateOfBirth ? new Date(record.dateOfBirth).toISOString().split('T')[0] : ''}
                                 </div>
                             </div>
                         </li>
