@@ -22,7 +22,9 @@ export class VaccineReservation {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(() => User, (user) => user.vaccineReservation)
+    @ManyToOne(() => User, (user) => user.vaccineReservation, {
+        nullable: true,
+    })
     user: User;
 
     @ManyToOne(

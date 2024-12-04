@@ -34,7 +34,7 @@ import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @ApiBearerAuth()
 @ApiTags('user')
-@Roles(ERole.USER)
+@Roles([ERole.USER])
 @Controller('user')
 export class UserController {
     constructor(

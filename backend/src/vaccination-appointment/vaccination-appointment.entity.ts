@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { VaccineReservation } from 'src/vaccine-reservation/vaccine-reservation.entity';
 import { Vaccine } from 'src/vaccine/vaccine.entity';
+import { VaccinationCenter } from 'src/vaccination-center/vaccination-center.entity';
 
 @Entity()
 export class VaccinationAppointment {
@@ -25,6 +26,12 @@ export class VaccinationAppointment {
 
     @ManyToOne(() => Vaccine, (vaccine) => vaccine.appointments)
     vaccine: Vaccine;
+
+    @ManyToOne(
+        () => VaccinationCenter,
+        (vaccinationCenter) => vaccinationCenter.vaccineAppointments
+    )
+    vaccinationCenter: VaccinationCenter;
 
     @Column({ nullable: true })
     nextAppointmentDate: Date;

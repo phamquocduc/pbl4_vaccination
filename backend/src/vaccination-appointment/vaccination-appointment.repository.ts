@@ -51,6 +51,9 @@ export class VaccinationAppointmentRepository {
                     this.VaccinationAppointmentRepository.create({
                         nextAppointmentDate: nextAppointmentDate,
                         appointmentDate: firstAppointmentDate,
+                        vaccinationCenter: {
+                            id: vaccineReservation.vaccinationCenter.id,
+                        },
                         vaccine: { id: vaccineReservation.vaccines[k].id },
                         reservation: { id: vaccineReservation.id },
                     });

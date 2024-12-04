@@ -85,6 +85,22 @@ export class VaccinereservationRepository {
                     vaccines: true,
                     profile: true,
                 },
+                select: {
+                    appointments: {
+                        id: true,
+                        appointmentDate: true,
+                        nextAppointmentDate: true,
+                        isCompleted: true,
+                        vaccine: {
+                            id: true,
+                            name: true,
+                        },
+                    },
+                    vaccines: {
+                        id: true,
+                        name: true,
+                    },
+                },
             }
         );
 
@@ -98,6 +114,7 @@ export class VaccinereservationRepository {
                     orderId: orderId,
                 },
                 relations: {
+                    vaccinationCenter: true,
                     appointments: true,
                     vaccines: true,
                 },

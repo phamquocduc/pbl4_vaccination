@@ -1,42 +1,81 @@
-import { Body, Controller, Get, Param, Put, Query } from "@nestjs/common";
-import { UserServices } from "../user.services";
-import { Roles } from "src/auth/decorators/role.decorator";
-import { ERole } from "src/enums/role.enum";
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
-import { VaccinationAppointmentServices } from "src/vaccination-appointment/vaccination-appointment.services";
-import { VaccineAppointmentUpdateDto } from "src/vaccination-appointment/dto/vaccine-appointment-update.dto";
-import { VaccinationprofileServices } from "src/vaccination-profile/vaccination-profile.services";
-import { VaccineReservationServices } from "src/vaccine-reservation/vaccine-reservation.services";
+import {
+    Body,
+    Controller,
+    Get,
+    Param,
+    Post,
+    Put,
+    Query,
+    UseFilters,
+} from '@nestjs/common';
+import { UserServices } from '../user.services';
+import { Roles } from 'src/auth/decorators/role.decorator';
+import { ERole } from 'src/enums/role.enum';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { VaccinationAppointmentServices } from 'src/vaccination-appointment/vaccination-appointment.services';
+import { VaccineAppointmentUpdateDto } from 'src/vaccination-appointment/dto/vaccine-appointment-update.dto';
+import { VaccinationprofileServices } from 'src/vaccination-profile/vaccination-profile.services';
+import { VaccineReservationServices } from 'src/vaccine-reservation/vaccine-reservation.services';
+import { VaccinationProfileCreateDto } from 'src/vaccination-profile/dto/vaccination-profile-create.dto';
+import { DuplicatePropertiesFilter } from 'src/filters/dulicate-properties.filters';
+import { UserRepository } from '../user.repository';
+import { UserCreateDto } from '../dto/user-create.dto';
 
 @ApiBearerAuth()
 @ApiTags('admin')
-@Roles(ERole.ADMIN)
 @Controller('admin')
-export class AdminController{
+export class AdminController {
     constructor(
         private readonly userServices: UserServices,
         private readonly vaccinationAppointmentServices: VaccinationAppointmentServices,
         private readonly vaccinationProfileServices: VaccinationprofileServices,
         private readonly vaccinationReservationServices: VaccineReservationServices,
-    ){}
+        private readonly userRepository: UserRepository
+    ) {}
 
     @Get('users')
-    async getAllUser(){
-        return this.userServices.findAll()
+    @Roles([ERole.ADMIN, ERole.STAFF])
+    async getAllUser() {
+        return this.userServices.findAll();
     }
 
     @Get('profiles')
-    async getAllProfile(){
-        return this.vaccinationProfileServices.getAllProfile()
+    @Roles([ERole.ADMIN, ERole.STAFF])
+    async getAllProfile() {
+        return this.vaccinationProfileServices.getAllProfile();
+    }
+
+    @Post('create/profile')
+    @UseFilters(DuplicatePropertiesFilter)
+    @Roles([ERole.ADMIN, ERole.STAFF])
+    async adminCreateProfile(
+        @Body() profileCreateDto: VaccinationProfileCreateDto
+    ) {
+        return this.vaccinationProfileServices.createProfile(profileCreateDto);
+    }
+
+    @Post('create/staff')
+    @UseFilters(DuplicatePropertiesFilter)
+    @Roles([ERole.ADMIN])
+    async adminCreateStaff(@Body() userCreateDto: UserCreateDto) {
+        return await this.userRepository.create(userCreateDto);
     }
 
     @Get('reservation')
-    async getReservationByEmail(@Query('email') email: string){
-        return this.vaccinationReservationServices.getAllByEmail(email)
+    @Roles([ERole.ADMIN, ERole.STAFF])
+    async getReservationByEmail(@Query('email') email: string) {
+        return this.vaccinationReservationServices.getAllByEmail(email);
     }
 
     @Put('update/appointment/:id')
-    async updateAppointment(@Param('id') id: string, @Body() updateDto: VaccineAppointmentUpdateDto){
-        return this.vaccinationAppointmentServices.update(Number.parseInt(id), updateDto)
+    @Roles([ERole.ADMIN, ERole.STAFF])
+    async updateAppointment(
+        @Param('id') id: string,
+        @Body() updateDto: VaccineAppointmentUpdateDto
+    ) {
+        return this.vaccinationAppointmentServices.update(
+            Number.parseInt(id),
+            updateDto
+        );
     }
 }

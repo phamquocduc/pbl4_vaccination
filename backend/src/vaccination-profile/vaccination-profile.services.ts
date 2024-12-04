@@ -30,6 +30,12 @@ export class VaccinationprofileServices {
         return await this.vaccinationprofileRepository.create(createDto, user);
     }
 
+    async createProfile(
+        createDto: VaccinationProfileCreateDto
+    ): Promise<VaccinationProfile> {
+        return await this.vaccinationprofileRepository.createProfile(createDto);
+    }
+
     async updateProfileById(
         id: number,
         updateDto: UpdateVaccinationProfileDto
