@@ -80,7 +80,10 @@ export class VaccinereservationRepository {
                     user: { id: id },
                 },
                 relations: {
-                    appointments: true,
+                    appointments: {
+                        vaccine: true,
+                        vaccinationCenter: true,
+                    },
                     vaccinationCenter: true,
                     vaccines: true,
                     profile: true,
@@ -92,6 +95,10 @@ export class VaccinereservationRepository {
                         nextAppointmentDate: true,
                         isCompleted: true,
                         vaccine: {
+                            id: true,
+                            name: true,
+                        },
+                        vaccinationCenter: {
                             id: true,
                             name: true,
                         },
@@ -128,7 +135,7 @@ export class VaccinereservationRepository {
     ): Promise<VaccineReservation[] | null> {
         return await this.vaccinereservationRepository.find({
             where: {
-                user: { email: email },
+                profile: { email: email },
             },
             relations: {
                 appointments: true,
@@ -137,5 +144,27 @@ export class VaccinereservationRepository {
                 profile: true,
             },
         });
+    }
+
+    async deleteReservationTimeOutById(id: number): Promise<any> {
+        const reservation = await this.vaccinereservationRepository.findOne({
+            where: { id: id },
+        });
+
+        if (!reservation) {
+            throw new CustomAppException(
+                createExceptionMessage(
+                    ExceptionEnum.VACCINE_RESERVATION_NOT_EXIT
+                ),
+                HttpStatus.BAD_REQUEST
+            );
+        } else if (reservation.isPaid === false) {
+            await this.vaccinereservationRepository.delete(reservation.id);
+        }
+
+        return {
+            code: 102,
+            message: 'delete success',
+        };
     }
 }

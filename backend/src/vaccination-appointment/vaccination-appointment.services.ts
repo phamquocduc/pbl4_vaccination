@@ -37,4 +37,10 @@ export class VaccinationAppointmentServices {
             appointmentUpdateDto
         );
     }
+
+    async getAppointmentByEmail(
+        email: string
+    ): Promise<VaccinationAppointment[] | null> {
+        return await this.vaccinationAppointmentRepository.findByEmail(email);
+    }
 }

@@ -67,6 +67,12 @@ export class AdminController {
         return this.vaccinationReservationServices.getAllByEmail(email);
     }
 
+    @Get('appointment')
+    @Roles([ERole.ADMIN, ERole.STAFF])
+    async getAppointmentByEmail(@Query('email') email: string) {
+        return this.vaccinationAppointmentServices.getAppointmentByEmail(email);
+    }
+
     @Put('update/appointment/:id')
     @Roles([ERole.ADMIN, ERole.STAFF])
     async updateAppointment(

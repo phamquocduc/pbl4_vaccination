@@ -84,4 +84,37 @@ export class VaccinationAppointmentRepository {
 
         return await this.VaccinationAppointmentRepository.save(appointment);
     }
+
+    async findByEmail(email: string): Promise<VaccinationAppointment[] | null> {
+        const appointments = await this.VaccinationAppointmentRepository.find({
+            where: {
+                reservation: {
+                    profile: {
+                        email: email,
+                    },
+                },
+            },
+            relations: {
+                vaccinationCenter: true,
+                vaccine: true,
+                reservation: true,
+            },
+            select: {
+                vaccinationCenter: {
+                    id: true,
+                    name: true,
+                    address: true,
+                },
+                vaccine: {
+                    id: true,
+                    name: true,
+                },
+                reservation: {
+                    id: true,
+                },
+            },
+        });
+
+        return appointments;
+    }
 }
