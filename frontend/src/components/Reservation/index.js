@@ -17,107 +17,24 @@ import { faPenToSquare, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 
 const cx = classNames.bind(styles);
 
-function Reservation() {
+function Reservation({ reservation }) {
     return (
         <div className={cx('card-reservation')}>
-            <div className={cx('card-body')}>
-                <div className={cx('info-card')}>
-                    <ul className={cx('list-items')}>
-                        <li style={{ display: 'flex' }}>
-                            <div className={cx('card-item')}>
-                                <div className={cx('ant-space')}>
-                                    <FontAwesomeIcon icon={faCircleUser} className={cx('icon-card')} />
-                                    <div className={cx('title-card')}>Họ và tên:</div>
-                                </div>
-                                <div className={cx('content-card')} style={{ color: '#00B5F1' }}>
-                                    a
-                                </div>
-                            </div>
-                            <div className={cx('card-item')}>
-                                <div className={cx('ant-space')}>
-                                    <FontAwesomeIcon icon={faHandshake} className={cx('icon-card')} />
-                                    <div className={cx('title-card')}>Giới tính:</div>
-                                </div>
-                                <div className={cx('content-card')}>a</div>
-                            </div>
-                        </li>
-
-                        <li style={{ display: 'flex' }}>
-                            <div className={cx('card-item')}>
-                                <div className={cx('ant-space')}>
-                                    <FontAwesomeIcon icon={faCakeCandles} className={cx('icon-card')} />
-                                    <div className={cx('title-card')}>Ngày Sinh:</div>
-                                </div>
-                                <div className={cx('content-card')}>a </div>
-                            </div>
-                            <div className={cx('card-item')}>
-                                <div className={cx('ant-space')}>
-                                    <FontAwesomeIcon icon={faPhone} className={cx('icon-card')} />
-                                    <div className={cx('title-card')}>Số điện thoại:</div>
-                                </div>
-                                <div className={cx('content-card')}>a</div>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div className={cx('card-item')}>
-                                <div className={cx('ant-space')}>
-                                    <FontAwesomeIcon icon={faMapLocationDot} className={cx('icon-card')} />
-                                    <div className={cx('title-card')}>Địa chỉ:</div>
-                                </div>
-                                <div className={cx('content-card')}>a</div>
-                            </div>
-                        </li>
-                    </ul>
+            <div className={cx('card-reservation-header')}>
+                <span>
+                    Mã phiếu: <strong>T2412060BZ0AY</strong>
+                </span>
+                <button className={cx('cancel-button')}>Đã hủy</button>
+            </div>
+            <div className={cx('card-reservation-body')}>
+                <h3>ÔNG BẢO</h3>
+                <div className={cx('hospital-info')}>
+                    <span className={cx('hospital-icon')}>🏥</span>
+                    <span>BỆNH VIỆN VŨNG TÀU</span>
                 </div>
-                <div className={cx('info-card-bottom', 'bottom')}>
-                    <ul className={cx('list-items')}>
-                        <li style={{ display: 'flex' }}>
-                            <div className={cx('card-item')}>
-                                <div className={cx('ant-space')}>
-                                    <FontAwesomeIcon icon={faCircleUser} className={cx('icon-card')} />
-                                    <div className={cx('title-card')}>Họ và tên:</div>
-                                </div>
-                                <div className={cx('content-card')} style={{ color: '#00B5F1' }}>
-                                    a
-                                </div>
-                            </div>
-                            <div className={cx('card-item')}>
-                                <div className={cx('ant-space')}>
-                                    <FontAwesomeIcon icon={faHandshake} className={cx('icon-card')} />
-                                    <div className={cx('title-card')}>Giới tính:</div>
-                                </div>
-                                <div className={cx('content-card')}>a</div>
-                            </div>
-                        </li>
-
-                        <li style={{ display: 'flex' }}>
-                            <div className={cx('card-item')}>
-                                <div className={cx('ant-space')}>
-                                    <FontAwesomeIcon icon={faCakeCandles} className={cx('icon-card')} />
-                                    <div className={cx('title-card')}>Ngày Sinh:</div>
-                                </div>
-                                <div className={cx('content-card')}>a </div>
-                            </div>
-                            <div className={cx('card-item')}>
-                                <div className={cx('ant-space')}>
-                                    <FontAwesomeIcon icon={faPhone} className={cx('icon-card')} />
-                                    <div className={cx('title-card')}>Số điện thoại:</div>
-                                </div>
-                                <div className={cx('content-card')}>a</div>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div className={cx('card-item')}>
-                                <div className={cx('ant-space')}>
-                                    <FontAwesomeIcon icon={faMapLocationDot} className={cx('icon-card')} />
-                                    <div className={cx('title-card')}>Địa chỉ:</div>
-                                </div>
-                                <div className={cx('content-card')}>a</div>
-                            </div>
-                        </li>
-                    </ul>
+                <div className={cx('service-info')}>
+                    <span className={cx('service-icon')}>➕</span>
+                    <span>Dịch vụ: Tiêm chủng Não mô cầu BC</span>
                 </div>
             </div>
         </div>

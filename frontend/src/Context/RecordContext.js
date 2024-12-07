@@ -4,6 +4,9 @@ import axios from 'axios';
 const RecordContext = createContext();
 
 function RecordProvider({ children }) {
+    // Lấy role
+    const userRole = localStorage.getItem('userRole');
+
     // Tạo mảng để lưu giá trị của mỗi record
     const [records, setRecords] = useState([]);
 
@@ -15,8 +18,13 @@ function RecordProvider({ children }) {
                 console.error('Không tìm thấy token. Người dùng chưa đăng nhập.');
                 return;
             }
-            // Giả sử bạn dùng API để lấy dữ liệu
-            const response = await axios.get('http://localhost:3000/user/vaccination-profiles', {
+            // Dùng API để lấy dữ liệu
+            const url =
+                userRole === 'user'
+                    ? 'http://localhost:3000/user/vaccination-profiles'
+                    : 'http://localhost:3000/admin/profiles';
+
+            const response = await axios.get(url, {
                 headers: {
                     Authorization: `Bearer ${token}`, // Thêm token vào header
                 },
@@ -28,6 +36,7 @@ function RecordProvider({ children }) {
             console.error('Lỗi khi lấy dữ liệu:', error);
         }
     };
+
     useEffect(() => {
         fetchRecords();
     }, []);

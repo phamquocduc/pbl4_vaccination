@@ -14,7 +14,7 @@ function RecordList() {
     const userRole = localStorage.getItem('userRole');
 
     const { records } = useContext(RecordContext);
-    console.log(records);
+    console.log(userRole);
 
     return (
         <div className="recordList-wrapper">

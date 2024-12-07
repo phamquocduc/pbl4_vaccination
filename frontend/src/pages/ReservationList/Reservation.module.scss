@@ -14,5 +14,61 @@
     }
 }
 
+.wrapper-botton {
+    ul {
+        list-style: none;
+        align-items: center;
+        overflow-x: auto;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .selectionButton {
+        display: flex;
+        padding: 8px 16px;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border-radius: 50px;
+        width: -moz-fit-content;
+        width: fit-content;
+        height: 39px;
+        min-width: 145px;
+        background: #eeeff0;
+        border: 1px solid transparent;
+        text-transform: none;
+    }
+    .selectionButton:hover {
+        border: 1px solid #11a2f3;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.24);
+    }
+
+    h2 {
+        color: #003553;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 550;
+        line-height: normal;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0;
+    }
+    .selectionButton.active {
+        background: linear-gradient(90deg, #47bfff, #00aaff);
+        color: #fff;
+        border-color: #00aaff;
+        h2 {
+            color: #fff;
+        }
+    }
+}
+// .selectionButton:focus {
+//     color: #fff;
+//     border-color: #47bfff;
+//     background: #47bfff;
+// }
+
 .reservationList-card {
 }

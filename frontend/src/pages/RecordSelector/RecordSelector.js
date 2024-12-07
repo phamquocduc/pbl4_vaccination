@@ -84,7 +84,9 @@ function RecordSelector() {
                                     <FontAwesomeIcon icon={faCakeCandles} className={cx('icon-card')} />
                                     <div className={cx('title-card')}>Ngày Sinh:</div>
                                 </div>
-                                <div className={cx('content-card')}>{record.dob} </div>
+                                <div className={cx('content-card')}>
+                                    {record.dateOfBirth ? new Date(record.dateOfBirth).toISOString().split('T')[0] : ''}{' '}
+                                </div>
                             </div>
 
                             <div className={cx('card-item')}>

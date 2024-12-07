@@ -24,18 +24,16 @@ function CreateRecord() {
 
     //  Lưu thông tin từ các input
     const [formData, setFormData] = useState({
-        name: myRecord?.fullName || '', // Nếu `myRecord` tồn tại, lấy giá trị `fullName`, ngược lại là ''
-        dob: /*myRecord?.dateOfBirth || '',*/ myRecord
-            ? new Date(myRecord.dateOfBirth).toISOString().split('T')[0]
-            : '',
+        fullName: myRecord?.fullName || '', // Nếu `myRecord` tồn tại, lấy giá trị `fullName`, ngược lại là ''
+        dateOfBirth: myRecord ? new Date(myRecord.dateOfBirth).toISOString().split('T')[0] : '',
         relationship: myRecord?.relationship || '',
         gender: myRecord?.gender || '',
         phone: myRecord?.phone || '',
         email: myRecord?.email || '',
-        province: '',
-        district: '',
-        ward: '',
-        address: '',
+        // province: '',
+        // district: '',
+        // ward: '',
+        address: myRecord?.address || '',
     });
 
     //xử lý thay đổi trong các input
@@ -51,24 +49,91 @@ function CreateRecord() {
         e.preventDefault();
         // Kết nối với Database
         console.log('Lưu vào Database:', formData);
+        {
+            userRole == 'admin' && handleEdit == '' ? createProfile(formData) : updateProfile(1, formData);
+        }
         alert('Thông tin đã được lưu thành công!');
-        // Chỗ ni là đoạn làm việc với data nè
     };
 
     // xử lý khi nhấn nút "Nhập lại"
     const handleReset = () => {
         setFormData({
-            name: '',
-            dob: '',
+            fullName: '',
+            dateOfBirth: '',
             relationship: '',
             gender: '',
             phone: '',
             email: '',
-            province: '',
-            district: '',
-            ward: '',
+            // province: '',
+            // district: '',
+            // ward: '',
             address: '',
         });
+    };
+
+    // UpdateProfile
+    const updateProfile = async (id, profileData) => {
+        try {
+            const token = localStorage.getItem('authToken'); // Lấy token từ localStorage
+            if (!token) {
+                console.error('Không tìm thấy token. Người dùng chưa đăng nhập.');
+                return;
+            }
+
+            const response = await axios.put(
+                // `http://localhost:3000/user/update-vaccination-profile/${id}`,
+                'http://localhost:3000/user/update-vaccination-profile/1',
+                profileData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Thêm token vào header để xác thực
+                        // 'Content-Type': 'application/json', // Định nghĩa kiểu dữ liệu gửi đi
+                    },
+                },
+            );
+
+            console.log('Cập nhật thành công:', response.data);
+            alert('Cập nhật hồ sơ thành công!');
+            return response.data; // Trả về dữ liệu nếu cần sử dụng
+        } catch (error) {
+            if (error.response) {
+                console.error('Lỗi từ server:', error.response.data);
+                alert(`Lỗi cập nhật hồ sơ: ${error.response.data.message}`);
+            } else {
+                console.error('Lỗi kết nối:', error.message);
+                alert('Không thể kết nối đến server.');
+            }
+        }
+    };
+
+    // Hàm tạo profile của admin
+    const createProfile = async (profileData) => {
+        try {
+            const token = localStorage.getItem('authToken'); // Lấy token từ localStorage
+            if (!token) {
+                console.error('Không tìm thấy token. Người dùng chưa đăng nhập.');
+                return;
+            }
+
+            const response = await axios.post('http://localhost:3000/admin/create/profile', profileData, {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Thêm token vào header để xác thực
+                    'Content-Type': 'application/json', // Định nghĩa kiểu dữ liệu gửi đi
+                },
+            });
+
+            console.log('Tạo profile thành công:', response.data);
+            alert('Tạo profile thành công!');
+            return response.data; // Trả về dữ liệu nếu cần sử dụng
+        } catch (error) {
+            if (error.response) {
+                console.error('Lỗi từ server:', error.response.data);
+                alert(`Lỗi tạo profile: ${error.response.data.message}`);
+            } else {
+                console.error('Lỗi kết nối:', error.message);
+                alert('Không thể kết nối đến server.');
+            }
+        }
     };
 
     return (
@@ -83,12 +148,13 @@ function CreateRecord() {
             <div className={cx('form-row')}>
                 <div className={cx('form-group')}>
                     <label>Tên:</label>
-                    <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+                    <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} required />
                 </div>
                 <div className={cx('form-group')}>
                     <label>Quan hệ:</label>
 
                     <select name="relationship" value={formData.relationship} onChange={handleChange} required>
+                        <option value="Mối quan hệ">Mối quan hệ</option>
                         <option value="Bản thân">Bản thân</option>
                         {/* <option value="Con">Con</option>
                         <option value="Ba/Mẹ">Ba/Mẹ</option>
@@ -101,11 +167,18 @@ function CreateRecord() {
             <div className={cx('form-row')}>
                 <div className={cx('form-group')}>
                     <label>Ngày tháng năm sinh:</label>
-                    <input type="date" name="dob" value={formData.dob} onChange={handleChange} required />
+                    <input
+                        type="date"
+                        name="dateOfBirth"
+                        value={formData.dateOfBirth}
+                        onChange={handleChange}
+                        required
+                    />
                 </div>
                 <div className={cx('form-group')}>
                     <label>Giới tính:</label>
                     <select name="gender" value={formData.gender} onChange={handleChange} required>
+                        <option value="Giới tính">Chọn giới tính</option>
                         <option value="Nam">Nam</option>
                         <option value="Nữ">Nữ</option>
                     </select>
@@ -124,21 +197,21 @@ function CreateRecord() {
             </div>
 
             <div className={cx('form-row')}>
-                <div className={cx('form-group')}>
+                {/* <div className={cx('form-group')}>
                     <label>Tỉnh/Thành:</label>
                     <input type="text" name="province" value={formData.province} onChange={handleChange} required />
                 </div>
                 <div className={cx('form-group')}>
                     <label>Quận/Huyện:</label>
                     <input type="text" name="district" value={formData.district} onChange={handleChange} required />
-                </div>
+                </div> */}
             </div>
 
             <div className={cx('form-row')}>
-                <div className={cx('form-group')}>
+                {/* <div className={cx('form-group')}>
                     <label>Phường/Xã:</label>
                     <input type="text" name="ward" value={formData.ward} onChange={handleChange} required />
-                </div>
+                </div> */}
                 <div className={cx('form-group')}>
                     <label>Địa chỉ:</label>
                     <input name="address" value={formData.address} onChange={handleChange} required />
@@ -151,6 +224,7 @@ function CreateRecord() {
                 ) : (
                     <button type="submit">Cập nhập</button>
                 )}
+
                 <button type="button" onClick={handleReset}>
                     Nhập lại
                 </button>

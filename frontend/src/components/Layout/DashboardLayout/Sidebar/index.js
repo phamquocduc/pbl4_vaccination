@@ -7,19 +7,46 @@ import styles from './Sidebar.module.scss';
 const cx = classNames.bind(styles);
 
 function Sidebar() {
-    const roll = 'admin';
+    // Lấy role
+    const userRole = localStorage.getItem('userRole');
 
     return (
         <div className={cx('sidebar')}>
-            <div className={cx('btn-buy')}>
-                <button className={cx('sidebar-button')}>
-                    <Link to="/vaccinereg">
-                        <span className={cx('icon')}>💉 </span> Đăng kí tiêm vắc xin
-                    </Link>
-                </button>
-            </div>
+            {userRole != 'admin' ? (
+                <div className={cx('btn-buy')}>
+                    <button className={cx('sidebar-button')}>
+                        <Link to="/vaccinereg">
+                            <span className={cx('icon')}>💉 </span> Đăng kí tiêm vắc xin
+                        </Link>
+                    </button>
+                </div>
+            ) : (
+                <div>
+                    <div className={cx('btn-buy')}>
+                        <button className={cx('sidebar-button')}>
+                            <Link to="/adminVaccine">
+                                <span className={cx('icon')}>💉 </span> Danh sách vắc xin
+                            </Link>
+                        </button>
+                    </div>
+                    <div className={cx('btn-buy')}>
+                        <button className={cx('sidebar-button')}>
+                            <Link to="/adminEmployee">
+                                <span className={cx('icon')}>👨‍💼 </span> Danh sách nhân viên
+                            </Link>
+                        </button>
+                    </div>
+                    <div className={cx('btn-buy')}>
+                        <button className={cx('sidebar-button')}>
+                            <Link to="/adminHospital">
+                                <span className={cx('icon')}>🏥 </span> Danh sách bệnh viện
+                            </Link>
+                        </button>
+                    </div>
+                </div>
+            )}
 
-            {roll ? (
+            {userRole == 'admin' ? (
                 <div className={cx('btn-add')}>
                     <button className={cx('sidebar-button')}>
                         <Link to="/createRecord">
@@ -28,10 +55,16 @@ function Sidebar() {
                     </button>
                 </div>
             ) : (
-                <div></div>
+                <div className={cx('btn-add')}>
+                    <button className={cx('sidebar-button')}>
+                        <Link to="/createRecord">
+                            <span className={cx('icon')}>➕ </span> Thêm hồ sơ
+                        </Link>
+                    </button>
+                </div>
             )}
 
-            {roll ? (
+            {userRole ? (
                 <div className={cx('btn-recordList')}>
                     <button className={cx('sidebar-button')}>
                         <Link to="/recordList">
@@ -43,7 +76,7 @@ function Sidebar() {
                 <div></div>
             )}
 
-            {roll ? (
+            {userRole ? (
                 <div className={cx('btn-appointmentCards')}>
                     <button className={cx('sidebar-button')}>
                         <Link to="/reservationlist">

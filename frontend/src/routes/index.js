@@ -22,6 +22,12 @@ import RecordSelector from '~/pages/RecordSelector/RecordSelector';
 import ConfirmInformation from '~/pages/ConfirmInformationPage';
 import ReturnPage from '~/pages/ReturnPage';
 
+//AdminPage
+import AdminVaccine from '~/pages/AdminPage/AdminVaccine';
+import AddEditVaccine from '~/pages/AdminPage/AddEditVaccine';
+import AdminHospital from '~/pages/AdminPage/AdminHospital';
+import AdminEmployee from '~/pages/AdminPage/AdminEmployee';
+
 const publicRoutes = [
     // { path: '/', component: Home, layout: LoginLayout },
     // { path: '/following', component: Following },
@@ -42,6 +48,11 @@ const publicRoutes = [
     { path: '/recordSelector', component: RecordSelector, layout: LoginLayout },
     { path: '/confirmInformation', component: ConfirmInformation },
     { path: '/returnPage', component: ReturnPage, layout: LoginLayout },
+    //AdminPage
+    { path: '/adminVaccine', component: AdminVaccine, layout: DashboardLayout },
+    { path: '/addEditVaccine', component: AddEditVaccine, layout: DashboardLayout },
+    { path: '/adminHospital', component: AdminHospital, layout: DashboardLayout },
+    { path: '/adminEmployee', component: AdminEmployee, layout: DashboardLayout },
 ];
 
 const privateRoutes = [];

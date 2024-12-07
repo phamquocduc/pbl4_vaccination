@@ -1,91 +1,62 @@
 .card-reservation {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-radius: 16px;
-    background: #fff;
-    box-shadow: 4px 8px 30px 0 rgba(177, 196, 218, 0.35);
-    border: 1px solid #eaeaea;
-    overflow: hidden;
+    background-color: #e6f7e6;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    max-width: 600px;
+    margin: 16px auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.card-body {
-    width: 100%;
-    position: relative;
-}
-
-.info-card {
-    ul {
-        list-style: none;
-        padding: 0 20px 20px;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        line-height: 1.5;
-    }
-}
-
-.list-items {
-    li {
-        align-items: flex-start;
-        width: 100%;
-    }
-}
-
-.card-item {
+/* Header */
+.card-reservation-header {
     display: flex;
-    width: 100%;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    color: #003553;
-    margin-bottom: 12px;
-    gap: 10px;
-}
-.ant-space {
-    align-items: flex-start;
-    display: flex;
+    justify-content: space-between; /* Tách hai phần sang hai phía */
     align-items: center;
+    margin-bottom: 12px; /* Khoảng cách dưới */
     font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    color: #003553;
+    color: #333;
 
-    gap: 8px;
+    .cancel-button {
+        background-color: #f2f2f2; /* Nút nhạt */
+        color: #999; /* Màu chữ xám */
+        border: none;
+        padding: 6px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        cursor: not-allowed; /* Biểu tượng không bấm được */
+    }
 }
-.icon-card {
-    color: rgb(177, 177, 177);
-    margin-right: 5px;
-    display: flex;
-    align-items: center;
+.card-reservation-header strong {
+    color: #0056b3; /* Màu xanh đậm */
 }
-.title-card {
-    color: rgb(0, 53, 83);
-    min-width: 60px !important;
-}
-.content-card {
-    font-weight: 550;
-}
-//
 
-.card-reservation-bottom {
-    display: flex;
+/* Body */
+.card-reservation-body {
+    background-color: #d6eaff; /* Màu xanh nhạt */
+    border: 1px dashed #6faed9; /* Viền nét đứt */
+    padding: 12px;
+    border-radius: 8px; /* Bo góc trong */
 
-    background: #f5f5f5;
-    transition: all 0.23s ease;
+    h3 {
+        margin: 0 0 8px 0;
+        font-size: 18px;
+        color: #333;
+        font-weight: bold;
+    }
 
-    button {
-        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
-        padding: 8px 0;
+    .hospital-info,
+    .service-info {
         display: flex;
-        font-size: 1.3rem;
-        gap: 5px;
+        align-items: center;
+        font-size: 14px;
+        color: #5a5a5a;
+        margin-top: 8px;
     }
 
-    .btn-delete {
-        color: #ff3b30;
-    }
-    .btn-edit {
-        color: #00b5f1;
+    .hospital-icon,
+    .service-icon {
+        margin-right: 8px; /* Khoảng cách giữa icon và text */
+        font-size: 16px;
     }
 }
