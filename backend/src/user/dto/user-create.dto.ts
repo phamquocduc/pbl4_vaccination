@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsOptional, IsString, MinLength } from 'class-validator';
 import {
     createExceptionMessage,
     ExceptionEnum,
@@ -41,5 +41,6 @@ export class UserCreateDto {
         example: ERole.STAFF,
     })
     @IsString()
+    @IsOptional()
     role?: ERole;
 }
