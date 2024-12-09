@@ -9,6 +9,7 @@ import { SelectedVaccinesProvider } from '~/Context/SelectedVaccinesContext';
 import { SelectVaccinesProvider } from '~/Context/SelectVaccinesContext';
 
 import { VaccineProvider } from '~/Context/VaccineContext';
+import { ReservationProvider } from '~/Context/ReservationContext';
 import AppProvider from '~/Context/AppProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -16,13 +17,15 @@ root.render(
     <GlobalStyles>
         <UserProvider>
             <SelectVaccinesProvider>
-                <SelectedVaccinesProvider>
-                    <RecordProvider>
-                        <VaccineProvider>
-                            <App />
-                        </VaccineProvider>
-                    </RecordProvider>
-                </SelectedVaccinesProvider>
+                <ReservationProvider>
+                    <SelectedVaccinesProvider>
+                        <RecordProvider>
+                            <VaccineProvider>
+                                <App />
+                            </VaccineProvider>
+                        </RecordProvider>
+                    </SelectedVaccinesProvider>
+                </ReservationProvider>
             </SelectVaccinesProvider>
         </UserProvider>
     </GlobalStyles>,

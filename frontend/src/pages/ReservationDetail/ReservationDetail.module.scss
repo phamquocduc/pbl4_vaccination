@@ -1,0 +1,206 @@
+.wrapper-ReservationDetail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 100vh;
+}
+.container-ReservationDetail {
+    .card {
+        background: white;
+        width: 500px;
+        border-radius: 16px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        position: relative;
+
+        .wrapperButton {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .rePayButton {
+                display: flex;
+                padding: 8px 16px;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50px;
+                color: #fff;
+                width: -moz-fit-content;
+                width: fit-content;
+                height: 39px;
+                min-width: 145px;
+                background: #a2010b;
+                border: 1px solid transparent;
+                text-transform: none;
+                text-align: center;
+                margin-top: 0px;
+            }
+        }
+    }
+
+    .card-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .card-header h2 {
+        margin: 0;
+        font-size: 1.5em;
+        color: #333;
+    }
+
+    .hospital-name {
+        font-weight: bold;
+        margin: 10px 0 5px;
+    }
+
+    .hospital-address {
+        font-size: 0.9em;
+        color: #777;
+    }
+
+    .status-button {
+        background-color: #dcdcdc;
+        color: #555;
+        border: none;
+        border-radius: 12px;
+        padding: 5px 10px;
+        font-size: 0.9em;
+        cursor: default;
+    }
+
+    .card-body {
+        margin-top: 10px;
+    }
+
+    .info-group {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 0;
+    }
+
+    .info-group span {
+        font-size: 0.9em;
+    }
+
+    .info-group span:first-child {
+        font-weight: bold;
+    }
+}
+
+//
+
+.Paid {
+    //justify-content: unset;
+    align-items: unset;
+    margin-left: 30px;
+
+    .card {
+        background: white;
+        width: 800px;
+        //width: fit-content;
+        border-radius: 16px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 15px;
+        position: relative;
+
+        .wrapperButton {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .rePayButton {
+                display: flex;
+                padding: 8px 16px;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50px;
+                color: #fff;
+                width: -moz-fit-content;
+                width: fit-content;
+                height: 39px;
+                min-width: 145px;
+                background: #a2010b;
+                border: 1px solid transparent;
+                text-transform: none;
+                text-align: center;
+                margin-top: 0px;
+            }
+        }
+    }
+
+    .card-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .card-header h2 {
+        margin: 0;
+        font-size: 1.5em;
+        color: #333;
+    }
+
+    .hospital-name {
+        font-weight: bold;
+        margin: 10px 0 5px;
+    }
+
+    .hospital-address {
+        font-size: 0.9em;
+        color: #777;
+    }
+
+    .status-button {
+        background-color: #09b200;
+        color: #ffff;
+        border: none;
+        border-radius: 12px;
+        padding: 5px 10px;
+        font-size: 0.9em;
+        cursor: default;
+    }
+
+    .card-body {
+        margin-top: 10px;
+    }
+
+    .info-group {
+        display: flex;
+        justify-content: space-between;
+        padding: 1px 0;
+    }
+
+    .info-group span {
+        font-size: 0.9em;
+    }
+
+    .info-group span:first-child {
+        font-weight: bold;
+    }
+
+    .button-group {
+        display: flex;
+        justify-content: flex-end;
+        //gap: 20px;
+        //padding: 12px 20px;
+
+        transition: all 0.23s ease;
+        .btnCompleted {
+            text-transform: none;
+            color: #fff;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            margin-top: 8px;
+            padding: 8px;
+            display: flex;
+            font-size: 1.5rem;
+            cursor: pointer; /* Con trỏ khi hover */
+            transition: all 0.3s ease; /* Hiệu ứng chuyển động mượt mà */
+            background: linear-gradient(83.63deg, #00b5f1 33.34%, #00e0ff 113.91%) !important;
+            border-radius: 13px;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+        }
+    }
+}

@@ -14,6 +14,7 @@ import BookingDatePage from '~/pages/BookingDatePage';
 import CreateRecord from '~/pages/CreateRecord';
 import RecordList from '~/pages/RecordList';
 import ReservationList from '~/pages/ReservationList';
+import ReservationDetail from '~/pages/ReservationDetail';
 
 import Record from '~/components/Record';
 import Reservation from '~/components/Reservation';
@@ -26,7 +27,9 @@ import ReturnPage from '~/pages/ReturnPage';
 import AdminVaccine from '~/pages/AdminPage/AdminVaccine';
 import AddEditVaccine from '~/pages/AdminPage/AddEditVaccine';
 import AdminHospital from '~/pages/AdminPage/AdminHospital';
+import AddEditHospital from '~/pages/AdminPage/AddEditHospital';
 import AdminEmployee from '~/pages/AdminPage/AdminEmployee';
+import AddEditEmployee from '~/pages/AdminPage/AddEditEmployee';
 
 const publicRoutes = [
     // { path: '/', component: Home, layout: LoginLayout },
@@ -39,8 +42,9 @@ const publicRoutes = [
 
     { path: '/bookingDatePage', component: BookingDatePage },
     { path: '/createRecord', component: CreateRecord, layout: DashboardLayout /*LoginLayout */ },
-    { path: '/ReservationList', component: ReservationList, layout: DashboardLayout /*LoginLayout */ },
     { path: '/recordList', component: RecordList, layout: DashboardLayout },
+    { path: '/ReservationList', component: ReservationList, layout: DashboardLayout /*LoginLayout */ },
+    { path: '/reservationDetail', component: ReservationDetail, layout: DashboardLayout /*LoginLayout */ },
 
     { path: '/record', component: Record, layout: LoginLayout },
     { path: '/reservation', component: Reservation, layout: LoginLayout },
@@ -51,8 +55,12 @@ const publicRoutes = [
     //AdminPage
     { path: '/adminVaccine', component: AdminVaccine, layout: DashboardLayout },
     { path: '/addEditVaccine', component: AddEditVaccine, layout: DashboardLayout },
+
     { path: '/adminHospital', component: AdminHospital, layout: DashboardLayout },
+    { path: '/addEditHospital', component: AddEditHospital, layout: DashboardLayout },
+
     { path: '/adminEmployee', component: AdminEmployee, layout: DashboardLayout },
+    { path: '/addEditEmployee', component: AddEditEmployee, layout: DashboardLayout },
 ];
 
 const privateRoutes = [];

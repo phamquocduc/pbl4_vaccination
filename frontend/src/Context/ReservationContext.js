@@ -4,46 +4,78 @@ import axios from 'axios';
 const ReservationContext = createContext();
 
 function ReservationProvider({ children }) {
-    const [reservation, setReservation] = useState();
+    // Lấy role
+    const userRole = localStorage.getItem('userRole');
 
-    fetchReservation = async () => {
+    const [reservations, setReservations] = useState([]);
+
+    const token = localStorage.getItem('authToken');
+
+    if (!token) {
+        console.error('Không tìm thấy token. Chuyển hướng người dùng về trang đăng nhập.');
+        // Gợi ý: chuyển hướng về login
+        window.location.href = '/';
+        //return;
+    }
+
+    const userGetReservation = async () => {
         try {
-            const token = localStorage.getItem('authToken');
-
+            //const token = localStorage.getItem('authToken'); // Lấy token từ localStorage
             if (!token) {
                 console.error('Không tìm thấy token. Người dùng chưa đăng nhập.');
                 return;
             }
-            const response = await axios.get('http://localhost:3000/user/get-vaccine-reservations', {
+            const response = await axios.get(`http://localhost:3000/user/get-vaccine-reservations`, {
                 headers: {
-                    headers: {
-                        Authorization: `Bearer ${token}`, // Thêm token vào header
-                    },
+                    Authorization: `Bearer ${token}`, // Thêm token vào header để xác thực
                 },
             });
-            /// Lấy dữ liệu từ response
-            const data = response.data;
-            console.log('Danh sách đặt chỗ vaccine:', data);
 
-            // Duyệt qua các bản ghi và hiển thị thông tin cụ thể
-            data.forEach((reservation) => {
-                console.log(`ID: ${reservation.id}`);
-                console.log(`Ngày đặt chỗ: ${reservation.reservationDate}`);
-                console.log(`Ngày hẹn: ${reservation.appointmentDate}`);
-                console.log(`Trung tâm: ${reservation.vaccinationCenter.name}`);
-                console.log(`Tên vaccine: ${reservation.vaccines.map((vaccine) => vaccine.name).join(', ')}`);
-                console.log(`Họ và tên: ${reservation.profile.fullName}`);
-                console.log('-------------------------');
-            });
+            console.log(response.data);
+            setReservations(response.data); // Lưu dữ liệu vào state
         } catch (error) {
-            console.error('Lỗi khi gọi API:', error);
+            if (error.response) {
+                console.error('Lỗi từ server:', error.response.data);
+            } else {
+                console.error('Lỗi kết nối:', error.message);
+                alert('Không thể kết nối đến server.');
+            }
         }
     };
 
-    useEffect(() => {
-        fetchReservation();
-    }, []);
+    // const adminGetReservation = async () => {
+    //     try {
+    //         const token = localStorage.getItem('authToken'); // Lấy token từ localStorage
+    //         if (!token) {
+    //             console.error('Không tìm thấy token. Người dùng chưa đăng nhập.');
+    //             return;
+    //         }
+    //         const response = await axios.get(`http://localhost:3000/user/get-vaccine-reservations`, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`, // Thêm token vào header để xác thực
+    //             },
+    //         });
 
-    return <ReservationContext.Provider>{children}</ReservationContext.Provider>;
+    //         console.log(response.data);
+    //         setReservations(response.data); // Lưu dữ liệu vào state
+    //     } catch (error) {
+    //         if (error.response) {
+    //             console.error('Lỗi từ server:', error.response.data);
+    //         } else {
+    //             console.error('Lỗi kết nối:', error.message);
+    //             alert('Không thể kết nối đến server.');
+    //         }
+    //     }
+    // };
+
+    useEffect(() => {
+        if (userRole == 'user') {
+            userGetReservation();
+        } else if (userRole == 'admin') {
+            // adminGetReservation();
+        }
+    }, [userRole]); // Đưa userRole vào dependencies để theo dõi thay đổi
+
+    return <ReservationContext.Provider value={{ reservations }}>{children}</ReservationContext.Provider>;
 }
 export { ReservationContext, ReservationProvider };

@@ -17,7 +17,7 @@ function RecordList() {
     console.log(userRole);
 
     return (
-        <div className="recordList-wrapper">
+        <div className={cx('recordList-wrapper')}>
             <div className={cx('recordList-body')}>
                 <div className={cx('title')}>
                     <h2>Danh sách hồ sơ bệnh nhân</h2>
