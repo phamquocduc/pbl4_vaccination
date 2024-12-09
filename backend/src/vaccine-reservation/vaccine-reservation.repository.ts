@@ -138,10 +138,33 @@ export class VaccinereservationRepository {
                 profile: { email: email },
             },
             relations: {
-                appointments: true,
-                vaccines: true,
+                appointments: {
+                    vaccine: true,
+                    vaccinationCenter: true,
+                },
                 vaccinationCenter: true,
+                vaccines: true,
                 profile: true,
+            },
+            select: {
+                appointments: {
+                    id: true,
+                    appointmentDate: true,
+                    nextAppointmentDate: true,
+                    isCompleted: true,
+                    vaccine: {
+                        id: true,
+                        name: true,
+                    },
+                    vaccinationCenter: {
+                        id: true,
+                        name: true,
+                    },
+                },
+                vaccines: {
+                    id: true,
+                    name: true,
+                },
             },
         });
     }
