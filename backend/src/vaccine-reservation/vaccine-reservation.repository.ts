@@ -189,6 +189,7 @@ export class VaccinereservationRepository {
                     vaccine: {
                         id: true,
                         name: true,
+                        durationIntervals: true,
                     },
                     vaccinationCenter: {
                         id: true,
