@@ -14,7 +14,12 @@ function ReservationList() {
     // Lấy role
     const userRole = localStorage.getItem('userRole');
 
-    const { reservations } = useContext(ReservationContext);
+    const { reservations, fetchReservations } = useContext(ReservationContext);
+
+    // useEffect(() => {
+    //     // Load lại dữ liệu từ context khi vào trang
+    //     fetchReservations();
+    // }, [fetchReservations]);
 
     // Nhóm reservation theo tính chất
     const paidReservations = reservations.filter((r) => r.status === 'Đã xác nhận');
@@ -33,7 +38,7 @@ function ReservationList() {
     //     }
     // }, []);
 
-    const buttons = ['Đã thanh toán', 'Chờ thanh toán', 'Đã khám', 'Đã hủy'];
+    const buttons = ['Đã thanh toán', 'Chờ thanh toán'];
     const handleClick = (index) => {
         const key = index;
         console.log('Button clicked:', index); // Kiểm tra sự kiện click

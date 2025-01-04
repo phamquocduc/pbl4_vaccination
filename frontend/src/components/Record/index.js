@@ -118,7 +118,13 @@ function Record({ record }) {
                             });
                         }}
                     >
-                        <FontAwesomeIcon icon={faPenToSquare} /> <span> Sửa hồ sơ </span>
+                        {userRole === 'user' ? (
+                            <div>
+                                <FontAwesomeIcon icon={faPenToSquare} /> <span> Sửa hồ sơ </span>
+                            </div>
+                        ) : (
+                            <div></div>
+                        )}
                     </button>
                 </div>
             </div>

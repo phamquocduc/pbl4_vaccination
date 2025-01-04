@@ -157,6 +157,45 @@ function ReservationDetail() {
         });
     }, [finalAppointments]);
 
+    const handleCompleteAppointment = async (appointment) => {
+        try {
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                console.error('Không tìm thấy token. Người dùng chưa đăng nhập.');
+                return;
+            }
+
+            // Tính nextAppointmentDate
+            const appointmentDate = new Date();
+            const nextAppointmentDate = new Date();
+            nextAppointmentDate.setDate(appointmentDate.getDate() + appointment.vaccine.durationIntervals);
+
+            const response = await axios.put(
+                `http://localhost:3000/admin/update/appointment/${appointment.id}`,
+                {
+                    appointmentDate: appointmentDate.toISOString().split('T')[0],
+                    nextAppointmentDate: nextAppointmentDate.toISOString().split('T')[0],
+                    isCompleted: true,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                },
+            );
+
+            if (response.status === 200) {
+                alert('Cuộc hẹn đã được hoàn thành!');
+            } else {
+                alert('Có lỗi xảy ra khi cập nhật cuộc hẹn.');
+            }
+        } catch (error) {
+            console.error('Lỗi khi cập nhật cuộc hẹn:', error);
+            alert('Không thể hoàn thành cuộc hẹn. Vui lòng thử lại.');
+        }
+    };
+
     return (
         <div>
             {ReservationInfo.status == 'Chờ thanh toán' || ReservationInfo.status == 'Đã hủy' ? (
@@ -288,8 +327,17 @@ function ReservationDetail() {
                                     <div className={cx('info-group')}>
                                         <span>Ngày tiêm tiếp theo (Dự kiến):</span>
                                         <span>
-                                            {format(new Date(appointment.nextAppointmentDate), 'dd-MM-yyyy') ||
-                                                'Chưa xác định'}
+                                            {appointment.appointmentDate && appointment.vaccine?.durationIntervals
+                                                ? format(
+                                                      new Date(
+                                                          new Date(appointment.appointmentDate).setDate(
+                                                              new Date(appointment.appointmentDate).getDate() +
+                                                                  appointment.vaccine.durationIntervals,
+                                                          ),
+                                                      ),
+                                                      'dd-MM-yyyy',
+                                                  )
+                                                : 'Chưa xác định'}
                                         </span>
                                     </div>
 
@@ -324,9 +372,15 @@ function ReservationDetail() {
                                             {appointment.isCompleted ? 'Đã tiêm' : 'Chưa tiêm'}
                                         </span>
                                     </div>
-                                    {userRole === 'admin' && appointment.isCompleted == false ? (
+                                    {userRole === 'admin' ||
+                                    (userRole === 'staff' && appointment.isCompleted == false) ? (
                                         <div className={cx('button-group')}>
-                                            <button className={cx('btnCompleted')}>Hoàn thành</button>
+                                            <button
+                                                className={cx('btnCompleted')}
+                                                onClick={() => handleCompleteAppointment(appointment)}
+                                            >
+                                                Hoàn thành
+                                            </button>
                                         </div>
                                     ) : (
                                         <div></div>

@@ -43,36 +43,37 @@ function ReservationProvider({ children }) {
         }
     };
 
-    // const adminGetReservation = async () => {
-    //     try {
-    //         const token = localStorage.getItem('authToken'); // Lấy token từ localStorage
-    //         if (!token) {
-    //             console.error('Không tìm thấy token. Người dùng chưa đăng nhập.');
-    //             return;
-    //         }
-    //         const response = await axios.get(`http://localhost:3000/user/get-vaccine-reservations`, {
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`, // Thêm token vào header để xác thực
-    //             },
-    //         });
+    const adminGetReservation = async () => {
+        try {
+            const token = localStorage.getItem('authToken'); // Lấy token từ localStorage
+            if (!token) {
+                console.error('Không tìm thấy token. Người dùng chưa đăng nhập.');
+                return;
+            }
+            // API endpoint dành cho admin
+            const response = await axios.get(`http://localhost:3000/admin/reservations`, {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Thêm token vào header để xác thực
+                },
+            });
 
-    //         console.log(response.data);
-    //         setReservations(response.data); // Lưu dữ liệu vào state
-    //     } catch (error) {
-    //         if (error.response) {
-    //             console.error('Lỗi từ server:', error.response.data);
-    //         } else {
-    //             console.error('Lỗi kết nối:', error.message);
-    //             alert('Không thể kết nối đến server.');
-    //         }
-    //     }
-    // };
+            console.log(response.data);
+            setReservations(response.data); // Lưu dữ liệu vào state
+        } catch (error) {
+            if (error.response) {
+                console.error('Lỗi từ server:', error.response.data);
+            } else {
+                console.error('Lỗi kết nối:', error.message);
+                alert('Không thể kết nối đến server.');
+            }
+        }
+    };
 
     useEffect(() => {
         if (userRole == 'user') {
             userGetReservation();
         } else if (userRole == 'admin') {
-            // adminGetReservation();
+            adminGetReservation();
         }
     }, [userRole]); // Đưa userRole vào dependencies để theo dõi thay đổi
 

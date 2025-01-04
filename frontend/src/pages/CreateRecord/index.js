@@ -50,7 +50,7 @@ function CreateRecord() {
         // Kết nối với Database
         console.log('Lưu vào Database:', formData);
         {
-            userRole == 'admin' && handleEdit == '' ? createProfile(formData) : updateProfile(1, formData);
+            userRole == 'admin' && handleEdit == '' ? createProfile(formData) : updateProfile(handleEdit, formData);
         }
         alert('Thông tin đã được lưu thành công!');
     };
@@ -81,8 +81,8 @@ function CreateRecord() {
             }
 
             const response = await axios.put(
-                // `http://localhost:3000/user/update-vaccination-profile/${id}`,
-                'http://localhost:3000/user/update-vaccination-profile/1',
+                `http://localhost:3000/user/update-vaccination-profile/${id}`,
+                //'http://localhost:3000/user/update-vaccination-profile/1',
                 profileData,
                 {
                     headers: {
