@@ -324,15 +324,13 @@ function ReservationDetail() {
                                             {appointment.isCompleted ? 'Đã tiêm' : 'Chưa tiêm'}
                                         </span>
                                     </div>
-                                    {
-                                        /*userRole === 'admin' &&*/ appointment.isCompleted == false ? (
-                                            <div className={cx('button-group')}>
-                                                <button className={cx('btnCompleted')}>Hoàn thành</button>
-                                            </div>
-                                        ) : (
-                                            <div></div>
-                                        )
-                                    }
+                                    {userRole === 'admin' && appointment.isCompleted == false ? (
+                                        <div className={cx('button-group')}>
+                                            <button className={cx('btnCompleted')}>Hoàn thành</button>
+                                        </div>
+                                    ) : (
+                                        <div></div>
+                                    )}
                                 </div>
                             </div>
                         );
