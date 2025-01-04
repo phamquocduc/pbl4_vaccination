@@ -37,6 +37,10 @@ export class VaccineReservationServices {
         );
     }
 
+    async getAll(): Promise<VaccineReservation[] | null> {
+        return await this.vaccineReservationRepository.findAllReservation();
+    }
+
     async deleteById(id: number): Promise<any> {
         return await this.vaccineReservationRepository.deleteReservationTimeOutById(
             id

@@ -169,6 +169,40 @@ export class VaccinereservationRepository {
         });
     }
 
+    async findAllReservation(): Promise<VaccineReservation[] | null> {
+        return await this.vaccinereservationRepository.find({
+            relations: {
+                appointments: {
+                    vaccine: true,
+                    vaccinationCenter: true,
+                },
+                vaccinationCenter: true,
+                vaccines: true,
+                profile: true,
+            },
+            select: {
+                appointments: {
+                    id: true,
+                    appointmentDate: true,
+                    nextAppointmentDate: true,
+                    isCompleted: true,
+                    vaccine: {
+                        id: true,
+                        name: true,
+                    },
+                    vaccinationCenter: {
+                        id: true,
+                        name: true,
+                    },
+                },
+                vaccines: {
+                    id: true,
+                    name: true,
+                },
+            },
+        });
+    }
+
     async deleteReservationTimeOutById(id: number): Promise<any> {
         const reservation = await this.vaccinereservationRepository.findOne({
             where: { id: id },

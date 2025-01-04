@@ -67,6 +67,12 @@ export class AdminController {
         return await this.userRepository.create(userCreateDto);
     }
 
+    @Get('reservations')
+    @Roles([ERole.ADMIN, ERole.STAFF])
+    async getAllReservation() {
+        return this.vaccinationReservationServices.getAll();
+    }
+
     @Get('reservation')
     @Roles([ERole.ADMIN, ERole.STAFF])
     async getReservationByEmail(@Query('email') email: string) {
