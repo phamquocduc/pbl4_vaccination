@@ -1,23 +1,35 @@
-import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import classNames from 'classnames/bind';
 import styles from './AdminHospital.module.scss';
-
-//import { HospitalContext } from '~/Context/HospitalContext';
 
 const cx = classNames.bind(styles);
 
 function AdminHospital() {
-    //const { hospitals } = useContext(HospitalContext); // Lấy danh sách bệnh viện từ Context
     const navigate = useNavigate();
-    const [hospitals, setHospitals] = useState([
-        {
-            name: 'VCN Đà Nẵng',
-            address: 'Hải Châu, Đà Nẵng',
-            phone: '0111222333',
-            capacity: 200,
-        },
-    ]);
+
+    const [hospitals, setHospitals] = useState([]);
+
+    // Lấy danh sách bệnh viện từ API
+    useEffect(() => {
+        const fetchHospitals = async () => {
+            try {
+                const token = localStorage.getItem('authToken');
+                const response = await axios.get('http://localhost:3000/vaccination-center', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        Accept: '*/*',
+                    },
+                });
+                setHospitals(response.data);
+            } catch (error) {
+                console.error('Lỗi khi lấy danh sách bệnh viện:', error);
+                alert('Không thể lấy danh sách bệnh viện.');
+            }
+        };
+        fetchHospitals();
+    }, []);
 
     return (
         <div className={cx('hospitalList')}>
@@ -30,7 +42,7 @@ function AdminHospital() {
                         <th>Địa chỉ</th>
                         <th>Số điện thoại</th>
                         <th>Sức chứa</th>
-                        <th></th>
+                        {/* <th></th> */}
                     </tr>
                 </thead>
                 <tbody>
@@ -42,17 +54,17 @@ function AdminHospital() {
                                 <td>{hospital.address}</td>
                                 <td>{hospital.phone}</td>
                                 <td>{hospital.capacity}</td>
-                                <td>
+                                {/* <td>
                                     <button
                                         onClick={() => {
                                             navigate('/addEditHospital', {
-                                                state: { handle: hospital.id },
+                                                state: { handle: hospital.id }, // Truyền ID bệnh viện khi chỉnh sửa
                                             });
                                         }}
                                     >
                                         Chỉnh sửa
                                     </button>
-                                </td>
+                                </td> */}
                             </tr>
                         ))
                     ) : (
@@ -68,7 +80,7 @@ function AdminHospital() {
                 <button
                     className={cx('addHospitalButton')}
                     onClick={() => {
-                        navigate('/addEditHospital');
+                        navigate('/addEditHospital'); // Không truyền state, vì đây là thêm mới
                     }}
                 >
                     Thêm bệnh viện

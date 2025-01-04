@@ -1,23 +1,35 @@
-import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import classNames from 'classnames/bind';
 import styles from './AdminEmployee.module.scss';
-
-//import { EmployeeContext } from '~/Context/EmployeeContext';
 
 const cx = classNames.bind(styles);
 
 function AdminEmployee() {
-    //const { employees } = useContext(EmployeeContext); // Lấy danh sách nhân viên từ Context
     const navigate = useNavigate();
-    const [employees, setEmployees] = useState([
-        {
-            fullName: 'Tran Quang K',
-            email: 'k@gmail.com',
-            passWord: '12345678',
-            confirmPassWord: '12345678',
-        },
-    ]);
+
+    const [employees, setEmployees] = useState([]);
+
+    // Lấy danh sách nhân viên từ API
+    useEffect(() => {
+        const fetchEmployees = async () => {
+            try {
+                const token = localStorage.getItem('authToken');
+                const response = await axios.get('http://localhost:3000/admin/staffs', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        Accept: '*/*',
+                    },
+                });
+                setEmployees(response.data);
+            } catch (error) {
+                console.error('Lỗi khi lấy danh sách nhân viên:', error);
+                alert('Không thể lấy danh sách nhân viên.');
+            }
+        };
+        fetchEmployees();
+    }, []);
 
     return (
         <div className={cx('employeeList')}>
@@ -28,7 +40,7 @@ function AdminEmployee() {
                         <th>Số thứ tự</th>
                         <th>Họ và tên</th>
                         <th>Email</th>
-                        <th></th>
+                        {/* <th>Hành động</th> */}
                     </tr>
                 </thead>
                 <tbody>
@@ -38,17 +50,17 @@ function AdminEmployee() {
                                 <td>{index + 1}</td>
                                 <td>{employee.fullName}</td>
                                 <td>{employee.email}</td>
-                                <td>
+                                {/* <td>
                                     <button
                                         onClick={() => {
                                             navigate('/addEditEmployee', {
-                                                state: { handle: employee.id },
+                                                state: { handle: employee.id }, // Truyền ID nhân viên khi chỉnh sửa
                                             });
                                         }}
                                     >
                                         Chỉnh sửa
                                     </button>
-                                </td>
+                                </td> */}
                             </tr>
                         ))
                     ) : (
@@ -64,7 +76,7 @@ function AdminEmployee() {
                 <button
                     className={cx('addEmployeeButton')}
                     onClick={() => {
-                        navigate('/addEditEmployee');
+                        navigate('/addEditEmployee'); // Không truyền state, vì đây là thêm mới
                     }}
                 >
                     Thêm nhân viên

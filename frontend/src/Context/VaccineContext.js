@@ -75,10 +75,10 @@ function VaccineProvider({ children }) {
         } catch (error) {
             if (error.response) {
                 console.error('Lỗi từ server:', error.response.data);
-                alert(`Lỗi cập nhật vắc xin: ${error.response.data.message}`);
+                //alert(`Lỗi cập nhật vắc xin: ${error.response.data.message}`);
             } else {
                 console.error('Lỗi kết nối:', error.message);
-                alert('Không thể kết nối đến server.');
+                //alert('Không thể kết nối đến server.');
             }
         }
     };
@@ -105,7 +105,7 @@ function VaccineProvider({ children }) {
                 alert(`Lỗi lấy thông tin vắc xin: ${error.response.data.message}`);
             } else {
                 console.error('Lỗi kết nối:', error.message);
-                alert('Không thể kết nối đến server.');
+                //alert('Không thể kết nối đến server.');
             }
         }
     };
