@@ -160,6 +160,10 @@ export class UserServices {
         return await this.userRepository.findAllUser();
     }
 
+    async findAllStaff(): Promise<User[]> {
+        return await this.userRepository.findAllStaff();
+    }
+
     private comparePasswordAndConfirmPassword(
         passWord: string,
         confirmPassWord: string

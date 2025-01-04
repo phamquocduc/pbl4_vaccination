@@ -39,6 +39,12 @@ export class AdminController {
         return this.userServices.findAll();
     }
 
+    @Get('staffs')
+    @Roles([ERole.ADMIN, ERole.STAFF])
+    async getAllStaff() {
+        return this.userServices.findAllStaff();
+    }
+
     @Get('profiles')
     @Roles([ERole.ADMIN, ERole.STAFF])
     async getAllProfile() {
