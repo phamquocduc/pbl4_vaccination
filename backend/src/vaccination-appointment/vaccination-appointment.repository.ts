@@ -108,6 +108,7 @@ export class VaccinationAppointmentRepository {
                 vaccine: {
                     id: true,
                     name: true,
+                    durationIntervals: true,
                 },
                 reservation: {
                     id: true,
