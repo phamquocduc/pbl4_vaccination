@@ -16,10 +16,10 @@ function ReservationList() {
 
     const { reservations, fetchReservations } = useContext(ReservationContext);
 
-    // useEffect(() => {
-    //     // Load lại dữ liệu từ context khi vào trang
-    //     fetchReservations();
-    // }, [fetchReservations]);
+    useEffect(() => {
+        // Load lại dữ liệu từ context khi vào trang
+        fetchReservations();
+    }, [fetchReservations]);
 
     // Nhóm reservation theo tính chất
     const paidReservations = reservations.filter((r) => r.status === 'Đã xác nhận');

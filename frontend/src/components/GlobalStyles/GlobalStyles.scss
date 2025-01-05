@@ -46,3 +46,6 @@ a[href] {
     color: var(--primary);
     text-decoration: none;
 }
+body.has-dashboard-layout {
+    background: #fff !important;
+}

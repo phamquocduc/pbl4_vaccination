@@ -9,19 +9,20 @@ function VaccineProvider({ children }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchVaccines = async () => {
-            try {
-                const response = await axios.get('http://localhost:3000/vaccine');
-                setVaccines(response.data);
-            } catch (err) {
-                console.error('Error fetching vaccines:', err);
-                setError('Failed to fetch vaccine data.');
-            } finally {
-                setLoading(false);
-            }
-        };
+    const fetchVaccines = async () => {
+        try {
+            setLoading(true);
+            const response = await axios.get('http://localhost:3000/vaccine');
+            setVaccines(response.data);
+        } catch (err) {
+            console.error('Error fetching vaccines:', err);
+            setError('Failed to fetch vaccine data.');
+        } finally {
+            setLoading(false);
+        }
+    };
 
+    useEffect(() => {
         fetchVaccines();
     }, []);
 
@@ -47,6 +48,7 @@ function VaccineProvider({ children }) {
             );
 
             alert('Thêm vắc-xin thành công!');
+            fetchVaccines();
             console.log('Vaccine created successfully:', response.data);
         } catch (err) {
             console.error('Lỗi khi thêm vắc-xin:', err.response?.data || err.message);
@@ -71,6 +73,7 @@ function VaccineProvider({ children }) {
 
             console.log('Cập nhật thành công:', response.data);
             alert('Cập nhật vắc xin thành công!');
+            fetchVaccines();
             return response.data; // Trả về dữ liệu nếu cần sử dụng
         } catch (error) {
             if (error.response) {
@@ -114,7 +117,7 @@ function VaccineProvider({ children }) {
     if (error) return <p>{error}</p>;
 
     return (
-        <VaccineContext.Provider value={{ vaccines, createVaccine, updateVaccine, getVaccineById }}>
+        <VaccineContext.Provider value={{ vaccines, createVaccine, updateVaccine, getVaccineById, fetchVaccines }}>
             {children}
         </VaccineContext.Provider>
     );
