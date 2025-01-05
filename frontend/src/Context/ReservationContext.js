@@ -11,12 +11,12 @@ function ReservationProvider({ children }) {
 
     const token = localStorage.getItem('authToken');
 
-    if (!token) {
-        console.error('Không tìm thấy token. Chuyển hướng người dùng về trang đăng nhập.');
-        // Gợi ý: chuyển hướng về login
-        window.location.href = '/';
-        //return;
-    }
+    // if (!token) {
+    //     console.error('Không tìm thấy token. Chuyển hướng người dùng về trang đăng nhập.');
+    //     // Gợi ý: chuyển hướng về login
+    //     window.location.href = '/';
+    //     //return;
+    // }
 
     const userGetReservation = async () => {
         try {
