@@ -61,10 +61,12 @@ function Record({ record }) {
                             <div className={cx('card-item')}>
                                 <div className={cx('ant-space')}>
                                     <FontAwesomeIcon icon={faCakeCandles} className={cx('icon-card')} />
-                                    <div className={cx('title-card')}>Ngày Sinh:</div>
+                                    <div className={cx('title-card')}>Ngày Sinhh:</div>
                                 </div>
                                 <div className={cx('content-card')}>
-                                    {record.dateOfBirth ? new Date(record.dateOfBirth).toISOString().split('T')[0] : ''}
+                                    {record.dateOfBirth
+                                        ? new Date(record.dateOfBirth).toLocaleDateString('en-CA') // ISO format (YYYY-MM-DD)
+                                        : ''}
                                 </div>
                             </div>
                         </li>

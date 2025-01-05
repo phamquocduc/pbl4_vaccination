@@ -46,6 +46,7 @@ function RecordProvider({ children }) {
         try {
             const response = await axios.post('URL_API_THEM', newRecord);
             setRecords((prevRecords) => [...prevRecords, response.data]);
+            fetchRecords();
         } catch (error) {
             console.error('Lỗi khi thêm record:', error);
         }
@@ -56,6 +57,7 @@ function RecordProvider({ children }) {
         try {
             await axios.put(`URL_API_CAP_NHAT/${id}`, updatedData);
             setRecords((prevRecords) => prevRecords.map((item) => (item.id === id ? updatedData : item)));
+            fetchRecords();
         } catch (error) {
             console.error('Lỗi khi cập nhật record:', error);
         }
@@ -106,6 +108,7 @@ function RecordProvider({ children }) {
                 updateRecord,
                 getRecordById,
                 getRecordByEmail,
+                fetchRecords,
                 //deleteRecord,
             }}
         >

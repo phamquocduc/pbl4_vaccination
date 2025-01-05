@@ -69,14 +69,27 @@ function ReservationProvider({ children }) {
         }
     };
 
+    // Hàm fetchReservations dùng chung
+    const fetchReservations = async () => {
+        if (userRole === 'user') {
+            await userGetReservation();
+        } else if (userRole === 'admin' || userRole === 'staff') {
+            await adminGetReservation();
+        }
+    };
+
     useEffect(() => {
         if (userRole == 'user') {
             userGetReservation();
-        } else if (userRole == 'admin') {
+        } else if (userRole == 'admin' || userRole === 'staff') {
             adminGetReservation();
         }
     }, [userRole]); // Đưa userRole vào dependencies để theo dõi thay đổi
 
-    return <ReservationContext.Provider value={{ reservations }}>{children}</ReservationContext.Provider>;
+    return (
+        <ReservationContext.Provider value={{ reservations, fetchReservations }}>
+            {children}
+        </ReservationContext.Provider>
+    );
 }
 export { ReservationContext, ReservationProvider };

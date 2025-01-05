@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './AdminVaccine.module.scss';
@@ -8,7 +8,7 @@ import { VaccineContext } from '~/Context/VaccineContext';
 const cx = classNames.bind(styles);
 
 function AdminVaccine() {
-    const { vaccines } = useContext(VaccineContext);
+    const { vaccines, fetchVaccines } = useContext(VaccineContext);
 
     const navigate = useNavigate();
 

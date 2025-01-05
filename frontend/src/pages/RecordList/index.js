@@ -13,8 +13,16 @@ function RecordList() {
     // Lấy role
     const userRole = localStorage.getItem('userRole');
 
-    const { records } = useContext(RecordContext);
+    const { records, isLoading, fetchRecords } = useContext(RecordContext);
     console.log(userRole);
+
+    useEffect(() => {
+        fetchRecords(); // Gọi API để lấy danh sách hồ sơ
+    }, []); // Dependency array trống đảm bảo chỉ chạy một lần
+
+    if (isLoading) {
+        return <div>Đang tải dữ liệu...</div>;
+    }
 
     return (
         <div className={cx('recordList-wrapper')}>
