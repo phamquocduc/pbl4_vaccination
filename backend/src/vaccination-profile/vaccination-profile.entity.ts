@@ -1,60 +1,61 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
-import { User } from "../user/user.entity";
-import { VaccineReservation } from "src/vaccine-reservation/vaccine-reservation.entity";
-import { ERelationship } from "src/enums/relationship.enum";
-import { EGender } from "src/enums/gender.enum";
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    ManyToOne,
+    OneToMany,
+} from 'typeorm';
+import { User } from '../user/user.entity';
+import { VaccineReservation } from 'src/vaccine-reservation/vaccine-reservation.entity';
+import { ERelationship } from 'src/enums/relationship.enum';
+import { EGender } from 'src/enums/gender.enum';
 
 @Entity()
 export class VaccinationProfile {
+    @PrimaryGeneratedColumn()
+    id: number;
 
-  @PrimaryGeneratedColumn()
-  id: number;
+    @Column({ nullable: false })
+    fullName: string;
 
-  @Column({nullable: false})
-  fullName: string;  
-
-  @Column(
-    {
-      type: 'enum',
-      enum: ERelationship,
-      nullable: false
-    }
-  )
-  relationship: ERelationship;  
-
-  @Column({nullable: true})
-  dateOfBirth: Date; 
-
-  @Column(
-    {
-      nullable: true,
-      type: 'enum',
-      enum: EGender
+    @Column({
+        type: 'enum',
+        enum: ERelationship,
+        nullable: false,
     })
-  gender: EGender;  
+    relationship: ERelationship;
 
-  @Column({ nullable: true })
-  phone: string;  
+    @Column({ nullable: true })
+    dateOfBirth: Date;
 
-  @Column({unique: true, nullable: false })
-  email: string;  
+    @Column({
+        nullable: true,
+        type: 'enum',
+        enum: EGender,
+    })
+    gender: EGender;
 
-  @Column({nullable: true})
-  address: string; 
-  
-  @Column({default: false})
-  isDeleted: boolean; 
+    @Column({ nullable: true })
+    phone: string;
 
-  @ManyToOne(() => User, 
-    user => user.vaccinationProfiles,
-    {nullable: false}
-  )
-  user: User;
+    @Column({ unique: true, nullable: false })
+    email: string;
 
-  @OneToMany(() => VaccineReservation,
-    vaccineReservation => vaccineReservation.profile,
-    {nullable: true}
-  )
-  vaccineReservation: VaccineReservation[]
+    @Column({ nullable: true })
+    address: string;
 
+    @Column({ default: false })
+    isDeleted: boolean;
+
+    @ManyToOne(() => User, (user) => user.vaccinationProfiles, {
+        nullable: true,
+    })
+    user: User;
+
+    @OneToMany(
+        () => VaccineReservation,
+        (vaccineReservation) => vaccineReservation.profile,
+        { nullable: true }
+    )
+    vaccineReservation: VaccineReservation[];
 }

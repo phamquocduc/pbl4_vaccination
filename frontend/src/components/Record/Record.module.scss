@@ -1,0 +1,99 @@
+.card-record {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 4px 8px 30px 0 rgba(177, 196, 218, 0.35);
+    border: 1px solid #eaeaea;
+    overflow: hidden;
+}
+
+.card-body {
+    width: 100%;
+    position: relative;
+}
+
+.info-card {
+    ul {
+        list-style: none;
+        padding: 0 20px 20px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        line-height: 1.5;
+    }
+}
+
+.list-items {
+    li {
+        align-items: flex-start;
+        width: 100%;
+    }
+}
+
+.card-item {
+    display: flex;
+    width: 100%;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #003553;
+    margin-bottom: 12px;
+    gap: 10px;
+}
+.ant-space {
+    align-items: flex-start;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #003553;
+
+    gap: 8px;
+}
+.icon-card {
+    color: rgb(177, 177, 177);
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
+}
+.title-card {
+    color: rgb(0, 53, 83);
+    min-width: 60px !important;
+}
+.content-card {
+    font-weight: 550;
+}
+// phần button
+.btn-card {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    padding: 12px 20px;
+    background: #f5f5f5;
+    transition: all 0.23s ease;
+
+    button {
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+        margin-top: 0px;
+        padding: 8px 0;
+        display: flex;
+        font-size: 1.3rem;
+        gap: 5px;
+        background-color: transparent; /* Màu nền ban đầu */
+        border: 2px solid transparent; /* Viền ban đầu */
+        cursor: pointer; /* Con trỏ khi hover */
+        transition: all 0.3s ease; /* Hiệu ứng chuyển động mượt mà */
+    }
+    button:hover {
+        transform: scale(1); /* Phóng to nhẹ nút */
+    }
+    .btn-delete {
+        color: #ff3b30;
+    }
+    .btn-edit {
+        color: #00b5f1;
+    }
+}

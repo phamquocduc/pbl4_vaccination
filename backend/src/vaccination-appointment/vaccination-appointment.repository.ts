@@ -1,33 +1,121 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { VaccinationAppointment } from "./vaccination-appointment.entity";
+import { HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { VaccinationAppointment } from './vaccination-appointment.entity';
+import { VaccineReservation } from 'src/vaccine-reservation/vaccine-reservation.entity';
+import { VaccineAppointmentUpdateDto } from './dto/vaccine-appointment-update.dto';
+import { CustomAppException } from 'src/exceptions/custom-app.exceptions';
+import {
+    createExceptionMessage,
+    ExceptionEnum,
+} from 'src/enums/exception.enum';
 
 @Injectable()
-export class VaccinationAppointmentRepository{
+export class VaccinationAppointmentRepository {
     constructor(
         @InjectRepository(VaccinationAppointment)
         private VaccinationAppointmentRepository: Repository<VaccinationAppointment>
-    ){}
+    ) {}
 
-    // async save(createDto : UserCreateDto) : Promise<User | null>{
-    //     const newUser = this.userRepository.create(createDto)
-    //     return await this.userRepository.save(newUser)
-    // }
+    async create(
+        durationIntervals: number[],
+        numberOfAppointment: number[],
+        vaccineReservation: VaccineReservation
+    ) {
+        let firstAppointmentDate = new Date(vaccineReservation.appointmentDate);
 
-    // async findOneByEmail(email: string): Promise<User | null>{
+        console.log(numberOfAppointment.length);
+        for (let k = 0; k < numberOfAppointment.length; k++) {
+            for (let i = 0; i < numberOfAppointment[k]; i++) {
+                if (i !== 0) {
+                    firstAppointmentDate = new Date(
+                        firstAppointmentDate.setDate(
+                            firstAppointmentDate.getDate() +
+                                durationIntervals[k]
+                        )
+                    );
+                }
 
-    //     const user = await this.userRepository.findOne({where: {email}})
-    //     if(!user) throw new CustomAppException(ExceptionEnum.USER_NOT_EXIT, HttpStatus.BAD_REQUEST)
+                let nextAppointmentDate = new Date(firstAppointmentDate);
+                if (i < numberOfAppointment[k] - 1) {
+                    nextAppointmentDate = new Date(
+                        nextAppointmentDate.setDate(
+                            nextAppointmentDate.getDate() + durationIntervals[k]
+                        )
+                    );
+                } else {
+                    nextAppointmentDate = null;
+                }
 
-    //     return user
-    // }
+                const appointment =
+                    this.VaccinationAppointmentRepository.create({
+                        nextAppointmentDate: nextAppointmentDate,
+                        appointmentDate: firstAppointmentDate,
+                        vaccinationCenter: {
+                            id: vaccineReservation.vaccinationCenter.id,
+                        },
+                        vaccine: { id: vaccineReservation.vaccines[k].id },
+                        reservation: { id: vaccineReservation.id },
+                    });
 
-    // async findById(id: string): Promise<User | null>{
+                await this.VaccinationAppointmentRepository.save(appointment);
+            }
+            firstAppointmentDate = new Date(vaccineReservation.appointmentDate);
+        }
+    }
 
-    //     const user  = await this.userRepository.findOneBy({id})
-    //     if(!user) throw new CustomAppException(ExceptionEnum.USER_NOT_EXIT, HttpStatus.BAD_REQUEST)
+    async updateById(
+        id: number,
+        appointmentUpdateDto: VaccineAppointmentUpdateDto
+    ): Promise<VaccinationAppointment> {
+        let appointment = await this.VaccinationAppointmentRepository.findOne({
+            where: { id: id },
+        });
 
-    //     return user
-    // }
+        if (!appointment)
+            throw new CustomAppException(
+                createExceptionMessage(
+                    ExceptionEnum.VACCINE_APPOINTMENT_NOT_EXIT
+                ),
+                HttpStatus.BAD_REQUEST
+            );
+
+        Object.assign(appointment, appointmentUpdateDto);
+
+        return await this.VaccinationAppointmentRepository.save(appointment);
+    }
+
+    async findByEmail(email: string): Promise<VaccinationAppointment[] | null> {
+        const appointments = await this.VaccinationAppointmentRepository.find({
+            where: {
+                reservation: {
+                    profile: {
+                        email: email,
+                    },
+                },
+            },
+            relations: {
+                vaccinationCenter: true,
+                vaccine: true,
+                reservation: true,
+            },
+            select: {
+                vaccinationCenter: {
+                    id: true,
+                    name: true,
+                    address: true,
+                },
+                vaccine: {
+                    id: true,
+                    name: true,
+                    durationIntervals: true,
+                },
+                reservation: {
+                    id: true,
+                },
+            },
+        });
+
+        return appointments;
+    }
 }

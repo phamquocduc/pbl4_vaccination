@@ -1,0 +1,62 @@
+.card-reservation {
+    background-color: #e6f7e6;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    max-width: 600px;
+    margin: 16px auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.card-reservation-header {
+    display: flex;
+    justify-content: space-between; /* Tách hai phần sang hai phía */
+    align-items: center;
+    margin-bottom: 12px; /* Khoảng cách dưới */
+    font-size: 14px;
+    color: #333;
+
+    .cancel-button {
+        background-color: #f2f2f2; /* Nút nhạt */
+        color: #999; /* Màu chữ xám */
+        border: none;
+        padding: 6px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        cursor: not-allowed; /* Biểu tượng không bấm được */
+    }
+}
+.card-reservation-header strong {
+    color: #0056b3; /* Màu xanh đậm */
+}
+
+/* Body */
+.card-reservation-body {
+    background-color: #d6eaff; /* Màu xanh nhạt */
+    border: 1px dashed #6faed9; /* Viền nét đứt */
+    padding: 12px;
+    border-radius: 8px; /* Bo góc trong */
+
+    h3 {
+        margin: 0 0 8px 0;
+        font-size: 18px;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .hospital-info,
+    .service-info {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        color: #5a5a5a;
+        margin-top: 8px;
+    }
+
+    .hospital-icon,
+    .service-icon {
+        margin-right: 8px; /* Khoảng cách giữa icon và text */
+        font-size: 16px;
+    }
+}

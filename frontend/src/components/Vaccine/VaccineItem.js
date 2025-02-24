@@ -1,52 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Vaccine.module.scss';
 
 const cx = classNames.bind(styles);
 
-function VaccineItem({ vaccine, onSelect }) {
+function VaccineItem({ vaccine, selectedEffectOfVaccines, onSelect, onchange }) {
+    const isDuplicateEffect = selectedEffectOfVaccines.some((selected) => selected === vaccine.effect);
+
     const [isSelected, setIsSelected] = useState(false);
 
     const handleSelect = () => {
-        if (!isSelected) {
-            onSelect(vaccine);
+        if (!isDuplicateEffect && !isSelected) {
+            onSelect(vaccine); //Thêm vaccine
+            setIsSelected(!isSelected); // Chuyển trạng thái khi bấm lại}
+        } else if (isDuplicateEffect && isSelected) {
+            onchange(vaccine); // Xóa vaccine
+            setIsSelected(!isSelected); // Chuyển trạng thái khi bấm lại}
+        } else if (isDuplicateEffect && !isSelected) {
+            alert(`Bạn chỉ có thể chọn một vaccine cho một bệnh "${vaccine.effect}".`);
         }
-        setIsSelected(!isSelected); // Chuyển trạng thái khi bấm lại
+        console.log(isDuplicateEffect);
+        console.log('Before Select:', selectedEffectOfVaccines);
     };
 
     return (
-        <div className={cx('vaccine-item', { selected: isSelected })}>
-            <h4>{vaccine.name}</h4>
-            <p>Phòng bệnh: {vaccine.disease}</p>
-            <p>Giá: {vaccine.price}</p>
-            <button onClick={handleSelect} className={cx(isSelected ? 'selected-button' : '')}>
-                {isSelected ? 'ĐÃ CHỌN' : 'CHỌN'}
-            </button>
+        <div
+            className={cx(
+                'vaccine-item',
+                // { selected: isSelected }
+            )}
+        >
+            <div className={cx('info-vaccine-vaccinItems')}>
+                <h4>{vaccine.name}</h4>
+                <p>Nguồn gốc: {vaccine.origin}</p>
+                <p>Giá: {vaccine.price}</p>
+                <p>Phòng bệnh: {vaccine.effect}</p>
+            </div>
+
+            <div>
+                <button onClick={handleSelect} className={cx(isSelected ? 'selected-button-vaccinItems' : '')}>
+                    {isSelected ? 'ĐÃ CHỌN' : 'CHỌN'}
+                </button>
+            </div>
         </div>
     );
 }
 export default VaccineItem;
-// function VaccineItem({ vaccine, onSelect, isSelected }) {
-//   const handleSelect = () => {
-//     //onSelect(vaccine);
-//     if (!isSelected) {
-//       onSelect(vaccine);
-//     }
-//     //setIsSelected(!isSelected); // Chuyển trạng thái khi bấm lại
-//   };
-//   return (
-//     <div className={`vaccine-item ${isSelected ? "selected" : ""}`}>
-//       <h4>{vaccine.name}</h4>
-//       <p>Phòng bệnh: {vaccine.disease}</p>
-//       <p>Giá: {vaccine.price}</p>
-//       <button
-//         onClick={handleSelect}
-//         className={isSelected ? "selected-button" : ""}
-//       >
-//         {isSelected ? "ĐÃ CHỌN" : "CHỌN"}
-//       </button>
-//     </div>
-//   );
-// }
-
-// export default VaccineItem;

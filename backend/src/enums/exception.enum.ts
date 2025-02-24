@@ -13,6 +13,9 @@ export enum ExceptionEnum{
     VACCINATION_CENTER_NOT_EXIT,
     VACCINE_DESCRIPTION_NOT_EXIT,
     VACCINE_NOT_EXIT,
+    VACCINE_INVENTORY_NOT_EXIT,
+    VACCINE_RESERVATION_NOT_EXIT,
+    VACCINE_APPOINTMENT_NOT_EXIT,
 }
 
 export function createExceptionMessage(type: ExceptionEnum): string {
@@ -45,6 +48,12 @@ export function createExceptionMessage(type: ExceptionEnum): string {
             return 'Vaccine description not exit';
         case ExceptionEnum.VACCINE_NOT_EXIT:
             return 'Vaccine not exit';
+        case ExceptionEnum.VACCINE_INVENTORY_NOT_EXIT:
+            return 'Vaccine inventory not exit';
+        case ExceptionEnum.VACCINE_RESERVATION_NOT_EXIT:
+            return 'Vaccine reservation not exit';
+        case ExceptionEnum.VACCINE_APPOINTMENT_NOT_EXIT:
+            return 'Vaccine appointment not exit';
         default:
             return 'Unknown error';
     }

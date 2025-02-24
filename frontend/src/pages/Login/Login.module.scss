@@ -3,15 +3,15 @@
     font-family: Arial, sans-serif;
 }
 
-body,
 .login-container {
     display: flex;
     width: 100vw; // lay full chieu rong
     height: 100vh; // lay full chieu dai
     align-items: center; // can giua doc
     justify-content: center; // can giua ngang
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    //box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    background: #fff;
 }
 
 .left-section {
@@ -31,6 +31,10 @@ body,
 .login-form {
     width: 100%;
     max-width: 300px;
+
+    a:hover {
+        color: red;
+    }
 }
 
 .login-form label {
@@ -46,6 +50,14 @@ body,
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
+    box-shadow: 0 4px 30px rgba(149, 179, 207, 0.2);
+    transition: all 0.23s ease;
+}
+.login-form input:hover {
+    border-color: #00b5f1 !important;
+}
+.login-form input:focus {
+    border-color: #00b5f1 !important;
 }
 
 .login-button {
@@ -58,6 +70,9 @@ body,
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
+
+    box-shadow: 0 4px 30px rgba(149, 179, 207, 0.2);
+    transition: all 0.23s ease;
 }
 
 .forgot-password {
@@ -85,16 +100,21 @@ body,
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
+    box-shadow: 0 4px 30px rgba(149, 179, 207, 0.2);
+    transition: all 0.23s ease;
 }
 
 .right-section {
     position: relative;
+    height: 100%;
     width: 50%;
     background: linear-gradient(135deg, #b3d7e2, #e3f5f8);
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0px;
+    //overflow: hidden; /* Cắt phần hình ảnh thừa nếu cần */
+    //position: relative; /* Để hình ảnh luôn nằm trong vùng */
 }
 
 .style_shape__1HA08 {
@@ -113,4 +133,28 @@ body,
     max-width: 100%;
     height: auto;
     border-radius: 5px;
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; /* Giữ tỷ lệ hình ảnh, cắt những phần không vừa */
+    display: block; /* Đảm bảo hình ảnh hiển thị như một khối */
+}
+.gg-btn {
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    font-weight: bold;
+    margin: 0px;
+
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #333;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 4px 30px rgba(149, 179, 207, 0.2);
+    transition: all 0.23s ease;
+}
+gg-btn:hover {
 }

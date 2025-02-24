@@ -1,5 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { VaccineinventoryRepository } from "./vaccine-inventory.repository";
+import { VaccineInventory } from "./vaccine-inventory.entity";
+import { VaccinationCenter } from "src/vaccination-center/vaccination-center.entity";
+import { VaccineInventoryUpdateDto } from "./dto/vaccine-inventory-update.dto";
 
 @Injectable()
 export class VaccineInventoryServices{
@@ -7,23 +10,16 @@ export class VaccineInventoryServices{
         private vaccineInventoryRepository: VaccineinventoryRepository
     ){}
 
-    // async create(createDto : UserCreateDto) : Promise<User>{
-    //     const {passWord, confirmPassWord} = createDto
+    async getAllInventory(): Promise<VaccineInventory[]>{
+        return await this.vaccineInventoryRepository.findAll()
+    }
 
-    //     if(passWord !== confirmPassWord){
-    //         throw new CustomAppException(
-    //             createExceptionMessage(ExceptionEnum.CONFIRM_PASSWORD_NOT_MATCH), 
-    //             HttpStatus.BAD_REQUEST
-    //         )
-    //     }
-    //     return await this.userRepository.save(createDto)
-    // }
+    async create(center: VaccinationCenter): Promise<VaccineInventory>{
 
-    // async findOneByEmail(email: string): Promise<User>{
-    //     return await this.userRepository.findOneByEmail(email)
-    // }
+        return await this.vaccineInventoryRepository.create(center)
+    }
 
-    // async findById(id: string): Promise<User>{
-    //     return await this.userRepository.findById(id)
-    // }
+    async updateById(id: number, updateDto: VaccineInventoryUpdateDto): Promise<VaccineInventory>{
+        return await this.vaccineInventoryRepository.updatById(id, updateDto)
+    }
 }

@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNumber, IsString, MinLength } from "class-validator";
+import { Transform } from "class-transformer";
+import { IsArray, IsNumber, IsOptional, IsString, MinLength } from "class-validator";
 import { createExceptionMessage, ExceptionEnum } from "src/enums/exception.enum";
 
 export class VaccineCreateDto{
@@ -29,14 +30,37 @@ export class VaccineCreateDto{
     effect: string; 
 
     @ApiProperty({
+        example: 3
+    })
+    @IsNumber()
+    @Transform(({value}) => Number(value))
+    doseNumber: number
+
+    @ApiProperty({
+        example: 10
+    })
+    @IsNumber()
+    @Transform(({value}) => Number(value))
+    durationIntervals: number
+
+    @ApiProperty({
         example: 1653
     })
     @IsNumber()
+    @Transform(({value}) => Number(value))
     availableDoses: number;
 
     @ApiProperty({
         example: 700000
     })
     @IsNumber()
-    price: number;  
+    @Transform(({value}) => Number(value))
+    price: number;
+    
+    @ApiProperty({
+        example: ''
+    })
+    @IsArray()
+    @IsOptional()
+    images?: string[];
 }

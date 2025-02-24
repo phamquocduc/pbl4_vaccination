@@ -1,0 +1,36 @@
+body.wrapper-DashboardLayout {
+    background: #fff !important;
+}
+
+.wrapper-DashboardLayout {
+    //height: 100vh;
+    // width: 100vw;
+    display: flex;
+    flex-direction: column; /* Sắp xếp Header và content theo chiều dọc */
+    background: #fff;
+}
+
+.header {
+}
+
+.container-dashboard {
+    body {
+        background: #fff !important;
+    }
+    flex: 1;
+    width: 1110px;
+    height: 100%;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    background-color: #fff;
+}
+/* Đảm bảo background của body khi dùng DashboardLayout */
+.wrapper-DashboardLayout body {
+    background: #fff !important;
+}
+.content {
+    flex: 1;
+    // width: 1150px;
+}

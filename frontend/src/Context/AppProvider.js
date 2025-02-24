@@ -1,10 +1,12 @@
-import { Children } from 'react';
 import { UserProvider } from './UserContext';
+import { RecordContext } from './RecordContext';
 
-function AppProvider({ Children }) {
+function AppProvider({ children }) {
     return (
         <AppProvider>
-            <UserProvider>{Children}</UserProvider>
+            <UserProvider>
+                <RecordContext>{children}</RecordContext>
+            </UserProvider>
         </AppProvider>
     );
 }

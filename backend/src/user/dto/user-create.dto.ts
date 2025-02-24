@@ -1,38 +1,46 @@
-import { ApiProperty } from "@nestjs/swagger"
-import { IsEmail, IsString, MinLength } from "class-validator"
-import { createExceptionMessage, ExceptionEnum } from "src/enums/exception.enum"
+import { ApiProperty } from '@nestjs/swagger';
+import { IsEmail, IsOptional, IsString, MinLength } from 'class-validator';
+import {
+    createExceptionMessage,
+    ExceptionEnum,
+} from 'src/enums/exception.enum';
+import { ERole } from 'src/enums/role.enum';
 
-export class UserCreateDto{
-    
+export class UserCreateDto {
     @ApiProperty({
-        example: 'Nguyen'
+        example: 'Nguyen Van A',
     })
     @IsString()
-    firstName?: string
+    fullName?: string;
 
     @ApiProperty({
-        example: 'Van A'
-    })
-    @IsString()
-    lastName?: string
-
-    @ApiProperty({
-        example: 'abc@gmail.com'
+        example: 'abc@gmail.com',
     })
     @IsEmail()
-    email?: string
+    email?: string;
 
     @ApiProperty({
-        example: '12345678'
+        example: '12345678',
     })
     @IsString()
-    @MinLength(8, { message: createExceptionMessage(ExceptionEnum.PASSWORD_INVALID)})
-    passWord?: string
+    @MinLength(8, {
+        message: createExceptionMessage(ExceptionEnum.PASSWORD_INVALID),
+    })
+    passWord?: string;
 
     @ApiProperty({
-        example: '12345678'
+        example: '12345678',
     })
     @IsString()
-    @MinLength(8, { message: createExceptionMessage(ExceptionEnum.PASSWORD_INVALID)})
-    confirmPassWord?: string
+    @MinLength(8, {
+        message: createExceptionMessage(ExceptionEnum.PASSWORD_INVALID),
+    })
+    confirmPassWord?: string;
+
+    @ApiProperty({
+        example: ERole.STAFF,
+    })
+    @IsString()
+    @IsOptional()
+    role?: ERole;
 }

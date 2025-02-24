@@ -8,20 +8,21 @@ export class VaccineInventory {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  name: string;  // Tên kho
+  @Column({nullable: true})
+  name: string;  
 
-  @Column()
+  @Column({nullable: true})
   capacity: number;
 
   @OneToOne(() => VaccinationCenter, 
-    vaccinationCenter => vaccinationCenter.vaccineinventory
+    vaccinationCenter => vaccinationCenter.vaccineinventory,
+    {nullable: false}
   )
   @JoinColumn()
-  vaccinationCenter: VaccinationCenter;  // Trung tâm
+  vaccinationCenter: VaccinationCenter;  
 
   @ManyToMany(() => Vaccine,
     vaccines => vaccines.vaccineinventorys
   )
-  vaccines: Vaccine[];  // Loại vắc-xin
+  vaccines: Vaccine[];  
 }

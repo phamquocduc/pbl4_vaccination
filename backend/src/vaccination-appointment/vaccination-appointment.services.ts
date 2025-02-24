@@ -1,29 +1,46 @@
-import { Injectable } from "@nestjs/common";
-import { VaccinationAppointmentRepository } from "./vaccination-appointment.repository";
+import { Injectable } from '@nestjs/common';
+import { VaccinationAppointmentRepository } from './vaccination-appointment.repository';
+import { VaccineReservation } from 'src/vaccine-reservation/vaccine-reservation.entity';
+import { VaccineServices } from 'src/vaccine/vaccine.services';
+import { VaccineAppointmentUpdateDto } from './dto/vaccine-appointment-update.dto';
+import { VaccinationAppointment } from './vaccination-appointment.entity';
 
 @Injectable()
-export class VaccinationAppointmentServices{
+export class VaccinationAppointmentServices {
     constructor(
         private vaccinationAppointmentRepository: VaccinationAppointmentRepository
-    ){}
+    ) {}
 
-    // async create(createDto : UserCreateDto) : Promise<User>{
-    //     const {passWord, confirmPassWord} = createDto
+    async create(vaccineReservation: VaccineReservation) {
+        const numberOfAppointment = vaccineReservation.vaccines.map((curr) => {
+            return curr.doseNumber;
+        });
+        const durationIntervals = vaccineReservation.vaccines.map(
+            (curr) => curr.durationIntervals
+        );
 
-    //     if(passWord !== confirmPassWord){
-    //         throw new CustomAppException(
-    //             createExceptionMessage(ExceptionEnum.CONFIRM_PASSWORD_NOT_MATCH), 
-    //             HttpStatus.BAD_REQUEST
-    //         )
-    //     }
-    //     return await this.userRepository.save(createDto)
-    // }
+        console.log(numberOfAppointment);
 
-    // async findOneByEmail(email: string): Promise<User>{
-    //     return await this.userRepository.findOneByEmail(email)
-    // }
+        return await this.vaccinationAppointmentRepository.create(
+            durationIntervals,
+            numberOfAppointment,
+            vaccineReservation
+        );
+    }
 
-    // async findById(id: string): Promise<User>{
-    //     return await this.userRepository.findById(id)
-    // }
+    async update(
+        id: number,
+        appointmentUpdateDto: VaccineAppointmentUpdateDto
+    ): Promise<VaccinationAppointment> {
+        return await this.vaccinationAppointmentRepository.updateById(
+            id,
+            appointmentUpdateDto
+        );
+    }
+
+    async getAppointmentByEmail(
+        email: string
+    ): Promise<VaccinationAppointment[] | null> {
+        return await this.vaccinationAppointmentRepository.findByEmail(email);
+    }
 }

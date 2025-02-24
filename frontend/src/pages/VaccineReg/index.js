@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -22,13 +22,13 @@ function VaccineReg() {
     }, []);
 
     return (
-        <body className={cx('wrapp')}>
-            <div className={cx('inner')}>
+        <div className={cx('wrapp-vaccineReg')}>
+            <div className={cx('inner-vaccineReg')}>
                 <div className={cx('top-content')}>
                     <div className={cx('information')}>
-                        <div className="Dropdown-menu">
+                        {/* <div className="Dropdown-menu">
                             <DropdownMenu />
-                        </div>
+                        </div> */}
                         <h1>Thông tin sản phẩm</h1>
                     </div>
                     <Tippy
@@ -62,7 +62,7 @@ function VaccineReg() {
                     <VaccineApp />
                 </div>
             </div>
-        </body>
+        </div>
     );
 }
 
