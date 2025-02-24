@@ -1,0 +1,116 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body,
+.login-container {
+    display: flex;
+    width: 100vw; // lay full chieu rong
+    height: 100vh; // lay full chieu dai
+    align-items: center; // can giua doc
+    justify-content: center; // can giua ngang
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.left-section {
+    width: 50%;
+    padding: 40px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    width: 120px;
+    margin-bottom: 30px;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 300px;
+}
+
+.login-form label {
+    font-size: 14px;
+    color: #333;
+    margin-top: 15px;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.login-button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: #5cc5d9;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.forgot-password {
+    display: block;
+    margin-top: 15px;
+    text-align: center;
+    color: #888;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+    margin: 20px 0;
+}
+
+.signup-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #a2e8ce;
+    border: none;
+    color: #ffffff;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.right-section {
+    position: relative;
+    width: 50%;
+    background: linear-gradient(135deg, #b3d7e2, #e3f5f8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+}
+
+.style_shape__1HA08 {
+    background-color: #ffffff;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 50px;
+    -webkit-clip-path: polygon(0 0, 100% 0, 75% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 5% 100%, 0 100%);
+}
+
+.doctor-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}

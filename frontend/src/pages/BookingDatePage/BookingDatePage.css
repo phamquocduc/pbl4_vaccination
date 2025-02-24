@@ -1,0 +1,188 @@
+.wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    /* background: #e8f2f7; */
+    /* gap: 60px; */
+}
+
+/* css đoạn thông tin cơ sở nè */
+.hospital-info-container {
+    margin-top: 30px;
+    background-color: #ffffff;
+
+    border-radius: 8px;
+}
+
+.hospital-info-title {
+    color: white;
+    width: 255px;
+    padding: 5px;
+    margin: 0px;
+    background: linear-gradient(36deg, #00b5f1, #00e0ff);
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.hospital-info-details {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.hospital-info-item {
+    display: flex;
+    align-items: center;
+}
+
+.hospital-icon,
+.phone-icon {
+    font-size: 20px;
+    margin-right: 8px;
+    color: #00796b;
+}
+
+.hospital-text {
+    font-size: 16px;
+    color: #424242;
+}
+/* css của đoạn lịch nè */
+.date-time-picker {
+    max-width: 700px;
+    width: 100%;
+    /* height: 433px; */
+    margin: 70px 20px;
+    margin-top: 30px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid;
+    h3,
+    h4 {
+        margin: 10px;
+    }
+    #title {
+        color: white;
+        padding: 5px;
+        margin: 0px;
+        background: linear-gradient(36deg, #00b5f1, #00e0ff);
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    #choose-again-button {
+        padding: 5px;
+        margin-bottom: 10px;
+        border: 2px solid;
+        border-radius: 5px;
+        font-size: 15px;
+        color: black;
+    }
+    #choose-again-button:hover {
+        background-color: #00bfff;
+        color: #fff;
+    }
+}
+
+.time-slots {
+    margin-top: 2px;
+}
+
+.slot-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.time-slot {
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 5px;
+    padding: 8px 12px;
+    border: 1px solid #00bfff;
+    border-radius: 4px;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.time-slot:hover {
+    background-color: #00bfff;
+    color: #fff;
+}
+
+button {
+    background: none;
+    color: #90e3fe;
+    cursor: pointer;
+    margin-top: 10px;
+    border: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+/* ádsasd */
+/* Tiêu đề */
+.react-calendar__navigation {
+    color: rgba(32, 76, 237, 0.314);
+    font-weight: bold;
+    button {
+        color: #f20e0e;
+        font-size: 14px;
+    }
+}
+.react-calendar__month-view {
+    border: 1px solid #c8c8c8;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* Ngày hiện tại */
+.react-calendar__tile--now {
+    color: #ff0000;
+    background-color: rgb(168, 166, 166);
+    border-color: rgb(168, 166, 166);
+}
+
+/* Ngày đã chọn */
+.react-calendar__tile--active {
+    background-color: #ff6600;
+    color: white;
+}
+/* Ngày di chuột qua */
+.react-calendar__tile:hover {
+    background-color: #ed20c150;
+    color: white;
+}
+
+/* Ngày trong tuần */
+.react-calendar__month-view__days__day {
+    padding: 25px 15px;
+    margin-top: 0px;
+    color: #003553;
+    border-top: 1px solid #dcdcdc;
+    border-right: 1px solid #dcdcdc; /* Đường kẻ ngang màu xám nhạt */
+}
+
+/* Cuối tuần */
+.react-calendar__month-view__days__day--weekend {
+    color: #ffa500; /* CN màu đỏ, Bảy màu cam */
+}
+
+/* Điều chỉnh màu các nút điều hướng tháng */
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+    background-color: #e0f7ff;
+    color: #0073e6;
+}
+.react-calendar__month-view__weekdays {
+    background-color: #f5f5f5;
+    border: 1px solid #c8c8c8; /* Đường kẻ ngang màu xám nhạt */
+}
+
+/* Chỉ thay đổi màu của ngày Chủ nhật */
+.react-calendar__month-view__days__day:nth-child(7n) {
+    color: #ff4500;
+    border-right: none;
+}
