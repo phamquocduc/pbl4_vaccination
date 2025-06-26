@@ -26,6 +26,10 @@ const cx = classNames.bind(styles);
 
 function RecordSelector() {
     const navigate = useNavigate();
+
+    // Lấy role
+    const userRole = localStorage.getItem('userRole');
+
     //Danh sách records
     const { records, deleteRecord } = useContext(RecordContext);
 
@@ -85,7 +89,9 @@ function RecordSelector() {
                                     <div className={cx('title-card')}>Ngày Sinh:</div>
                                 </div>
                                 <div className={cx('content-card')}>
-                                    {record.dateOfBirth ? new Date(record.dateOfBirth).toISOString().split('T')[0] : ''}{' '}
+                                    {record.dateOfBirth
+                                        ? new Date(record.dateOfBirth).toLocaleDateString('en-CA') // ISO format (YYYY-MM-DD)
+                                        : ''}
                                 </div>
                             </div>
 
@@ -165,15 +171,19 @@ function RecordSelector() {
                     <span>Quay lại</span>
                     <FontAwesomeIcon icon={faRotateLeft} className={cx('icon-btn')} />
                 </button>
-                <button
-                    className={cx('button', 'addProfile')}
-                    onClick={() => {
-                        navigate('/createRecord');
-                    }}
-                >
-                    <FontAwesomeIcon icon={faPlus} className={cx('icon-btn')} />
-                    <span>Thêm hồ sơ</span>
-                </button>
+                {userRole === 'staff' || userRole === 'admin' ? (
+                    <button
+                        className={cx('button', 'addProfile')}
+                        onClick={() => {
+                            navigate('/createRecord');
+                        }}
+                    >
+                        <FontAwesomeIcon icon={faPlus} className={cx('icon-btn')} />
+                        <span>Thêm hồ sơ</span>
+                    </button>
+                ) : (
+                    <div></div>
+                )}
             </div>
         </div>
     );

@@ -11,12 +11,12 @@ function ReservationProvider({ children }) {
 
     const token = localStorage.getItem('authToken');
 
-    if (!token) {
-        console.error('Không tìm thấy token. Chuyển hướng người dùng về trang đăng nhập.');
-        // Gợi ý: chuyển hướng về login
-        window.location.href = '/';
-        //return;
-    }
+    // if (!token) {
+    //     console.error('Không tìm thấy token. Chuyển hướng người dùng về trang đăng nhập.');
+    //     // Gợi ý: chuyển hướng về login
+    //     window.location.href = '/';
+    //     //return;
+    // }
 
     const userGetReservation = async () => {
         try {
@@ -69,14 +69,27 @@ function ReservationProvider({ children }) {
         }
     };
 
+    // Hàm fetchReservations dùng chung
+    const fetchReservations = async () => {
+        if (userRole === 'user') {
+            await userGetReservation();
+        } else if (userRole === 'admin' || userRole === 'staff') {
+            await adminGetReservation();
+        }
+    };
+
     useEffect(() => {
         if (userRole == 'user') {
             userGetReservation();
-        } else if (userRole == 'admin') {
+        } else if (userRole == 'admin' || userRole === 'staff') {
             adminGetReservation();
         }
     }, [userRole]); // Đưa userRole vào dependencies để theo dõi thay đổi
 
-    return <ReservationContext.Provider value={{ reservations }}>{children}</ReservationContext.Provider>;
+    return (
+        <ReservationContext.Provider value={{ reservations, fetchReservations }}>
+            {children}
+        </ReservationContext.Provider>
+    );
 }
 export { ReservationContext, ReservationProvider };

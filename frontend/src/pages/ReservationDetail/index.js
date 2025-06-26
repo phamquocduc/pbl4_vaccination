@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 
 import classNames from 'classnames/bind';
@@ -11,6 +11,11 @@ import axios from 'axios';
 const cx = classNames.bind(styles);
 
 function ReservationDetail() {
+    // Lấy role
+    const userRole = localStorage.getItem('userRole');
+
+    const navigate = useNavigate();
+
     // Lấy thông tin vaccine
     const { getVaccineById } = useContext(VaccineContext);
 
@@ -18,9 +23,6 @@ function ReservationDetail() {
     const location = useLocation();
     const ReservationInfo = location.state?.handle || ''; // Nhận giá trị record_ID (profile_ID)
     console.log('ReservationInfo', ReservationInfo);
-
-    // Lấy role
-    const userRole = localStorage.getItem('userRole');
 
     const reservationCard = {
         hospitalName: ReservationInfo.vaccinationCenter.name,
@@ -40,6 +42,7 @@ function ReservationDetail() {
     // Đếm thời gian
     const [timeLeft, setTimeLeft] = useState(0);
 
+    // xử lý đếm ngược
     useEffect(() => {
         // Tính thời gian đếm ngược (5 phút từ reservationDate)
         const reservationTime = new Date(reservationCard.reservationDate).getTime();
@@ -53,9 +56,9 @@ function ReservationDetail() {
 
             if (remainingTime <= 0) {
                 setTimeLeft(0);
-
                 console.log('Hết thời gian');
                 clearInterval(intervalId); // Truy cập biến sau khi đã được khởi tạo
+                return;
             } else {
                 setTimeLeft(remainingTime);
             }
@@ -152,10 +155,12 @@ function ReservationDetail() {
 
     useEffect(() => {
         // Gọi fetchVaccineDetails cho từng vaccine ID trong finalAppointments
-        finalAppointments.forEach((appointment) => {
-            fetchVaccineDetails(appointment.vaccine.id);
-        });
-    }, [finalAppointments]);
+        if (ReservationInfo) {
+            finalAppointments.forEach((appointment) => {
+                fetchVaccineDetails(appointment.vaccine.id);
+            });
+        }
+    }, []);
 
     const handleCompleteAppointment = async (appointment) => {
         try {
@@ -187,6 +192,7 @@ function ReservationDetail() {
 
             if (response.status === 200) {
                 alert('Cuộc hẹn đã được hoàn thành!');
+                navigate('/reservationlist');
             } else {
                 alert('Có lỗi xảy ra khi cập nhật cuộc hẹn.');
             }
@@ -372,8 +378,8 @@ function ReservationDetail() {
                                             {appointment.isCompleted ? 'Đã tiêm' : 'Chưa tiêm'}
                                         </span>
                                     </div>
-                                    {userRole === 'admin' ||
-                                    (userRole === 'staff' && appointment.isCompleted == false) ? (
+                                    {(userRole === 'admin' || userRole === 'staff') &&
+                                    appointment.isCompleted == false ? (
                                         <div className={cx('button-group')}>
                                             <button
                                                 className={cx('btnCompleted')}
